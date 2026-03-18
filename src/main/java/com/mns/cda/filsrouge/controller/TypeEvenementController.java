@@ -16,7 +16,7 @@ public class TypeEvenementController {
     @Autowired
     protected TypeEvenementDAO typeEvenementDAO;
 
-    @GetMapping("/type-evenement/list")
+    @GetMapping("/type-evenement/liste")
     public List<TypeEvenement> getTypeEvenementAll() {
         return typeEvenementDAO.findAll();
     }

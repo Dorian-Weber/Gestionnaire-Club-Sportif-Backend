@@ -16,7 +16,7 @@ public class SportController {
     @Autowired
     private SportDAO sportDAO;
 
-    @GetMapping("/sport/list")
+    @GetMapping("/sport/liste")
     public List<Sport> getSportList() {
         return sportDAO.findAll();
     }

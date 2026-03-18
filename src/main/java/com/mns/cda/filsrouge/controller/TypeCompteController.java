@@ -16,7 +16,7 @@ public class TypeCompteController {
     @Autowired
     protected TypeCompteDAO typeCompteDAO;
 
-    @GetMapping("/type-compte/list")
+    @GetMapping("/type-compte/liste")
     public List<TypeCompte> getTypeCompteAll() {
         return typeCompteDAO.findAll();
     }
