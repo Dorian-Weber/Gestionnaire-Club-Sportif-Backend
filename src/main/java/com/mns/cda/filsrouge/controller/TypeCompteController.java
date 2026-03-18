@@ -68,7 +68,7 @@ public class TypeCompteController {
         typeComptetoUpdate.setIdTypeCompte(id);
         typeCompteDAO.save(typeComptetoUpdate);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

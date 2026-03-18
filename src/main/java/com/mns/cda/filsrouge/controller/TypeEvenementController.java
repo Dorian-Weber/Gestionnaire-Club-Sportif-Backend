@@ -68,7 +68,7 @@ public class TypeEvenementController {
         typeEvenementToUpdate.setIdTypeEvenement(id);
         typeEvenementDAO.save(typeEvenementToUpdate);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

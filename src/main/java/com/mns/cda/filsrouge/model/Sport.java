@@ -19,7 +19,7 @@ public class Sport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer sportId;
+    protected Integer idSport;
 
     protected String nomSport;
 
