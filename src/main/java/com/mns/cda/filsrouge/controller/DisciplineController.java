@@ -13,8 +13,12 @@ import java.util.Optional;
 @RestController
 public class DisciplineController {
 
-    @Autowired
     private DisciplineDAO disciplineDAO;
+
+    @Autowired
+    public DisciplineController(DisciplineDAO disciplineDAO) {
+        this.disciplineDAO = disciplineDAO;
+    }
 
     @GetMapping("/discipline/liste")
     public List<Discipline> getDisciplineList() {
