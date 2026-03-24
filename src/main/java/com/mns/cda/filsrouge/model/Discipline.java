@@ -13,14 +13,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Sport {
+public class Discipline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idSport;
+    protected Integer idDiscipline;
 
-    @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    protected String nomSport;
+    @Column(unique = true, nullable = false)
+    protected String nomDiscipline;
+
+    @NotBlank
+    protected String recordEvenement;
+
+    @NotBlank
+    protected String recordMonde;
 
 }
