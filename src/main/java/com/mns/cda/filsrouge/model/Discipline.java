@@ -23,10 +23,10 @@ public class Discipline {
     @Column(unique = true, nullable = false)
     protected String nomDiscipline;
 
-    @NotBlank
+
     protected String recordEvenement;
 
-    @NotBlank
+
     protected String recordMonde;
 
 }

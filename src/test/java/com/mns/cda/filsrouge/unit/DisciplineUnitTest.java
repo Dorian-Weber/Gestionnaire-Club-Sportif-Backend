@@ -31,31 +31,5 @@ public class DisciplineUnitTest {
         Assertions.assertTrue(constraintExist);
     }
 
-    // Test Pour valider que le record événement ne peut pas être vide
-    @Test
-    public void valideDisciplineAvecRecordEvenemntBlank_DoitEtreNonValide(){
 
-        Discipline discipline = new Discipline();
-        discipline.setRecordEvenement("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(discipline),
-                "recordEvenement",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
-    }
-
-    // Test Pour valider que le record monde ne peut pas être vide
-    @Test
-    public void valideDisciplineAvecRecordMondeBlank_DoitEtreNonValide(){
-
-        Discipline discipline = new Discipline();
-        discipline.setRecordMonde("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(discipline),
-                "recordMonde",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
-    }
 }
