@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Setter
 @Getter
@@ -32,6 +32,6 @@ public class Sport {
 
     @OneToMany(mappedBy = "sport")
     @JsonView(SportView.class)
-    protected Set<Discipline> disciplines;
+    List<Discipline> disciplines;
 
 }
