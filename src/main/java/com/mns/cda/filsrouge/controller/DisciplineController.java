@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/discipline")
 @Tag(name = "Discipline", description = "API de gestion des différentes discipline")
 public class DisciplineController {
 
-    private DisciplineDAO disciplineDAO;
+    private final DisciplineDAO disciplineDAO;
 
-    @Autowired
-    public DisciplineController(DisciplineDAO disciplineDAO) {
-        this.disciplineDAO = disciplineDAO;
-    }
 
-    @GetMapping("/discipline/liste")
+    @GetMapping("/liste")
     @Operation(summary = "Récupère la liste de toute les disciplines",
             description = "Cette méthode permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
     @ApiResponses(value = {
@@ -35,7 +33,7 @@ public class DisciplineController {
         return disciplineDAO.findAll();
     }
 
-    @GetMapping("/discipline/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Récupérer une discipline par son ID",
             description = "Cette méthode permet de récupérer les informations d'une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
@@ -52,7 +50,7 @@ public class DisciplineController {
         return new ResponseEntity<>(optionalDiscipline.get(), HttpStatus.OK);
     }
 
-    @PostMapping("/discipline")
+    @PostMapping
     @Operation(summary = "Ajoute une discipline à la base de données",
             description = "Cette méthode permet de d'ajouter une nouvelle discipline en base de données.")
     @ApiResponses(value = {
@@ -66,7 +64,7 @@ public class DisciplineController {
         return new ResponseEntity<>(disciplineToInsert, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/discipline/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Supprime une discipline par son ID",
             description = "Cette méthode permet de supprimer une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
@@ -85,7 +83,7 @@ public class DisciplineController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/discipline/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Modifie une discipline par son ID",
             description = "Cette méthode permet de modifier les informations d'une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
