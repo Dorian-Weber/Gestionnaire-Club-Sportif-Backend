@@ -2,6 +2,11 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.dao.SportDAO;
 import com.mns.cda.filsrouge.model.Sport;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +16,30 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/sport")
+@Tag(name = "Sport", description = "API de gestion des différents Sport")
 public class SportController {
 
-    @Autowired
-    private SportDAO sportDAO;
+    private final SportDAO sportDAO;
 
-    @GetMapping("/sport/liste")
+    @GetMapping("/liste")
+    @Operation(summary = "Récupère la liste de tous les sports",
+            description = "Cette méthode permet de récupérer la liste de tous les sports présents dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des sports récupérée avec succès")
+    })
     public List<Sport> getSportList() {
         return sportDAO.findAll();
     }
 
-    @GetMapping("/sport/{id}")
+    @GetMapping("/{id}")
+    @Operation(summary = "Récupérer un sport par son ID",
+            description = "Cette méthode permet de récupérer les informations d'un sport spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sport récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Sport non trouvé")
+    })
     public ResponseEntity<Sport> getSportById(@PathVariable Integer id) {
 
         Optional<Sport> optionalSport = sportDAO.findById(id);
@@ -32,7 +50,12 @@ public class SportController {
         return new ResponseEntity<>(optionalSport.get(), HttpStatus.OK);
     }
 
-    @PostMapping("/sport")
+    @PostMapping("")
+    @Operation(summary = "Ajoute un sport à la base de données",
+            description = "Cette méthode permet de d'ajouter un nouveau sport en base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Sport ajoutée avec succès")
+    })
     public ResponseEntity<Sport> create(@RequestBody Sport sportToInsert) {
 
         sportToInsert.setIdSport(null);
@@ -41,7 +64,13 @@ public class SportController {
         return new ResponseEntity<>(sportToInsert, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/sport/{id}")
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Supprime un sport par son ID",
+            description = "Cette méthode permet de supprimer un sport spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Sport supprimée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Sport non trouvé")
+    })
     public ResponseEntity<Sport> delete(@PathVariable Integer id) {
 
         Optional<Sport> optionalSport = sportDAO.findById(id);
@@ -54,7 +83,13 @@ public class SportController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/sport/{id}")
+    @PutMapping("/{id}")
+    @Operation(summary = "Modifie un sport par son ID",
+            description = "Cette méthode permet de modifier les informations d'un sport spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sport modifiée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Sport non trouvé")
+    })
     public ResponseEntity<Sport> update(
             @PathVariable Integer id,
             @RequestBody Sport sportToUpdate) {

@@ -24,7 +24,7 @@ public class DisciplineController {
 
 
     @GetMapping("/liste")
-    @Operation(summary = "Récupère la liste de toute les disciplines",
+    @Operation(summary = "Récupère la liste de toutes les disciplines",
             description = "Cette méthode permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des disciplines récupérée avec succès")

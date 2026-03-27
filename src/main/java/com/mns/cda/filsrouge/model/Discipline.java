@@ -23,9 +23,7 @@ public class Discipline {
     @Column(unique = true, nullable = false)
     protected String nomDiscipline;
 
-    @Column(nullable = true)
     protected String recordEvenement;
-
 
     protected String recordMonde;
 
