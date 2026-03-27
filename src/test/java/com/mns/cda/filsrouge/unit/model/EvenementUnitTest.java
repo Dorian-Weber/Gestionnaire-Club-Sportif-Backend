@@ -55,7 +55,7 @@ public class EvenementUnitTest {
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(evenement),
                 "dateEvenement",
-                "NotBlank");
+                "NotNull");
         Assertions.assertTrue(constraintExist);
     }
 
