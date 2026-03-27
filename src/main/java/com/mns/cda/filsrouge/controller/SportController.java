@@ -1,13 +1,15 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.SportDAO;
 import com.mns.cda.filsrouge.model.Sport;
+import com.mns.cda.filsrouge.view.SportView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ public class SportController {
     private final SportDAO sportDAO;
 
     @GetMapping("/liste")
+    @JsonView(SportView.class)
     @Operation(summary = "Récupère la liste de tous les sports",
             description = "Cette méthode permet de récupérer la liste de tous les sports présents dans la base de données.")
     @ApiResponses(value = {
@@ -34,6 +37,7 @@ public class SportController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(SportView.class)
     @Operation(summary = "Récupérer un sport par son ID",
             description = "Cette méthode permet de récupérer les informations d'un sport spécifique en utilisant son ID.")
     @ApiResponses(value = {

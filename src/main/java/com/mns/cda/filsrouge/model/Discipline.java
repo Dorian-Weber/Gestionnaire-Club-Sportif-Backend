@@ -1,6 +1,9 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.DisciplineView;
+import com.mns.cda.filsrouge.view.SportView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -17,18 +20,23 @@ public class Discipline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(DisciplineView.class)
     protected Integer idDiscipline;
 
     @NotBlank
     @Column(unique = true, nullable = false)
+    @JsonView({DisciplineView.class, SportView.class})
     protected String nomDiscipline;
 
+    @JsonView(DisciplineView.class)
     protected String recordEvenement;
 
+    @JsonView(DisciplineView.class)
     protected String recordMonde;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")
+    @JsonView(DisciplineView.class)
     protected Sport sport;
 
 }

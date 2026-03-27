@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.DisciplineDAO;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.view.DisciplineView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,6 +26,7 @@ public class DisciplineController {
 
 
     @GetMapping("/liste")
+    @JsonView(DisciplineView.class)
     @Operation(summary = "Récupère la liste de toutes les disciplines",
             description = "Cette méthode permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
     @ApiResponses(value = {
@@ -34,6 +37,7 @@ public class DisciplineController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(DisciplineView.class)
     @Operation(summary = "Récupérer une discipline par son ID",
             description = "Cette méthode permet de récupérer les informations d'une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
