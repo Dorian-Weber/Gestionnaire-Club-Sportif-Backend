@@ -30,7 +30,7 @@ public class TypeEvenementController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des types d'évènements récupérée avec succès")
     })
-    public List<TypeEvenement> getTypeEvenementAll() {
+    public List<TypeEvenement> getTypeEvenementList() {
         return typeEvenementDAO.findAll();
     }
 
@@ -92,7 +92,7 @@ public class TypeEvenementController {
             @ApiResponse(responseCode = "200", description = "Type d'évènement modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Type d'évènement non trouvé")
     })
-    public ResponseEntity<Void> update(
+    public ResponseEntity<TypeEvenement> update(
             @PathVariable int id,
             @RequestBody TypeEvenement typeEvenementToUpdate) {
 
@@ -104,7 +104,7 @@ public class TypeEvenementController {
         typeEvenementToUpdate.setIdTypeEvenement(id);
         typeEvenementDAO.save(typeEvenementToUpdate);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(typeEvenementToUpdate,HttpStatus.OK);
     }
 
 }
