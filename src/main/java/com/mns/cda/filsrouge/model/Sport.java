@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -22,5 +24,6 @@ public class Sport {
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
     protected String nomSport;
+
 
 }
