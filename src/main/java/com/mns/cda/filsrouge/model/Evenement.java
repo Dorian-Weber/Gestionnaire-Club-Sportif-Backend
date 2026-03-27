@@ -17,10 +17,10 @@ public class Evenement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idTypeEvenement;
+    protected Integer idEvenement;
 
     @NotBlank
-    protected String nomTypeEvenement;
+    protected String nomEvenement;
 
     @NotBlank
     protected String descriptionEvenement;
