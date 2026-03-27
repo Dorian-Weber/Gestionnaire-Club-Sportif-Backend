@@ -1,12 +1,17 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -26,5 +31,6 @@ public class Evenement {
     protected String descriptionEvenement;
 
     @NotBlank
-    protected String dateEvenement;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    protected LocalDateTime dateEvenement;
 }

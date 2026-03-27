@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/type-evenement")
-@Tag(name = "Type évènement", description = "API de gestion des différents types d'évènement")
+@Tag(name = "Type évènement", description = "API de gestion des différents types d'évènements")
 public class TypeEvenementController {
 
 

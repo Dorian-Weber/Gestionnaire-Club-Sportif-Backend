@@ -45,7 +45,7 @@ public class EvenementUnitTest {
         Assertions.assertTrue(constraintExist);
     }
 
-    // Test pour valider que la description de l'évènement ne peut pas être vide
+    // Test pour valider que la date de l'évènement ne peut pas être vide
     @Test
     public void valideEvenementAvecDateEvenementBlank_DoitEtreNonValide(){
 
