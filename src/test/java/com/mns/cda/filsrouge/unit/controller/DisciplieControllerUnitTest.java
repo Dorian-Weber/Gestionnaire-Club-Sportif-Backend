@@ -1,4 +1,4 @@
-package com.mns.cda.filsrouge.unit;
+package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.DisciplineController;
 import com.mns.cda.filsrouge.mock.MockDisciplineDao;

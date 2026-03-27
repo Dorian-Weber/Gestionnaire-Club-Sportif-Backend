@@ -1,15 +1,14 @@
-package com.mns.cda.filsrouge.unit;
+package com.mns.cda.filsrouge.unit.model;
 
 import com.mns.cda.filsrouge.TestUtilitaire;
 import com.mns.cda.filsrouge.model.Discipline;
-import com.mns.cda.filsrouge.model.Sport;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class SportUnitTest {
+public class DisciplineUnitTest {
 
     public static Validator validator ;
 
@@ -18,16 +17,16 @@ public class SportUnitTest {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du sport ne peut pas être vide
+    // Test pour valider que le nom de la discipline ne peut pas être vide
     @Test
-    public void valideSportAvecNomSportBlank_DoitEtreNonValide(){
+    public void valideDisciplineAvecNomDisciplineBlank_DoitEtreNonValide(){
 
-        Sport sport = new Sport();
-        sport.setNomSport("");
+        Discipline discipline = new Discipline();
+        discipline.setNomDiscipline("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(sport),
-                "nomSport",
+                validator.validate(discipline),
+                "nomDiscipline",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
