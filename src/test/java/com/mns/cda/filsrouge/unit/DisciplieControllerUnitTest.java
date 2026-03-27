@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit;
 import com.mns.cda.filsrouge.controller.DisciplineController;
 import com.mns.cda.filsrouge.mock.MockDisciplineDao;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class DisciplieControllerUnitTest {
     @Test
     public void createDiscipline_DoitRetournerCode201() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test");
+        Discipline discipline = new Discipline(10, "Test", "Test", "Test",new Sport());
 
         ResponseEntity<Discipline> response = disciplineController.create(discipline);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -78,7 +79,7 @@ public class DisciplieControllerUnitTest {
     @Test
     public void updateDiscipline_DoitRetournerCode200() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test");
+        Discipline discipline = new Discipline(10, "Test", "Test", "Test", new Sport());
 
         ResponseEntity<Discipline> response = disciplineController.update(1, discipline);
 
@@ -90,7 +91,7 @@ public class DisciplieControllerUnitTest {
     @Test
     public void updateDisciplineNotExist_DoitRetournerCode404() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test");
+        Discipline discipline = new Discipline(10, "Test", "Test", "Test",  new Sport());
 
         ResponseEntity<Discipline> reponse = disciplineController.update(2, discipline);
 
