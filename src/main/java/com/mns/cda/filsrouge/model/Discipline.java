@@ -27,4 +27,8 @@ public class Discipline {
 
     protected String recordMonde;
 
+    @ManyToOne
+    @JoinColumn(name = "sport_id")
+    protected Sport sport;
+
 }
