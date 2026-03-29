@@ -8,9 +8,7 @@ import com.mns.cda.filsrouge.view.EvenementView;
 import com.mns.cda.filsrouge.view.SportView;
 import com.mns.cda.filsrouge.view.TypeEvenementView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,8 +44,9 @@ public class Evenement {
     protected String descriptionEvenement;
 
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @FutureOrPresent
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     @JsonView({EvenementView.class,
             TypeEvenementView.class,
             SportView.class,

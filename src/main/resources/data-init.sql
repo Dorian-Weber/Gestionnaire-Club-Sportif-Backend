@@ -27,6 +27,13 @@ INSERT INTO evenement (nom_evenement, description_evenement, date_evenement,type
           ('Championnat de Tennis', 'Match de qualification pour le championnat national', '2026-07-08 16:00:00',3, 3),
           ('Compétition de Natation', 'Finale départementale de nage libre', '2026-08-21 10:30:00',3, 4);
 
+INSERT INTO Sportif (nom_sportif, prenom_sportif, date_naissance_sportif) VALUES
+          ('Dupont', 'Jean', '1990-05-15'),
+          ('Müller', 'Anna', '1988-11-22'),
+          ('Garcia', 'Carlos', '1995-03-10'),
+          ('Rossi', 'Luca', '1992-07-30'),
+          ('Smith', 'Emily', '1993-12-05');
+
 
 
 INSERT INTO Pays (nom_pays) VALUES
