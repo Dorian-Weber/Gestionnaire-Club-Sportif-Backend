@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.SportDAO;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.model.Evenement;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.model.Sport;
 import org.springframework.data.domain.Example;
@@ -108,7 +109,10 @@ public class MockSportDao implements SportDAO {
     @Override
     public Optional<Sport> findById(Integer idSport) {
         if(idSport == 1) {
-            return Optional.of(new Sport(1, "Athlétisme",List.of(new Discipline())));
+            return Optional.of(new Sport(1,
+                    "Athlétisme",
+                    List.of(new Discipline()),
+                    List.of(new Evenement())));
         }
         return Optional.empty();
     }
@@ -121,7 +125,10 @@ public class MockSportDao implements SportDAO {
     @Override
     public List<Sport> findAll() {
 
-        return List.of(new Sport(1, "Athlétisme",List.of(new Discipline())));
+        return List.of(new Sport(1,
+                "Athlétisme",
+                List.of(new Discipline()),
+                List.of(new Evenement())));
     }
 
     @Override

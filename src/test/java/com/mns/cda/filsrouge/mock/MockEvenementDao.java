@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.EvenementDAO;
 import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.model.Sport;
+import com.mns.cda.filsrouge.model.TypeEvenement;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -107,7 +109,12 @@ public class MockEvenementDao implements EvenementDAO {
     @Override
     public Optional<Evenement> findById(Integer idEvenement) {
         if(idEvenement == 1) {
-            return Optional.of(new Evenement(1, "Match de Football", "Rencontre amicale entre deux équipes locales", LocalDateTime.of(2026,04,15,18,00)));
+            return Optional.of(new Evenement(1,
+                    "Match de Football",
+                    "Rencontre amicale entre deux équipes locales",
+                    LocalDateTime.of(2026,04,15,18,00),
+                    new TypeEvenement(),
+                    new Sport()));
         }
         return Optional.empty();
     }
@@ -120,7 +127,12 @@ public class MockEvenementDao implements EvenementDAO {
     @Override
     public List<Evenement> findAll() {
 
-        return List.of(new Evenement(1, "Match de Football", "Rencontre amicale entre deux équipes locales", LocalDateTime.of(2026,04,15,18,00)));
+        return List.of(new Evenement(1,
+                "Match de Football",
+                "Rencontre amicale entre deux équipes locales",
+                LocalDateTime.of(2026,04,15,18,00),
+                new TypeEvenement(),
+                new Sport()));
     }
 
     @Override

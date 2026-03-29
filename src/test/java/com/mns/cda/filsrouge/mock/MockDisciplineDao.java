@@ -107,7 +107,11 @@ public class MockDisciplineDao implements DisciplineDAO {
     @Override
     public Optional<Discipline> findById(Integer idDiscipline) {
         if(idDiscipline == 1) {
-            return Optional.of(new Discipline(1, "Saut en hauteur", "2.45m","2.45 m", new Sport()));
+            return Optional.of(new Discipline(1,
+                    "Saut en hauteur",
+                    "2.45m",
+                    "2.45 m",
+                    new Sport()));
         }
         return Optional.empty();
     }
@@ -120,7 +124,11 @@ public class MockDisciplineDao implements DisciplineDAO {
     @Override
     public List<Discipline> findAll() {
 
-        return List.of(new Discipline(1, "Saut en hauteur", "2.45m","2.45 m", new Sport()));
+        return List.of(new Discipline(1,
+                "Saut en hauteur",
+                "2.45m",
+                "2.45 m",
+                new Sport()));
     }
 
     @Override

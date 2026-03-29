@@ -33,26 +33,37 @@ public class Evenement {
     protected Integer idEvenement;
 
     @NotBlank
-    @JsonView({EvenementView.class, TypeEvenementView.class, SportView.class, DisciplineView.class})
+    @JsonView({EvenementView.class,
+            TypeEvenementView.class,
+            SportView.class,
+            DisciplineView.class})
     protected String nomEvenement;
 
     @NotBlank
-    @JsonView({EvenementView.class, TypeEvenementView.class, DisciplineView.class})
+    @JsonView({EvenementView.class,
+            TypeEvenementView.class,
+            DisciplineView.class})
     protected String descriptionEvenement;
 
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    @JsonView({EvenementView.class, TypeEvenementView.class, SportView.class, DisciplineView.class})
+    @JsonView({EvenementView.class,
+            TypeEvenementView.class,
+            SportView.class,
+            DisciplineView.class})
     protected LocalDateTime dateEvenement;
 
     @ManyToOne
     @JoinColumn(name = "type_evenement_id")
-    @JsonView({EvenementView.class, SportView.class, DisciplineView.class})
+    @JsonView({EvenementView.class,
+            SportView.class,
+            DisciplineView.class})
     protected TypeEvenement typeEvenement;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")
-    @JsonView({EvenementView.class, TypeEvenementView.class})
+    @JsonView({EvenementView.class,
+            TypeEvenementView.class})
     protected Sport sport;
 }

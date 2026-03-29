@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.SportController;
 import com.mns.cda.filsrouge.mock.MockSportDao;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.model.Evenement;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +51,10 @@ public class SportControllerUnitTest {
     @Test
     public void createSport_DoitRetournerCode201() {
         SportController sportController = new SportController(new MockSportDao());
-        Sport sport = new Sport(10, "Test",List.of(new Discipline()));
+        Sport sport = new Sport(10,
+                "Test",
+                List.of(new Discipline()),
+                List.of(new Evenement()));
 
         ResponseEntity<Sport> response = sportController.create(sport);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -80,7 +84,10 @@ public class SportControllerUnitTest {
     @Test
     public void updateSport_DoitRetournerCode200() {
         SportController sportController = new SportController(new MockSportDao());
-        Sport sport = new Sport(10, "Test", List.of(new Discipline()));
+        Sport sport = new Sport(10,
+                "Test",
+                List.of(new Discipline()),
+                List.of(new Evenement()));
 
         ResponseEntity<Sport> response = sportController.update(1, sport);
 
@@ -92,7 +99,10 @@ public class SportControllerUnitTest {
     @Test
     public void updateSportNotExist_DoitRetournerCode404() {
         SportController sportController = new SportController(new MockSportDao());
-        Sport sport = new Sport(10, "Test", List.of(new Discipline()));
+        Sport sport = new Sport(10,
+                "Test",
+                List.of(new Discipline()),
+                List.of(new Evenement()));
 
         ResponseEntity<Sport> reponse = sportController.update(2, sport);
 

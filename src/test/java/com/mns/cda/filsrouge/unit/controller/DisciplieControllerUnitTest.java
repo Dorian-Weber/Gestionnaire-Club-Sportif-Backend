@@ -49,7 +49,11 @@ public class DisciplieControllerUnitTest {
     @Test
     public void createDiscipline_DoitRetournerCode201() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test",new Sport());
+        Discipline discipline = new Discipline(10,
+                "Test",
+                "Test",
+                "Test",
+                new Sport());
 
         ResponseEntity<Discipline> response = disciplineController.create(discipline);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -79,7 +83,11 @@ public class DisciplieControllerUnitTest {
     @Test
     public void updateDiscipline_DoitRetournerCode200() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test", new Sport());
+        Discipline discipline = new Discipline(10,
+                "Test",
+                "Test",
+                "Test",
+                new Sport());
 
         ResponseEntity<Discipline> response = disciplineController.update(1, discipline);
 
@@ -91,7 +99,11 @@ public class DisciplieControllerUnitTest {
     @Test
     public void updateDisciplineNotExist_DoitRetournerCode404() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
-        Discipline discipline = new Discipline(10, "Test", "Test", "Test",  new Sport());
+        Discipline discipline = new Discipline(10,
+                "Test",
+                "Test",
+                "Test",
+                new Sport());
 
         ResponseEntity<Discipline> reponse = disciplineController.update(2, discipline);
 

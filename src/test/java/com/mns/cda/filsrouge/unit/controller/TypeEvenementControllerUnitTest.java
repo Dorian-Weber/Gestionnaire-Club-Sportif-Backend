@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.TypeEvenementController;
 import com.mns.cda.filsrouge.mock.MockTypeEvenementDao;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.model.Evenement;
 import com.mns.cda.filsrouge.model.TypeEvenement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,9 @@ public class TypeEvenementControllerUnitTest {
     @Test
     public void createTypeEvenement_DoitRetournerCode201() {
         TypeEvenementController typeEvenementController = new TypeEvenementController(new MockTypeEvenementDao());
-        TypeEvenement typeEvenement = new TypeEvenement(10, "Test");
+        TypeEvenement typeEvenement = new TypeEvenement(10,
+                "Test",
+                List.of(new Evenement()));
 
         ResponseEntity<TypeEvenement> response = typeEvenementController.create(typeEvenement);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -79,7 +82,9 @@ public class TypeEvenementControllerUnitTest {
     @Test
     public void updateTypeEvenement_DoitRetournerCode200() {
         TypeEvenementController typeEvenementController = new TypeEvenementController(new MockTypeEvenementDao());
-        TypeEvenement typeEvenement = new TypeEvenement(10, "Test");
+        TypeEvenement typeEvenement = new TypeEvenement(10,
+                "Test",
+                List.of(new Evenement()));
 
         ResponseEntity<TypeEvenement> response = typeEvenementController.update(1, typeEvenement);
 
@@ -91,7 +96,9 @@ public class TypeEvenementControllerUnitTest {
     @Test
     public void updateTypeEvenementNotExist_DoitRetournerCode404() {
         TypeEvenementController typeEvenementController = new TypeEvenementController(new MockTypeEvenementDao());
-        TypeEvenement typeEvenement = new TypeEvenement(10, "Test");
+        TypeEvenement typeEvenement = new TypeEvenement(10,
+                "Test",
+                List.of(new Evenement()));
 
         ResponseEntity<TypeEvenement> reponse = typeEvenementController.update(2, typeEvenement);
 

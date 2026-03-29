@@ -29,7 +29,10 @@ public class TypeEvenement {
 
     @NotBlank
     @Column(unique = true)
-    @JsonView({EvenementView.class, TypeEvenementView.class, SportView.class, DisciplineView.class})
+    @JsonView({EvenementView.class,
+            TypeEvenementView.class,
+            SportView.class,
+            DisciplineView.class})
     protected String nomTypeEvenement;
 
     @OneToMany(mappedBy = "typeEvenement")

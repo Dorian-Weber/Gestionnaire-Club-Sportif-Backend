@@ -3,6 +3,8 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.EvenementController;
 import com.mns.cda.filsrouge.mock.MockEvenementDao;
 import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.model.Sport;
+import com.mns.cda.filsrouge.model.TypeEvenement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -49,7 +51,12 @@ public class EvenementControllerUnitTest {
     @Test
     public void createEvenement_DoitRetournerCode201() {
         EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10, "Test","Test", LocalDateTime.of(2026,04,26,20,00));
+        Evenement evenement = new Evenement(10,
+                "Test",
+                "Test",
+                LocalDateTime.of(2026,04,26,20,00),
+                new TypeEvenement(),
+                new Sport());
 
         ResponseEntity<Evenement> response = evenementController.create(evenement);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -79,7 +86,12 @@ public class EvenementControllerUnitTest {
     @Test
     public void updateEvenement_DoitRetournerCode200() {
         EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10, "Test","Test", LocalDateTime.of(2026,04,26,20,00));
+        Evenement evenement = new Evenement(10,
+                "Test",
+                "Test",
+                LocalDateTime.of(2026,04,26,20,00),
+                new TypeEvenement(),
+                new Sport());
 
         ResponseEntity<Evenement> response = evenementController.update(1, evenement);
 
@@ -91,7 +103,12 @@ public class EvenementControllerUnitTest {
     @Test
     public void updateEvenementNotExist_DoitRetournerCode404() {
         EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10, "Test","Test", LocalDateTime.of(2026,04,26,20,00));
+        Evenement evenement = new Evenement(10,
+                "Test",
+                "Test",
+                LocalDateTime.of(2026,04,26,20,00),
+                new TypeEvenement(),
+                new Sport());
 
         ResponseEntity<Evenement> reponse = evenementController.update(2, evenement);
 
