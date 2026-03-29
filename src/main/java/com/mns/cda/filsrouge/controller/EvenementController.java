@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.EvenementDAO;
 import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.view.EvenementView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,6 +26,7 @@ public class EvenementController {
     protected final EvenementDAO evenementDAO;
 
     @GetMapping("/liste")
+    @JsonView(EvenementView.class)
     @Operation(summary = "Récupère la liste des différents évènements",
             description = "Cette méthode permet de récupérer la liste de tous les évènements présents dans la base de données.")
     @ApiResponses(value = {
@@ -34,6 +37,7 @@ public class EvenementController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(EvenementView.class)
     @Operation(summary = "Récupérer un évènement par son ID",
             description = "Cette méthode permet de récupérer les informations d'un évènement spécifique en utilisant son ID.")
     @ApiResponses(value = {
