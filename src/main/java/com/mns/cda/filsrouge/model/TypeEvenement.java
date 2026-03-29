@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.model;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.DisciplineView;
 import com.mns.cda.filsrouge.view.EvenementView;
 import com.mns.cda.filsrouge.view.SportView;
 import com.mns.cda.filsrouge.view.TypeEvenementView;
@@ -28,7 +29,7 @@ public class TypeEvenement {
 
     @NotBlank
     @Column(unique = true)
-    @JsonView({EvenementView.class, TypeEvenementView.class, SportView.class})
+    @JsonView({EvenementView.class, TypeEvenementView.class, SportView.class, DisciplineView.class})
     protected String nomTypeEvenement;
 
     @OneToMany(mappedBy = "typeEvenement")

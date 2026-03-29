@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.DisciplineView;
 import com.mns.cda.filsrouge.view.EvenementView;
 import com.mns.cda.filsrouge.view.SportView;
+import com.mns.cda.filsrouge.view.TypeEvenementView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class Sport {
 
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    @JsonView({SportView.class,DisciplineView.class, EvenementView.class})
+    @JsonView({SportView.class, DisciplineView.class, EvenementView.class, TypeEvenementView.class})
     protected String nomSport;
 
     @OneToMany(mappedBy = "sport")
@@ -36,6 +37,6 @@ public class Sport {
     List<Discipline> disciplines;
 
     @OneToMany(mappedBy = "sport")
-    @JsonView(SportView.class)
+    @JsonView({SportView.class, DisciplineView.class})
     List<Evenement> evenements;
 }
