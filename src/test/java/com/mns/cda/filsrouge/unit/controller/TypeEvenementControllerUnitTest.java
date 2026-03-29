@@ -96,8 +96,7 @@ public class TypeEvenementControllerUnitTest {
     @Test
     public void updateTypeEvenementNotExist_DoitRetournerCode404() {
         TypeEvenementController typeEvenementController = new TypeEvenementController(new MockTypeEvenementDao());
-        TypeEvenement typeEvenement = new TypeEvenement(10,
-                "Test",
+        TypeEvenement typeEvenement = new TypeEvenement(10, "Test",
                 List.of(new Evenement()));
 
         ResponseEntity<TypeEvenement> reponse = typeEvenementController.update(2, typeEvenement);
