@@ -19,22 +19,22 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Sportif {
+public class Athlete {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idSportif;
+    protected Integer idAthlete;
 
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    protected String nomSportif;
+    protected String nameAthlete;
 
     @NotBlank
-    protected String prenomSportif;
+    protected String firstNameAthlete;
 
     @NotNull
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate dateNaissanceSportif;
+    protected LocalDate birthDateAthlete;
 }

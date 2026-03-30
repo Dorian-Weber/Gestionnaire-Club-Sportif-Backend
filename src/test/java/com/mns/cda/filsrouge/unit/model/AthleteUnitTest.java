@@ -1,14 +1,14 @@
 package com.mns.cda.filsrouge.unit.model;
 
 import com.mns.cda.filsrouge.TestUtilitaire;
-import com.mns.cda.filsrouge.model.Sportif;
+import com.mns.cda.filsrouge.model.Athlete;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class SportifUnitTest {
+public class AthleteUnitTest {
 
     public static Validator validator ;
 
@@ -19,13 +19,13 @@ public class SportifUnitTest {
 
     // Test pour valider que le nom du sportif ne peut pas être vide
     @Test
-    public void valideSportifAvecNomSportifBlank_DoitEtreNonValide(){
+    public void validAthleteWithNameAthleteBlank_MustBeNotValidated(){
 
-        Sportif sportif = new Sportif();
-        sportif.setNomSportif("");
+        Athlete athlete = new Athlete();
+        athlete.setNameAthlete("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(sportif),
+                validator.validate(athlete),
                 "nomSportif",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
@@ -33,13 +33,13 @@ public class SportifUnitTest {
 
     // Test pour valider que le prénom du sportif ne peut pas être vide
     @Test
-    public void valideSportifAvecPrenomSportifBlank_DoitEtreNonValide(){
+    public void validAthleteWithFirstNameAthleteBlank_MustBeNotValidated(){
 
-        Sportif  sportif = new Sportif();
-        sportif.setPrenomSportif("");
+        Athlete athlete = new Athlete();
+        athlete.setFirstNameAthlete("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(sportif),
+                validator.validate(athlete),
                 "prenomSportif",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
@@ -47,13 +47,13 @@ public class SportifUnitTest {
 
     // Test pour valider que le nom du sportif ne peut pas être vide
     @Test
-    public void valideSportifAvecDateNaissanceSportifBlank_DoitEtreNonValide(){
+    public void validAthleteWithBirthDateAthleteBlank_MustBeNotValidated(){
 
-        Sportif  sportif = new Sportif();
-        sportif.setDateNaissanceSportif(null);
+        Athlete athlete = new Athlete();
+        athlete.setBirthDateAthlete(null);
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(sportif),
+                validator.validate(athlete),
                 "dateNaissanceSportif",
                 "NotNull");
         Assertions.assertTrue(constraintExist);

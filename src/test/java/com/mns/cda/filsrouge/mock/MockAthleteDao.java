@@ -1,36 +1,36 @@
 package com.mns.cda.filsrouge.mock;
 
-import com.mns.cda.filsrouge.dao.SportifDAO;
-import com.mns.cda.filsrouge.model.Evenement;
-import com.mns.cda.filsrouge.model.Sportif;
+import com.mns.cda.filsrouge.dao.AthleteDAO;
+import com.mns.cda.filsrouge.model.Athlete;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class MockSportifDao implements SportifDAO {
+public class MockAthleteDao implements AthleteDAO {
     @Override
     public void flush() {
 
     }
 
     @Override
-    public <S extends Sportif> S saveAndFlush(S entity) {
+    public <S extends Athlete> S saveAndFlush(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Sportif> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Athlete> List<S> saveAllAndFlush(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Sportif> entities) {
+    public void deleteAllInBatch(Iterable<Athlete> entities) {
 
     }
 
@@ -45,71 +45,70 @@ public class MockSportifDao implements SportifDAO {
     }
 
     @Override
-    public Sportif getOne(Integer integer) {
+    public Athlete getOne(Integer integer) {
         return null;
     }
 
     @Override
-    public Sportif getById(Integer integer) {
+    public Athlete getById(Integer integer) {
         return null;
     }
 
     @Override
-    public Sportif getReferenceById(Integer integer) {
+    public Athlete getReferenceById(Integer integer) {
         return null;
     }
 
     @Override
-    public <S extends Sportif> Optional<S> findOne(Example<S> example) {
+    public <S extends Athlete> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends Sportif> List<S> findAll(Example<S> example) {
+    public <S extends Athlete> List<S> findAll(Example<S> example) {
         return List.of();
     }
 
     @Override
-    public <S extends Sportif> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Athlete> List<S> findAll(Example<S> example, Sort sort) {
         return List.of();
     }
 
     @Override
-    public <S extends Sportif> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Athlete> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Sportif> long count(Example<S> example) {
+    public <S extends Athlete> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends Sportif> boolean exists(Example<S> example) {
+    public <S extends Athlete> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends Sportif, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Athlete, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
-    public <S extends Sportif> S save(S entity) {
+    public <S extends Athlete> S save(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Sportif> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Athlete> List<S> saveAll(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public Optional<Sportif> findById(Integer idSportif) {
-        if(idSportif == 1) {
-            return Optional.of(new Sportif(1,
-                    "Dupont","Jean",
-                    new java.util.Date()));
+    public Optional<Athlete> findById(Integer idAthlete) {
+        if(idAthlete == 1) {
+            return Optional.of(new Athlete(1,
+                    "Dupont","Jean", LocalDate.now()));
         }
         return Optional.empty();
     }
@@ -120,15 +119,15 @@ public class MockSportifDao implements SportifDAO {
     }
 
     @Override
-    public List<Sportif> findAll() {
+    public List<Athlete> findAll() {
 
-        return List.of(new Sportif(1,
+        return List.of(new Athlete(1,
                 "Dupont","Jean",
-                new java.util.Date()));
+                LocalDate.now()));
     }
 
     @Override
-    public List<Sportif> findAllById(Iterable<Integer> integers) {
+    public List<Athlete> findAllById(Iterable<Integer> integers) {
         return List.of();
     }
 
@@ -143,7 +142,7 @@ public class MockSportifDao implements SportifDAO {
     }
 
     @Override
-    public void delete(Sportif entity) {
+    public void delete(Athlete entity) {
 
     }
 
@@ -153,7 +152,7 @@ public class MockSportifDao implements SportifDAO {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Sportif> entities) {
+    public void deleteAll(Iterable<? extends Athlete> entities) {
 
     }
 
@@ -163,12 +162,12 @@ public class MockSportifDao implements SportifDAO {
     }
 
     @Override
-    public List<Sportif> findAll(Sort sort) {
+    public List<Athlete> findAll(Sort sort) {
         return List.of();
     }
 
     @Override
-    public Page<Sportif> findAll(Pageable pageable) {
+    public Page<Athlete> findAll(Pageable pageable) {
         return null;
     }
 }
