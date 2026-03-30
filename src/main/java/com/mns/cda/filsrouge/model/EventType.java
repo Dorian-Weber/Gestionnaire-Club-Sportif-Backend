@@ -20,27 +20,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Sport {
+public class EventType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(SportView.class)
-    protected Integer idSport;
+    @JsonView(EventTypeView.class)
+    protected Integer idEventType;
 
-    @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    @JsonView({SportView.class,
-            DisciplineView.class,
-            EventView.class,
-            EventTypeView.class})
-    protected String nomSport;
-
-    @OneToMany(mappedBy = "sport")
-    @JsonView(SportView.class)
-    List<Discipline> disciplines;
-
-    @OneToMany(mappedBy = "sport")
-    @JsonView({SportView.class,
+    @Column(unique = true)
+    @JsonView({EventView.class,
+            EventTypeView.class,
+            SportView.class,
             DisciplineView.class})
-    List<Event> events;
+    protected String EventTypeName;
+
+    @OneToMany(mappedBy = "eventType")
+    @JsonView(EventTypeView.class)
+    protected List<Event> events;
 }

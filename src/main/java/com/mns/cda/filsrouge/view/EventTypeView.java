@@ -1,4 +1,4 @@
 package com.mns.cda.filsrouge.view;
 
-public interface TypeEvenementView {
+public interface EventTypeView {
 }

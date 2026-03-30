@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.DisciplineView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.SportView;
-import com.mns.cda.filsrouge.view.TypeEvenementView;
+import com.mns.cda.filsrouge.view.EventTypeView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -31,14 +31,14 @@ public class Event {
 
     @NotBlank
     @JsonView({EventView.class,
-            TypeEvenementView.class,
+            EventTypeView.class,
             SportView.class,
             DisciplineView.class})
     protected String eventName;
 
     @NotBlank
     @JsonView({EventView.class,
-            TypeEvenementView.class,
+            EventTypeView.class,
             DisciplineView.class})
     protected String eventDescription;
 
@@ -47,21 +47,21 @@ public class Event {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     @JsonView({EventView.class,
-            TypeEvenementView.class,
+            EventTypeView.class,
             SportView.class,
             DisciplineView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne
-    @JoinColumn(name = "type_evenement_id")
+    @JoinColumn(name = "event_type_id")
     @JsonView({EventView.class,
             SportView.class,
             DisciplineView.class})
-    protected TypeEvenement typeEvenement;
+    protected EventType eventType;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")
     @JsonView({EventView.class,
-            TypeEvenementView.class})
+            EventTypeView.class})
     protected Sport sport;
 }

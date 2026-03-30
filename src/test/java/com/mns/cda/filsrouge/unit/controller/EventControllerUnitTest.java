@@ -4,7 +4,7 @@ import com.mns.cda.filsrouge.controller.EventController;
 import com.mns.cda.filsrouge.mock.MockEventDao;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
-import com.mns.cda.filsrouge.model.TypeEvenement;
+import com.mns.cda.filsrouge.model.EventType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -55,7 +55,7 @@ public class EventControllerUnitTest {
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
-                new TypeEvenement(),
+                new EventType(),
                 new Sport());
 
         ResponseEntity<Event> response = eventController.create(event);
@@ -90,7 +90,7 @@ public class EventControllerUnitTest {
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
-                new TypeEvenement(),
+                new EventType(),
                 new Sport());
 
         ResponseEntity<Event> response = eventController.update(1, event);
@@ -107,7 +107,7 @@ public class EventControllerUnitTest {
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
-                new TypeEvenement(),
+                new EventType(),
                 new Sport());
 
         ResponseEntity<Event> reponse = eventController.update(2, event);

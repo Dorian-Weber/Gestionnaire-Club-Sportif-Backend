@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.model;
 
 import com.mns.cda.filsrouge.TestUtilitaire;
-import com.mns.cda.filsrouge.model.TypeEvenement;
+import com.mns.cda.filsrouge.model.EventType;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
@@ -19,14 +19,14 @@ public class TypeEventUnitTest {
 
     // Test pour valider que le nom du typeevenement ne peut pas être vide
     @Test
-    public void valideTypeEvenementAvecNomTypeEvenementBlank_DoitEtreNonValide(){
+    public void validEventTypeWithEventTypeNameBlank_MustBeNotValidated(){
 
-        TypeEvenement  typeevenement = new TypeEvenement();
-        typeevenement.setNomTypeEvenement("");
+        EventType eventType = new EventType();
+        eventType.setEventTypeName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(typeevenement),
-                "nomTypeEvenement",
+                validator.validate(eventType),
+                "EventTypeName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

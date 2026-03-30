@@ -3,7 +3,7 @@ package com.mns.cda.filsrouge.mock;
 import com.mns.cda.filsrouge.dao.EventDAO;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
-import com.mns.cda.filsrouge.model.TypeEvenement;
+import com.mns.cda.filsrouge.model.EventType;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -113,7 +113,7 @@ public class MockEventDao implements EventDAO {
                     "Match de Football",
                     "Rencontre amicale entre deux équipes locales",
                     LocalDateTime.of(2026,04,15,18,00),
-                    new TypeEvenement(),
+                    new EventType(),
                     new Sport()));
         }
         return Optional.empty();
@@ -131,7 +131,7 @@ public class MockEventDao implements EventDAO {
                 "Match de Football",
                 "Rencontre amicale entre deux équipes locales",
                 LocalDateTime.of(2026,04,15,18,00),
-                new TypeEvenement(),
+                new EventType(),
                 new Sport()));
     }
 
