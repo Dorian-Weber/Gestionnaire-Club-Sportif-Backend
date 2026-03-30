@@ -1,8 +1,8 @@
 package com.mns.cda.filsrouge.unit.controller;
 
-import com.mns.cda.filsrouge.controller.EvenementController;
-import com.mns.cda.filsrouge.mock.MockEvenementDao;
-import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.controller.EventController;
+import com.mns.cda.filsrouge.mock.MockEventDao;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.model.TypeEvenement;
 import org.junit.jupiter.api.Assertions;
@@ -13,14 +13,14 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class EvenementControllerUnitTest {
+public class EventControllerUnitTest {
 
     //Test de GetAll
     @Test
     public void getEvenementAll_DoitRetournerUneList() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
+        EventController eventController = new EventController(new MockEventDao());
 
-        List<Evenement> response = evenementController.getEvenementList();
+        List<Event> response = eventController.getEventList();
 
         Assertions.assertNotNull(response);
         Assertions.assertFalse(response.isEmpty());
@@ -32,8 +32,8 @@ public class EvenementControllerUnitTest {
     @Test
     public void getEvenementByIdExist_DoitRetournerCode200() {
 
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        ResponseEntity<Evenement> response = evenementController.getEvenementById(1);
+        EventController eventController = new EventController(new MockEventDao());
+        ResponseEntity<Event> response = eventController.getEventById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -41,8 +41,8 @@ public class EvenementControllerUnitTest {
     @Test
     public void getEvenementByIdNotExist_DoitRetournerCode404() {
 
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        ResponseEntity<Evenement> response = evenementController.getEvenementById(2);
+        EventController eventController = new EventController(new MockEventDao());
+        ResponseEntity<Event> response = eventController.getEventById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -50,34 +50,34 @@ public class EvenementControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createEvenement_DoitRetournerCode201() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10,
+        EventController eventController = new EventController(new MockEventDao());
+        Event event = new Event(10,
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new TypeEvenement(),
                 new Sport());
 
-        ResponseEntity<Evenement> response = evenementController.create(evenement);
+        ResponseEntity<Event> response = eventController.create(event);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertNull(response.getBody().getIdEvenement());
+        Assertions.assertNull(response.getBody().getIdEvent());
     }
 
     // Test de Delete
     @Test
     public void deleteEvenementExist_DoitRetournerCode204() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
+        EventController eventController = new EventController(new MockEventDao());
 
-        ResponseEntity<Evenement> response = evenementController.delete(1);
+        ResponseEntity<Event> response = eventController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 
     }
     @Test
     public void deleteEvenementNotExist_DoitRetournerCode404() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
+        EventController eventController = new EventController(new MockEventDao());
 
-        ResponseEntity<Evenement> response = evenementController.delete(2);
+        ResponseEntity<Event> response = eventController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
@@ -85,32 +85,32 @@ public class EvenementControllerUnitTest {
 
     @Test
     public void updateEvenement_DoitRetournerCode200() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10,
+        EventController eventController = new EventController(new MockEventDao());
+        Event event = new Event(10,
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new TypeEvenement(),
                 new Sport());
 
-        ResponseEntity<Evenement> response = evenementController.update(1, evenement);
+        ResponseEntity<Event> response = eventController.update(1, event);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(1, response.getBody().getIdEvenement());
+        Assertions.assertEquals(1, response.getBody().getIdEvent());
     }
 
     @Test
     public void updateEvenementNotExist_DoitRetournerCode404() {
-        EvenementController evenementController = new EvenementController(new MockEvenementDao());
-        Evenement evenement = new Evenement(10,
+        EventController eventController = new EventController(new MockEventDao());
+        Event event = new Event(10,
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new TypeEvenement(),
                 new Sport());
 
-        ResponseEntity<Evenement> reponse = evenementController.update(2, evenement);
+        ResponseEntity<Event> reponse = eventController.update(2, event);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
 

@@ -1,9 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.EvenementDAO;
-import com.mns.cda.filsrouge.model.Evenement;
-import com.mns.cda.filsrouge.view.EvenementView;
+import com.mns.cda.filsrouge.dao.EventDAO;
+import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,40 +18,40 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/evenement")
-@Tag(name = "Évènement", description = "API de gestion des différents évènements")
-public class EvenementController {
+@RequestMapping("/event")
+@Tag(name = "Event", description = "API de gestion des différents évènements")
+public class EventController {
 
 
-    protected final EvenementDAO evenementDAO;
+    protected final EventDAO eventDAO;
 
-    @GetMapping("/liste")
-    @JsonView(EvenementView.class)
+    @GetMapping("/list")
+    @JsonView(EventView.class)
     @Operation(summary = "Récupère la liste des différents évènements",
             description = "Cette méthode permet de récupérer la liste de tous les évènements présents dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des évènements récupérée avec succès")
     })
-    public List<Evenement> getEvenementList() {
-        return evenementDAO.findAll();
+    public List<Event> getEventList() {
+        return eventDAO.findAll();
     }
 
     @GetMapping("/{id}")
-    @JsonView(EvenementView.class)
+    @JsonView(EventView.class)
     @Operation(summary = "Récupérer un évènement par son ID",
             description = "Cette méthode permet de récupérer les informations d'un évènement spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Évènement récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
     })
-    public ResponseEntity<Evenement> getEvenementById(@PathVariable int id) {
+    public ResponseEntity<Event> getEventById(@PathVariable int id) {
 
-        Optional<Evenement> optionalEvenement = evenementDAO.findById(id);
+        Optional<Event> optionalEvent = eventDAO.findById(id);
 
-        if(optionalEvenement.isEmpty()) {
+        if(optionalEvent.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(optionalEvenement.get(), HttpStatus.OK);
+        return new ResponseEntity<>(optionalEvent.get(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -60,12 +60,12 @@ public class EvenementController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Évènement ajoutée avec succès")
     })
-    public ResponseEntity<Evenement> create(@RequestBody Evenement evenementToInsert) {
+    public ResponseEntity<Event> create(@RequestBody Event eventToInsert) {
 
-        evenementToInsert.setIdEvenement(null);
-        evenementDAO.save(evenementToInsert);
+        eventToInsert.setIdEvent(null);
+        eventDAO.save(eventToInsert);
 
-        return new ResponseEntity<>(evenementToInsert, HttpStatus.CREATED);
+        return new ResponseEntity<>(eventToInsert, HttpStatus.CREATED);
 
     }
 
@@ -76,14 +76,14 @@ public class EvenementController {
             @ApiResponse(responseCode = "204", description = "Évènement supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
     })
-    public ResponseEntity<Evenement> delete(@PathVariable int id) {
+    public ResponseEntity<Event> delete(@PathVariable int id) {
 
-        Optional<Evenement> optionalEvenement = evenementDAO.findById(id);
+        Optional<Event> optionalEvent = eventDAO.findById(id);
 
-        if(optionalEvenement.isEmpty()) {
+        if(optionalEvent.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        evenementDAO.deleteById(id);
+        eventDAO.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -95,19 +95,19 @@ public class EvenementController {
             @ApiResponse(responseCode = "200", description = "Évènement modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
     })
-    public ResponseEntity<Evenement> update(
+    public ResponseEntity<Event> update(
             @PathVariable int id,
-            @RequestBody Evenement evenementToUpdate) {
+            @RequestBody Event eventToUpdate) {
 
-        Optional<Evenement> optionalEvenement = evenementDAO.findById(id);
+        Optional<Event> optionalEvent = eventDAO.findById(id);
 
-        if(optionalEvenement.isEmpty()) {
+        if(optionalEvent.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        evenementToUpdate.setIdEvenement(id);
-        evenementDAO.save(evenementToUpdate);
+        eventToUpdate.setIdEvent(id);
+        eventDAO.save(eventToUpdate);
 
-        return new ResponseEntity<>(evenementToUpdate,HttpStatus.OK);
+        return new ResponseEntity<>(eventToUpdate,HttpStatus.OK);
     }
 
 }

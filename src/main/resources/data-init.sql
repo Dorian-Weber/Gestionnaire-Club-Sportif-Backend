@@ -20,7 +20,7 @@ INSERT INTO Type_evenement (nom_type_evenement) VALUES
             ('Entraînement'),
             ('Exhibition');
 
-INSERT INTO evenement (nom_evenement, description_evenement, date_evenement,type_evenement_id, sport_id) VALUES
+INSERT INTO event (nom_evenement, description_evenement, date_evenement,type_evenement_id, sport_id) VALUES
           ('Match de Football', 'Rencontre amicale entre deux équipes locales', '2026-04-15 18:00:00', 1, 1),
           ('Tournoi de Basketball', 'Compétition régionale de basket', '2026-05-10 14:30:00',2, 2),
           ('Course d’Athlétisme', 'Épreuve de sprint 100 mètres', '2026-06-02 09:00:00',3, 5),

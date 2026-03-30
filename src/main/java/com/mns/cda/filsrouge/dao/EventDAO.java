@@ -1,9 +1,9 @@
 package com.mns.cda.filsrouge.dao;
 
-import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EvenementDAO extends JpaRepository<Evenement, Integer> {
+public interface EventDAO extends JpaRepository<Event, Integer> {
 }

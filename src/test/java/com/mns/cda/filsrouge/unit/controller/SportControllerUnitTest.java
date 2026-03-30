@@ -3,8 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.SportController;
 import com.mns.cda.filsrouge.mock.MockSportDao;
 import com.mns.cda.filsrouge.model.Discipline;
-import com.mns.cda.filsrouge.model.Evenement;
-import com.mns.cda.filsrouge.model.Sport;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -54,7 +53,7 @@ public class SportControllerUnitTest {
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
-                List.of(new Evenement()));
+                List.of(new Event()));
 
         ResponseEntity<Sport> response = sportController.create(sport);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -87,7 +86,7 @@ public class SportControllerUnitTest {
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
-                List.of(new Evenement()));
+                List.of(new Event()));
 
         ResponseEntity<Sport> response = sportController.update(1, sport);
 
@@ -102,7 +101,7 @@ public class SportControllerUnitTest {
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
-                List.of(new Evenement()));
+                List.of(new Event()));
 
         ResponseEntity<Sport> reponse = sportController.update(2, sport);
 

@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.TypeEvenementDAO;
-import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.TypeEvenement;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -109,7 +109,7 @@ public class MockTypeEvenementDao implements TypeEvenementDAO {
         if(idTypeEvenement == 1) {
             return Optional.of(new TypeEvenement(1,
                     "Tournois",
-                    List.of(new Evenement())));
+                    List.of(new Event())));
         }
         return Optional.empty();
     }
@@ -124,7 +124,7 @@ public class MockTypeEvenementDao implements TypeEvenementDAO {
 
         return List.of(new TypeEvenement(1,
                 "Tournois",
-                List.of(new Evenement())));
+                List.of(new Event())));
     }
 
     @Override

@@ -1,14 +1,14 @@
 package com.mns.cda.filsrouge.unit.model;
 
 import com.mns.cda.filsrouge.TestUtilitaire;
-import com.mns.cda.filsrouge.model.Evenement;
+import com.mns.cda.filsrouge.model.Event;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class EvenementUnitTest {
+public class EventUnitTest {
 
     public static Validator validator ;
 
@@ -19,42 +19,42 @@ public class EvenementUnitTest {
 
     // Test pour valider que le nom de l'évènement ne peut pas être vide
     @Test
-    public void valideEvenementAvecNomEvenementBlank_DoitEtreNonValide(){
+    public void validEventWithEventNameBlank_MustBeNotValidated(){
 
-        Evenement  evenement = new Evenement();
-        evenement.setNomEvenement("");
+        Event event = new Event();
+        event.setEventName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(evenement),
-                "nomEvenement",
+                validator.validate(event),
+                "eventName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
 
     // Test pour valider que la description de l'évènement ne peut pas être vide
     @Test
-    public void valideEvenementAvecDescriptionEvenementBlank_DoitEtreNonValide(){
+    public void validEventWithEventDescriptionBlank_MustBeNotValidated(){
 
-        Evenement  evenement = new Evenement();
-        evenement.setDescriptionEvenement("");
+        Event event = new Event();
+        event.setEventDescription("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(evenement),
-                "descriptionEvenement",
+                validator.validate(event),
+                "eventDescription",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
 
     // Test pour valider que la date de l'évènement ne peut pas être vide
     @Test
-    public void valideEvenementAvecDateEvenementBlank_DoitEtreNonValide(){
+    public void validEventWithEventDateBlank_MustBeNotValidated(){
 
-        Evenement  evenement = new Evenement();
-        evenement.setDescriptionEvenement("");
+        Event event = new Event();
+        event.setEventDate(null);
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(evenement),
-                "dateEvenement",
+                validator.validate(event),
+                "eventDate",
                 "NotNull");
         Assertions.assertTrue(constraintExist);
     }
