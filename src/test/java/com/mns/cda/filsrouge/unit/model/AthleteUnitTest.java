@@ -22,11 +22,11 @@ public class AthleteUnitTest {
     public void validAthleteWithNameAthleteBlank_MustBeNotValidated(){
 
         Athlete athlete = new Athlete();
-        athlete.setNameAthlete("");
+        athlete.setAthleteName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "nameAthlete",
+                "athleteName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -36,11 +36,11 @@ public class AthleteUnitTest {
     public void validAthleteWithFirstNameAthleteBlank_MustBeNotValidated(){
 
         Athlete athlete = new Athlete();
-        athlete.setFirstNameAthlete("");
+        athlete.setAthleteFirstName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "firstNameAthlete",
+                "athleteFirstName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -50,11 +50,11 @@ public class AthleteUnitTest {
     public void validAthleteWithBirthDateAthleteBlank_MustBeNotValidated(){
 
         Athlete athlete = new Athlete();
-        athlete.setBirthDateAthlete(null);
+        athlete.setAthleteBirthName(null);
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "birthDateAthlete",
+                "athleteBirthDate",
                 "NotNull");
         Assertions.assertTrue(constraintExist);
     }

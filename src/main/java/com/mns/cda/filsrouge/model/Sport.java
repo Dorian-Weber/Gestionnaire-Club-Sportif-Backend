@@ -33,7 +33,7 @@ public class Sport {
             DisciplineView.class,
             EventView.class,
             EventTypeView.class})
-    protected String nomSport;
+    protected String sportName;
 
     @OneToMany(mappedBy = "sport")
     @JsonView(SportView.class)

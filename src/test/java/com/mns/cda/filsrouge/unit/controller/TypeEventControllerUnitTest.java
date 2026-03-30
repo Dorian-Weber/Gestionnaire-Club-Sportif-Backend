@@ -76,7 +76,7 @@ public class TypeEventControllerUnitTest {
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Uptade
+    // Test de Update
 
     @Test
     public void updateEventType_MustReturnCode200() {

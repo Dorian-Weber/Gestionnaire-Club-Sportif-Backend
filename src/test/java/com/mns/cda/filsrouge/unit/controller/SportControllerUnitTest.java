@@ -78,7 +78,7 @@ public class SportControllerUnitTest {
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Uptade
+    // Test de Update
 
     @Test
     public void updateSport_DoitRetournerCode200() {

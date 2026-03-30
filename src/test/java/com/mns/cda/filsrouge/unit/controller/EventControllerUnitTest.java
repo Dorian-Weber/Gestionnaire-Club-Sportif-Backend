@@ -81,8 +81,7 @@ public class EventControllerUnitTest {
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Uptade
-
+    // Test de Update
     @Test
     public void updateEvenement_DoitRetournerCode200() {
         EventController eventController = new EventController(new MockEventDao());

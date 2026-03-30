@@ -20,12 +20,12 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/sport")
-@Tag(name = "Sport", description = "API de gestion des différents Sport")
+@Tag(name = "Sport", description = "API de gestion des différents Sports")
 public class SportController {
 
     private final SportDAO sportDAO;
 
-    @GetMapping("/liste")
+    @GetMapping("/list")
     @JsonView(SportView.class)
     @Operation(summary = "Récupère la liste de tous les sports",
             description = "Cette méthode permet de récupérer la liste de tous les sports présents dans la base de données.")

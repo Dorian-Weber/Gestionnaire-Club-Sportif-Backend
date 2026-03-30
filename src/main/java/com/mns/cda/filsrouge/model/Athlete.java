@@ -27,14 +27,14 @@ public class Athlete {
 
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    protected String nameAthlete;
+    protected String athleteName;
 
     @NotBlank
-    protected String firstNameAthlete;
+    protected String athleteFirstName;
 
     @NotNull
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate birthDateAthlete;
+    protected LocalDate athleteBirthName;
 }

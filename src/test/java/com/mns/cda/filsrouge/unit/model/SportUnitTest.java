@@ -19,14 +19,14 @@ public class SportUnitTest {
 
     // Test pour valider que le nom du sport ne peut pas être vide
     @Test
-    public void valideSportAvecNomSportBlank_DoitEtreNonValide(){
+    public void validSportAvecSportNameBlank_MustBeNotValidated(){
 
         Sport sport = new Sport();
-        sport.setNomSport("");
+        sport.setSportName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(sport),
-                "nomSport",
+                "sportName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
