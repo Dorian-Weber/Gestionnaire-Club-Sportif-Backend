@@ -15,7 +15,7 @@ public class DisciplieControllerUnitTest {
 
     //Test de GetAll
     @Test
-    public void getDisciplineAll_DoitRetournerUneList() {
+    public void getDisciplineListAll_MustReturnList() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
 
         List<Discipline> response = disciplineController.getDisciplineList();
@@ -28,7 +28,7 @@ public class DisciplieControllerUnitTest {
 
     // Test de GetByID
     @Test
-    public void getDisciplineByIdExist_DoitRetournerCode200() {
+    public void getDisciplineByIdExist_MustReturnCode200() {
 
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
         ResponseEntity<Discipline> response = disciplineController.getDisciplineById(1);
@@ -37,7 +37,7 @@ public class DisciplieControllerUnitTest {
     }
 
     @Test
-    public void getDisciplineByIdNotExist_DoitRetournerCode404() {
+    public void getDisciplineByIdNotExist_MustReturnCode404() {
 
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
         ResponseEntity<Discipline> response = disciplineController.getDisciplineById(2);
@@ -47,7 +47,7 @@ public class DisciplieControllerUnitTest {
 
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
-    public void createDiscipline_DoitRetournerCode201() {
+    public void createDiscipline_MustReturnCode201() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
         Discipline discipline = new Discipline(10,
                 "Test",
@@ -63,7 +63,7 @@ public class DisciplieControllerUnitTest {
 
     // Test de Delete
     @Test
-    public void deleteDisciplineExist_DoitRetournerCode204() {
+    public void deleteDisciplineExist_MustReturnCode204() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
 
         ResponseEntity<Discipline> response = disciplineController.delete(1);
@@ -71,7 +71,7 @@ public class DisciplieControllerUnitTest {
 
     }
     @Test
-    public void deleteDisciplineNotExist_DoitRetournerCode404() {
+    public void deleteDisciplineNotExist_MustReturnCode404() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
 
         ResponseEntity<Discipline> response = disciplineController.delete(2);
@@ -81,7 +81,7 @@ public class DisciplieControllerUnitTest {
     // Test de Uptade
 
     @Test
-    public void updateDiscipline_DoitRetournerCode200() {
+    public void updateDiscipline_MustReturnCode200() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
         Discipline discipline = new Discipline(10,
                 "Test",
@@ -97,7 +97,7 @@ public class DisciplieControllerUnitTest {
     }
 
     @Test
-    public void updateDisciplineNotExist_DoitRetournerCode404() {
+    public void updateDisciplineNotExist_MustReturnCode404() {
         DisciplineController disciplineController = new DisciplineController(new MockDisciplineDao());
         Discipline discipline = new Discipline(10,
                 "Test",

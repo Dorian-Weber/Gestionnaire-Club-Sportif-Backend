@@ -19,14 +19,14 @@ public class DisciplineUnitTest {
 
     // Test pour valider que le nom de la discipline ne peut pas être vide
     @Test
-    public void valideDisciplineAvecNomDisciplineBlank_DoitEtreNonValide(){
+    public void validDisciplineWithNameDisciplineBlank_MustBeNotValidated(){
 
         Discipline discipline = new Discipline();
-        discipline.setNomDiscipline("");
+        discipline.setNameDiscipline("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(discipline),
-                "nomDiscipline",
+                "nameDiscipline",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

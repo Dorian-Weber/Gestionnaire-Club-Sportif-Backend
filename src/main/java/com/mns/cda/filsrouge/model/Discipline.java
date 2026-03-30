@@ -27,13 +27,13 @@ public class Discipline {
     @Column(unique = true, nullable = false)
     @JsonView({DisciplineView.class,
             SportView.class})
-    protected String nomDiscipline;
+    protected String nameDiscipline;
 
     @JsonView(DisciplineView.class)
-    protected String recordEvenement;
+    protected String eventRecord;
 
     @JsonView(DisciplineView.class)
-    protected String recordMonde;
+    protected String worldRecord;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")

@@ -26,7 +26,7 @@ public class AthleteUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "nomSportif",
+                "nameAthlete",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -40,7 +40,7 @@ public class AthleteUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "prenomSportif",
+                "firstNameAthlete",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -54,7 +54,7 @@ public class AthleteUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
-                "dateNaissanceSportif",
+                "birthDateAthlete",
                 "NotNull");
         Assertions.assertTrue(constraintExist);
     }

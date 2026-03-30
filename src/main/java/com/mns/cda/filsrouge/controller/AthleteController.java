@@ -23,7 +23,7 @@ public class AthleteController {
 
     protected final AthleteDAO athleteDAO;
 
-    @GetMapping("/liste")
+    @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents Athlètes",
             description = "Cette méthode permet de récupérer la liste de tous les Athlètes présents dans la base de données.")
     @ApiResponses(value = {

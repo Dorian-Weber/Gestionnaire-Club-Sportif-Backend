@@ -19,13 +19,13 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/discipline")
-@Tag(name = "Discipline", description = "API de gestion des différentes discipline")
+@Tag(name = "Discipline", description = "API de gestion des différentes disciplines")
 public class DisciplineController {
 
     private final DisciplineDAO disciplineDAO;
 
 
-    @GetMapping("/liste")
+    @GetMapping("/list")
     @JsonView(DisciplineView.class)
     @Operation(summary = "Récupère la liste de toutes les disciplines",
             description = "Cette méthode permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
