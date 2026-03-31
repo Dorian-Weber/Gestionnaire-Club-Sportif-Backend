@@ -22,7 +22,7 @@ public class DisciplineUnitTest {
     public void validDisciplineWithNameDisciplineBlank_MustBeNotValidated(){
 
         Discipline discipline = new Discipline();
-        discipline.setNameDiscipline("");
+        discipline.setDisciplineName("");
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(discipline),

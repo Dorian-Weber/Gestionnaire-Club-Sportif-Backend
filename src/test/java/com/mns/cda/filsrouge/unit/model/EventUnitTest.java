@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 public class EventUnitTest {
 
     public static Validator validator ;
@@ -59,4 +61,28 @@ public class EventUnitTest {
         Assertions.assertTrue(constraintExist);
     }
 
+    // Test pour valider que la date est bien dans le futur ou au présent retourne erreur.
+    @Test
+    public void validEventWithEventDateNotInPast_MustBeNotValidated(){
+        Event event = new Event();
+        event.setEventDate(LocalDateTime.now().minusDays(1));
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDate",
+                "FutureOrPresent");
+        Assertions.assertTrue(constraintExist);
+    }
+    // Test pour valider que la date est bien dans le futur ou au présent ne retourne pas erreur.
+    @Test
+    public void validEventWithEventDateInFuture_MustBeValidated(){
+        Event event = new Event();
+        event.setEventDate(LocalDateTime.now().plusDays(1));
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDate",
+                "FutureOrPresent");
+        Assertions.assertFalse(constraintExist);
+    }
 }

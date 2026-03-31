@@ -50,7 +50,7 @@ public class AthleteUnitTest {
     public void validAthleteWithBirthDateAthleteBlank_MustBeNotValidated(){
 
         Athlete athlete = new Athlete();
-        athlete.setAthleteBirthName(null);
+        athlete.setAthleteBirthDate(null);
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(athlete),
