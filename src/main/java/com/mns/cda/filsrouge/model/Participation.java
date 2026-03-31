@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 public class Participation {
-
+// Table associative entre Athlete et Event, avec une clé composite (athlete_id, event_id)
     @Embeddable
     @AllArgsConstructor
     @NoArgsConstructor

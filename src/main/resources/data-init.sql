@@ -34,4 +34,11 @@ INSERT INTO athlete (athlete_name, athlete_first_name, athlete_birth_date) VALUE
           ('Rossi', 'Luca', '1992-07-30'),
           ('Smith', 'Emily', '1993-12-05');
 
+INSERT INTO team (team_name) VALUES
+          ('Les Lions'),
+          ('Les Aigles'),
+          ('Les Tigres'),
+          ('Les Dauphins'),
+          ('Les Cheetahs');
+
 
