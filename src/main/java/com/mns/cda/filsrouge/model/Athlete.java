@@ -36,5 +36,5 @@ public class Athlete {
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate athleteBirthName;
+    protected LocalDate athleteBirthDate;
 }

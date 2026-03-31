@@ -27,7 +27,7 @@ public class Discipline {
     @Column(unique = true, nullable = false)
     @JsonView({DisciplineView.class,
             SportView.class})
-    protected String nameDiscipline;
+    protected String DisciplineName;
 
     @JsonView(DisciplineView.class)
     protected String eventRecord;
