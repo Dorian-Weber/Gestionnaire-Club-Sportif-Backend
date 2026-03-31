@@ -44,8 +44,8 @@ public class Event {
 
     @NotNull
     @FutureOrPresent
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonView({EventView.class,
             EventTypeView.class,
             SportView.class,
