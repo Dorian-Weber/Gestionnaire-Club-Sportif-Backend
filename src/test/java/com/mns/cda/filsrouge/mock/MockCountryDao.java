@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.CountryDAO;
+import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Country;
@@ -109,7 +110,8 @@ public class MockCountryDao implements CountryDAO {
     public Optional<Country> findById(Integer idCountry) {
         if(idCountry == 1) {
             return Optional.of(new Country(1,
-                    "France"));
+                    "France",
+                    List.of(new Athlete())));
         }
         return Optional.empty();
     }
@@ -123,7 +125,8 @@ public class MockCountryDao implements CountryDAO {
     public List<Country> findAll() {
 
         return List.of(new Country(1,
-                "France"));
+                "France",
+                List.of(new Athlete())));
     }
 
     @Override

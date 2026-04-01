@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.CountryController;
 import com.mns.cda.filsrouge.mock.MockCountryDao;
+import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Country;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,8 @@ public class CountryControllerUnitTest {
     public void createCountry_DoitRetournerCode201() {
         CountryController countryController = new CountryController(new MockCountryDao());
         Country country = new Country(1,
-                "France");
+                "France",
+                List.of(new Athlete()));
 
         ResponseEntity<Country> response = countryController.create(country);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -80,7 +82,8 @@ public class CountryControllerUnitTest {
     public void updateCountry_DoitRetournerCode200() {
         CountryController countryController = new CountryController(new MockCountryDao());
         Country country = new Country(1,
-                "France");
+                "France",
+                List.of(new Athlete()));
 
         ResponseEntity<Country> response = countryController.update(1, country);
 
@@ -93,7 +96,8 @@ public class CountryControllerUnitTest {
     public void updateCountryNotExist_DoitRetournerCode404() {
         CountryController countryController = new CountryController(new MockCountryDao());
         Country country = new Country(1,
-                "France");
+                "France",
+                List.of(new Athlete()));
 
         ResponseEntity<Country> reponse = countryController.update(2, country);
 

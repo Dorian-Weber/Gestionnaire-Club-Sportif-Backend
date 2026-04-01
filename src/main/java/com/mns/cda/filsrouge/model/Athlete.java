@@ -3,10 +3,7 @@ package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.AthleteView;
-import com.mns.cda.filsrouge.view.DisciplineView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.TeamView;
+import com.mns.cda.filsrouge.view.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,14 +34,16 @@ public class Athlete {
     @JsonView({AthleteView.class,
             EventView.class,
             TeamView.class,
-            DisciplineView.class})
+            DisciplineView.class,
+            CountryView.class})
     protected String athleteName;
 
     @NotBlank
     @JsonView({AthleteView.class,
             EventView.class,
             TeamView.class,
-            DisciplineView.class})
+            DisciplineView.class,
+            CountryView.class})
     protected String athleteFirstName;
 
     @NotNull
@@ -75,4 +74,7 @@ public class Athlete {
     @JsonView(AthleteView.class)
     protected List<Discipline> disciplines;
 
+    @ManyToOne
+    @JsonView({AthleteView.class})
+    protected Country country;
 }
