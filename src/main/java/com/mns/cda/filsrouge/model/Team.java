@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AthleteView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.TeamView;
 import jakarta.persistence.*;
@@ -25,7 +26,7 @@ public class Team {
     protected Integer idTeam;
 
     @NotBlank
-    @JsonView({TeamView.class, EventView.class})
+    @JsonView({TeamView.class, EventView.class, AthleteView.class})
     protected String teamName;
 
     @ManyToMany

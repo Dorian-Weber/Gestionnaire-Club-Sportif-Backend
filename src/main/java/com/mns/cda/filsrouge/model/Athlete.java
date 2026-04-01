@@ -4,6 +4,7 @@ package com.mns.cda.filsrouge.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AthleteView;
+import com.mns.cda.filsrouge.view.DisciplineView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.TeamView;
 import jakarta.persistence.*;
@@ -33,11 +34,17 @@ public class Athlete {
 
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    @JsonView({AthleteView.class, Event.class})
+    @JsonView({AthleteView.class,
+            Event.class,
+            TeamView.class,
+            DisciplineView.class})
     protected String athleteName;
 
     @NotBlank
-    @JsonView({AthleteView.class, Event.class})
+    @JsonView({AthleteView.class,
+            Event.class,
+            TeamView.class,
+            DisciplineView.class})
     protected String athleteFirstName;
 
     @NotNull
@@ -60,4 +67,12 @@ public class Athlete {
             inverseJoinColumns = @JoinColumn(name = "team_id"))
     @JsonView(AthleteView.class)
     protected List<Team> teams;
+
+    @ManyToMany
+    @JoinTable(name = "athlete_disciplines",
+            joinColumns = @JoinColumn(name = "athlete_id"),
+            inverseJoinColumns = @JoinColumn(name = "discipline_id"))
+    @JsonView(AthleteView.class)
+    protected List<Discipline> disciplines;
+
 }
