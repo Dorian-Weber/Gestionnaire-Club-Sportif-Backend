@@ -1,11 +1,15 @@
 package com.mns.cda.filsrouge.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,4 +25,9 @@ public class Team {
     @NotBlank
     protected String teamName;
 
+    @ManyToMany
+    @JoinTable(name = "event_teams",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    protected List<Event> events;
 }

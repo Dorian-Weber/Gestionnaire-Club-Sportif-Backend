@@ -48,3 +48,9 @@ INSERT INTO team (team_name) VALUES
           ('Les Dauphins'),
           ('Les Cheetahs');
 
+INSERT INTO event_teams (event_id, team_id) VALUES
+          (1, 1),
+          (1, 2),
+          (2, 3),
+          (3, 4),
+          (4, 5);
