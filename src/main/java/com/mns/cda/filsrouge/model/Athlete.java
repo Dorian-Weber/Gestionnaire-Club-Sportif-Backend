@@ -75,6 +75,7 @@ public class Athlete {
     protected List<Discipline> disciplines;
 
     @ManyToOne
+    @JoinColumn(name = "country_id")
     @JsonView({AthleteView.class})
     protected Country country;
 }

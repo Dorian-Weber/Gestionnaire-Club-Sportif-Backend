@@ -28,7 +28,7 @@ public class Country {
     @JsonView({CountryView.class, AthleteView.class})
     protected String countryName;
 
-    @OneToMany
-    @JsonView({CountryView.class})
-    protected List<Athlete> athletes;
+    @OneToMany(mappedBy = "country")
+    @JsonView(CountryView.class)
+    List<Athlete> athletes;
 }
