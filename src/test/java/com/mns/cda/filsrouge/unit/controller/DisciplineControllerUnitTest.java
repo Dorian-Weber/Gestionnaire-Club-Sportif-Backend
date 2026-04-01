@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.DisciplineController;
 import com.mns.cda.filsrouge.mock.MockDisciplineDao;
+import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class DisciplieControllerUnitTest {
+public class DisciplineControllerUnitTest {
 
     //Test de GetAll
     @Test
@@ -53,7 +54,8 @@ public class DisciplieControllerUnitTest {
                 "Test",
                 "Test",
                 "Test",
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Discipline> response = disciplineController.create(discipline);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -87,7 +89,8 @@ public class DisciplieControllerUnitTest {
                 "Test",
                 "Test",
                 "Test",
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Discipline> response = disciplineController.update(1, discipline);
 
@@ -103,7 +106,8 @@ public class DisciplieControllerUnitTest {
                 "Test",
                 "Test",
                 "Test",
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Discipline> reponse = disciplineController.update(2, discipline);
 

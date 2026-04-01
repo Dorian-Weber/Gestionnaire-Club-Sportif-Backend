@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.AthleteController;
 import com.mns.cda.filsrouge.mock.MockAthleteDao;
 import com.mns.cda.filsrouge.model.Athlete;
+import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
 import org.junit.jupiter.api.Assertions;
@@ -51,12 +52,12 @@ public class AthleteControllerUnitTest {
     @Test
     public void createAthlete_MustReturnCode201() {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
-        Athlete athlete = new Athlete(10,
-                "Test",
-                "Test",
+        Athlete athlete = new Athlete(1,
+                "Dupont","Jean",
                 LocalDate.now().minusDays(1),
                 List.of(new Event()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Discipline()));
 
         ResponseEntity<Athlete> response = athleteController.create(athlete);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -86,12 +87,12 @@ public class AthleteControllerUnitTest {
     @Test
     public void updateAthlete_MustReturnCode200() {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
-        Athlete athlete = new Athlete(10,
-                "Test",
-                "Test",
+        Athlete athlete = new Athlete(1,
+                "Dupont","Jean",
                 LocalDate.now().minusDays(1),
                 List.of(new Event()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Discipline()));
 
         ResponseEntity<Athlete> response = athleteController.update(1, athlete);
 
@@ -103,11 +104,12 @@ public class AthleteControllerUnitTest {
     @Test
     public void updateAthleteNotExist_MustReturnCode404() {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
-        Athlete athlete =new Athlete(10,
-                "Test","Test",
+        Athlete athlete =new Athlete(1,
+                "Dupont","Jean",
                 LocalDate.now().minusDays(1),
                 List.of(new Event()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Discipline()));
 
         ResponseEntity<Athlete> reponse = athleteController.update(2, athlete);
 
