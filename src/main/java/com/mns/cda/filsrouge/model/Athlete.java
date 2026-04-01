@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AthleteView;
 import com.mns.cda.filsrouge.view.EventView;
+import com.mns.cda.filsrouge.view.TeamView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,4 +53,11 @@ public class Athlete {
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     @JsonView(AthleteView.class)
     protected List<Event> events;
+
+    @ManyToMany
+    @JoinTable(name = "team_athletes",
+            joinColumns = @JoinColumn(name ="athlete_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    @JsonView(AthleteView.class)
+    protected List<Team> teams;
 }

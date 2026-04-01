@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.TeamDAO;
+import com.mns.cda.filsrouge.model.Athlete;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
 import com.mns.cda.filsrouge.model.Sport;
 import org.springframework.data.domain.Example;
@@ -107,7 +109,10 @@ public class MockTeamDao implements TeamDAO {
     @Override
     public Optional<Team> findById(Integer idTeam) {
         if(idTeam == 1) {
-            return Optional.of(new Team(1, "Test"));
+            return Optional.of(new Team(1,
+                    "Test",
+                    List.of(new Event()),
+                    List.of(new Athlete())));
         }
         return Optional.empty();
     }
@@ -120,7 +125,10 @@ public class MockTeamDao implements TeamDAO {
     @Override
     public List<Team> findAll() {
 
-        return List.of(new Team(1, "Test"));
+        return List.of(new Team(1,
+                "Test",
+                List.of(new Event()),
+                List.of(new Athlete())));
     }
 
     @Override

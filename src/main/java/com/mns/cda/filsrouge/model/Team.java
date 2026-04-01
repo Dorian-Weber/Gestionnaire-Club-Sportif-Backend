@@ -34,4 +34,11 @@ public class Team {
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     @JsonView(TeamView.class)
     protected List<Event> events;
+
+    @ManyToMany
+    @JoinTable(name = "team_athletes",
+            joinColumns = @JoinColumn(name ="team_id"),
+            inverseJoinColumns = @JoinColumn(name = "athlete_id"))
+    @JsonView(TeamView.class)
+    protected List<Athlete> athletes;
 }

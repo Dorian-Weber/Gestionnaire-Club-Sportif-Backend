@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.TeamController;
 import com.mns.cda.filsrouge.mock.MockTeamDao;
+import com.mns.cda.filsrouge.model.Athlete;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
 import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
@@ -49,7 +51,10 @@ public class TeamControllerUnitTest {
     @Test
     public void createTeam_MustReturnCode201() {
         TeamController teamController = new TeamController(new MockTeamDao());
-        Team team = new Team(10, "Test");
+        Team team = new Team(1,
+                "Test",
+                List.of(new Event()),
+                List.of(new Athlete()));
 
         ResponseEntity<Team> response = teamController.create(team);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -79,7 +84,10 @@ public class TeamControllerUnitTest {
     @Test
     public void updateTeam_MustReturnCode200() {
         TeamController teamController = new TeamController(new MockTeamDao());
-        Team team = new Team(10, "Test");
+        Team team = new Team(1,
+                "Test",
+                List.of(new Event()),
+                List.of(new Athlete()));
 
         ResponseEntity<Team> response = teamController.update(1, team);
 
@@ -91,7 +99,10 @@ public class TeamControllerUnitTest {
     @Test
     public void updateTeamNotExist_MustReturnCode404() {
         TeamController teamController = new TeamController(new MockTeamDao());
-        Team team = new Team(10, "Test");
+        Team team = new Team(1,
+                "Test",
+                List.of(new Event()),
+                List.of(new Athlete()));
 
         ResponseEntity<Team> reponse = teamController.update(2, team);
 

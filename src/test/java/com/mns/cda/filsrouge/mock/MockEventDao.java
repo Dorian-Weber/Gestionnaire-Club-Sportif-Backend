@@ -1,10 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.EventDAO;
-import com.mns.cda.filsrouge.model.Athlete;
-import com.mns.cda.filsrouge.model.Event;
-import com.mns.cda.filsrouge.model.Sport;
-import com.mns.cda.filsrouge.model.EventType;
+import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -116,7 +113,8 @@ public class MockEventDao implements EventDAO {
                     LocalDateTime.of(2026, 04, 15, 18, 00),
                     new EventType(),
                     new Sport(),
-                    List.of(new Athlete())
+                    List.of(new Athlete()),
+                    List.of(new Team())
             ));
         }
         return Optional.empty();
@@ -136,7 +134,8 @@ public class MockEventDao implements EventDAO {
                 LocalDateTime.of(2026,04,15,18,00),
                 new EventType(),
                 new Sport(),
-                List.of(new Athlete())
+                List.of(new Athlete()),
+                List.of(new Team())
         ));
     }
 

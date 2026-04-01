@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.mock;
 import com.mns.cda.filsrouge.dao.AthleteDAO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.model.Team;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -112,7 +113,8 @@ public class MockAthleteDao implements AthleteDAO {
                     "Dupont",
                     "Jean",
                     LocalDate.now().minusDays(1),
-                    List.of(new Event())));
+                    List.of(new Event()),
+                    List.of(new Team())));
         }
         return Optional.empty();
     }
@@ -128,7 +130,8 @@ public class MockAthleteDao implements AthleteDAO {
         return List.of(new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
-                List.of(new Event())));
+                List.of(new Event()),
+                List.of(new Team())));
     }
 
     @Override

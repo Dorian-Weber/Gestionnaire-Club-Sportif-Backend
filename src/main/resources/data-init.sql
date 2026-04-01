@@ -54,3 +54,10 @@ INSERT INTO event_teams (event_id, team_id) VALUES
           (2, 3),
           (3, 4),
           (4, 5);
+
+INSERT INTO team_athletes (team_id, athlete_id) VALUES
+          (1, 1),
+          (1, 2),
+          (2, 3),
+          (3, 4),
+          (4, 5);

@@ -4,6 +4,7 @@ import com.mns.cda.filsrouge.controller.AthleteController;
 import com.mns.cda.filsrouge.mock.MockAthleteDao;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.model.Team;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,8 @@ public class AthleteControllerUnitTest {
                 "Test",
                 "Test",
                 LocalDate.now().minusDays(1),
-                List.of(new Event()));
+                List.of(new Event()),
+                List.of(new Team()));
 
         ResponseEntity<Athlete> response = athleteController.create(athlete);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -88,7 +90,8 @@ public class AthleteControllerUnitTest {
                 "Test",
                 "Test",
                 LocalDate.now().minusDays(1),
-                List.of(new Event()));
+                List.of(new Event()),
+                List.of(new Team()));
 
         ResponseEntity<Athlete> response = athleteController.update(1, athlete);
 
@@ -103,7 +106,8 @@ public class AthleteControllerUnitTest {
         Athlete athlete =new Athlete(10,
                 "Test","Test",
                 LocalDate.now().minusDays(1),
-                List.of(new Event()));
+                List.of(new Event()),
+                List.of(new Team()));
 
         ResponseEntity<Athlete> reponse = athleteController.update(2, athlete);
 
