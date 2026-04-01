@@ -82,3 +82,10 @@ INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
           (3, 4),
           (4, 5),
           (5, 6);
+
+INSERT INTO country (country_name) VALUES
+          ('France'),
+          ('Allemagne'),
+          ('Espagne'),
+          ('Italie'),
+          ('États-Unis');
