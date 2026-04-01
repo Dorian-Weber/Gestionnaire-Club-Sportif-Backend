@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/event")
-@Tag(name = "Event", description = "API de gestion des différents évènements")
+@Tag(name = "Événement", description = "API de gestion des différents évènements")
 public class EventController {
 
 

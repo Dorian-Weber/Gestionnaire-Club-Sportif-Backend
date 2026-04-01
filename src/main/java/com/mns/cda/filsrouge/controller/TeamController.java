@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/team")
-@Tag(name = "Team", description = "API de gestion des différentes équipes")
+@Tag(name = "Équipe", description = "API de gestion des différentes équipes")
 public class TeamController {
 
     private final TeamDAO teamDAO;
