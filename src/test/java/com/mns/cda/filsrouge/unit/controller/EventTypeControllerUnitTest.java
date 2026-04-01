@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class TypeEventControllerUnitTest {
+public class EventTypeControllerUnitTest {
 
     //Test de GetAll
     @Test
