@@ -68,17 +68,18 @@ public class Event {
     protected Sport sport;
 
     @ManyToMany
+    @JoinTable(name = "event_teams",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    @JsonView({EventView.class})
+    protected List<Team> teams;
+
+    @ManyToMany
     @JoinTable(name = "event_athletes",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "athlete_id"))
     @JsonView({EventView.class})
     protected List<Athlete> athletes;
 
-    @ManyToMany
-    @JoinTable(name = "event_teams",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id"))
-    @JsonView({EventView.class})
-    protected List<Team> teams;
 
 }

@@ -35,14 +35,14 @@ public class Athlete {
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
     @JsonView({AthleteView.class,
-            Event.class,
+            EventView.class,
             TeamView.class,
             DisciplineView.class})
     protected String athleteName;
 
     @NotBlank
     @JsonView({AthleteView.class,
-            Event.class,
+            EventView.class,
             TeamView.class,
             DisciplineView.class})
     protected String athleteFirstName;

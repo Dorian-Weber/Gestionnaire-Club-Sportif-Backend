@@ -32,14 +32,22 @@ INSERT INTO athlete (athlete_name, athlete_first_name, athlete_birth_date) VALUE
           ('Müller', 'Anna', '1988-11-22'),
           ('Garcia', 'Carlos', '1995-03-10'),
           ('Rossi', 'Luca', '1992-07-30'),
-          ('Smith', 'Emily', '1993-12-05');
+          ('Smith', 'Emily', '1993-12-05'),
+          ('Johnson', 'Michael', '1985-09-18'),
+          ('Brown', 'Sarah', '1991-02-25'),
+          ('Davis', 'David', '1987-06-12'),
+          ('Wilson', 'Laura', '1994-10-03'),
+          ('Martinez', 'Sofia', '1996-01-20');
 
 INSERT INTO event_athletes (event_id, athlete_id) VALUES
-          (1, 1),
-          (1, 2),
-          (2, 3),
+          (4, 2),
+          (4, 3),
           (3, 4),
-          (4, 5);
+          (5, 5),
+          (3, 6),
+          (4, 7),
+          (5, 8),
+          (3, 9);
 
 INSERT INTO team (team_name) VALUES
           ('Les Lions'),
@@ -52,15 +60,20 @@ INSERT INTO event_teams (event_id, team_id) VALUES
           (1, 1),
           (1, 2),
           (2, 3),
-          (3, 4),
-          (4, 5);
+          (2, 4),
+          (2, 5);
 
 INSERT INTO team_athletes (team_id, athlete_id) VALUES
           (1, 1),
           (1, 2),
           (2, 3),
           (3, 4),
-          (4, 5);
+          (4, 5),
+          (5, 6),
+          (1, 7),
+          (2, 8),
+          (3, 9),
+          (4, 10);
 
 INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
           (1, 1),

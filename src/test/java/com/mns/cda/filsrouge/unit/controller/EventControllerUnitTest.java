@@ -49,14 +49,14 @@ public class EventControllerUnitTest {
     @Test
     public void createEvenement_DoitRetournerCode201() {
         EventController eventController = new EventController(new MockEventDao());
-        Event event =new Event(10,
+        Event event = new Event(10,
                 "Test",
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
                 new Sport(),
-                List.of(new Athlete()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> response = eventController.create(event);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -91,8 +91,8 @@ public class EventControllerUnitTest {
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
                 new Sport(),
-                List.of(new Athlete()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> response = eventController.update(1, event);
 
@@ -110,8 +110,8 @@ public class EventControllerUnitTest {
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
                 new Sport(),
-                List.of(new Athlete()),
-                List.of(new Team()));
+                List.of(new Team()),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> reponse = eventController.update(2, event);
 

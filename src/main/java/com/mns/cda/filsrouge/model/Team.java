@@ -40,6 +40,6 @@ public class Team {
     @JoinTable(name = "team_athletes",
             joinColumns = @JoinColumn(name ="team_id"),
             inverseJoinColumns = @JoinColumn(name = "athlete_id"))
-    @JsonView(TeamView.class)
+    @JsonView({TeamView.class, EventView.class})
     protected List<Athlete> athletes;
 }
