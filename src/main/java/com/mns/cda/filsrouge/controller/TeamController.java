@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.TeamDAO;
 import com.mns.cda.filsrouge.model.Team;
+import com.mns.cda.filsrouge.view.TeamView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,6 +26,7 @@ public class TeamController {
 
 
     @GetMapping("/list")
+    @JsonView(TeamView.class)
     @Operation(summary = "Récupère la liste de toutes les équipes",
             description = "Cette méthode permet de récupérer la liste de toutes les équipes présentes dans la base de données.")
     @ApiResponses(value = {
@@ -34,6 +37,7 @@ public class TeamController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(TeamView.class)
     @Operation(summary = "Récupérer une équipe par son ID",
             description = "Cette méthode permet de récupérer les informations d'une équipe spécifique en utilisant son ID.")
     @ApiResponses(value = {

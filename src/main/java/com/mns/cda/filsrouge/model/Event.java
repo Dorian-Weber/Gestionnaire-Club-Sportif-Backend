@@ -3,10 +3,7 @@ package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.DisciplineView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.SportView;
-import com.mns.cda.filsrouge.view.EventTypeView;
+import com.mns.cda.filsrouge.view.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +32,8 @@ public class Event {
             EventTypeView.class,
             SportView.class,
             DisciplineView.class,
-            Athlete.class})
+            Athlete.class,
+            TeamView.class})
     protected String eventName;
 
     @NotBlank
@@ -52,7 +50,8 @@ public class Event {
             EventTypeView.class,
             SportView.class,
             DisciplineView.class,
-            Athlete.class})
+            Athlete.class,
+            TeamView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne
