@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.EventController;
 import com.mns.cda.filsrouge.mock.MockEventDao;
+import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.model.EventType;
@@ -56,7 +57,8 @@ public class EventControllerUnitTest {
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> response = eventController.create(event);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -90,7 +92,8 @@ public class EventControllerUnitTest {
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> response = eventController.update(1, event);
 
@@ -107,7 +110,8 @@ public class EventControllerUnitTest {
                 "Test",
                 LocalDateTime.of(2026,04,26,20,00),
                 new EventType(),
-                new Sport());
+                new Sport(),
+                List.of(new Athlete()));
 
         ResponseEntity<Event> reponse = eventController.update(2, event);
 

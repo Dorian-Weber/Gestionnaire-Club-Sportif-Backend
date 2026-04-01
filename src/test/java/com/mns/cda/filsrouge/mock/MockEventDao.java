@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.EventDAO;
+import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.model.EventType;
@@ -112,9 +113,11 @@ public class MockEventDao implements EventDAO {
             return Optional.of(new Event(1,
                     "Match de Football",
                     "Rencontre amicale entre deux équipes locales",
-                    LocalDateTime.of(2026,04,15,18,00),
+                    LocalDateTime.of(2026, 04, 15, 18, 00),
                     new EventType(),
-                    new Sport()));
+                    new Sport(),
+                    List.of(new Athlete())
+            ));
         }
         return Optional.empty();
     }
@@ -132,7 +135,9 @@ public class MockEventDao implements EventDAO {
                 "Rencontre amicale entre deux équipes locales",
                 LocalDateTime.of(2026,04,15,18,00),
                 new EventType(),
-                new Sport()));
+                new Sport(),
+                List.of(new Athlete())
+        ));
     }
 
     @Override

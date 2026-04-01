@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.AthleteController;
 import com.mns.cda.filsrouge.mock.MockAthleteDao;
 import com.mns.cda.filsrouge.model.Athlete;
+import com.mns.cda.filsrouge.model.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,10 @@ public class AthleteControllerUnitTest {
     public void createAthlete_MustReturnCode201() {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
         Athlete athlete = new Athlete(10,
-                "Test","Test", LocalDate.now());
+                "Test",
+                "Test",
+                LocalDate.now().minusDays(1),
+                List.of(new Event()));
 
         ResponseEntity<Athlete> response = athleteController.create(athlete);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -81,8 +85,10 @@ public class AthleteControllerUnitTest {
     public void updateAthlete_MustReturnCode200() {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
         Athlete athlete = new Athlete(10,
-                "Test","Test",
-                LocalDate.now());
+                "Test",
+                "Test",
+                LocalDate.now().minusDays(1),
+                List.of(new Event()));
 
         ResponseEntity<Athlete> response = athleteController.update(1, athlete);
 
@@ -96,7 +102,8 @@ public class AthleteControllerUnitTest {
         AthleteController athleteController = new AthleteController(new MockAthleteDao());
         Athlete athlete =new Athlete(10,
                 "Test","Test",
-                LocalDate.now());
+                LocalDate.now().minusDays(1),
+                List.of(new Event()));
 
         ResponseEntity<Athlete> reponse = athleteController.update(2, athlete);
 

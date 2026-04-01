@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -33,7 +34,8 @@ public class Event {
     @JsonView({EventView.class,
             EventTypeView.class,
             SportView.class,
-            DisciplineView.class})
+            DisciplineView.class,
+            Athlete.class})
     protected String eventName;
 
     @NotBlank
@@ -49,7 +51,8 @@ public class Event {
     @JsonView({EventView.class,
             EventTypeView.class,
             SportView.class,
-            DisciplineView.class})
+            DisciplineView.class,
+            Athlete.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne
@@ -64,4 +67,12 @@ public class Event {
     @JsonView({EventView.class,
             EventTypeView.class})
     protected Sport sport;
+
+    @ManyToMany
+    @JoinTable(name = "event_athletes",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "athlete_id"))
+    @JsonView({EventView.class})
+    protected List<Athlete> athletes;
+
 }
