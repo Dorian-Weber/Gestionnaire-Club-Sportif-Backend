@@ -61,3 +61,11 @@ INSERT INTO team_athletes (team_id, athlete_id) VALUES
           (2, 3),
           (3, 4),
           (4, 5);
+
+INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
+          (1, 1),
+          (1, 2),
+          (2, 3),
+          (3, 4),
+          (4, 5),
+          (5, 6);
