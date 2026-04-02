@@ -17,7 +17,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/account-type")
-@Tag(name = "Type de compte", description = "API de gestion des différents types d'de compte")
+@Tag(name = "Type de compte", description = "API de gestion des différents types de compte")
 public class AccountTypeController {
 
 

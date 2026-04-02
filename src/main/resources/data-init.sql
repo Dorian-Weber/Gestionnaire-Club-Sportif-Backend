@@ -90,3 +90,9 @@ INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
           (4, 5),
           (5, 6);
 
+INSERT INTO account_type (account_type_name) VALUES
+          ('Admin'),
+          ('User public'),
+          ('Super Admin'),
+          ('User private'),
+          ('user closed');
