@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Setter
 @Getter
@@ -22,21 +21,21 @@ public class Relation {
     @NoArgsConstructor
     public static class Key implements Serializable {
         @Column(name = "first_user_id")
-        Integer FirstUserId;
+        Integer firstUserId;
         @Column(name = "second_user_id")
-        Integer SecondUserId;
+        Integer secondUserId;
     }
 
     @EmbeddedId
     private Key key;
 
     @ManyToOne
-    @MapsId("FirstUserId")
+    @MapsId("firstUserId")
     @JoinColumn(name = "first_user_id")
     protected AppUser firstUser;
 
     @ManyToOne
-    @MapsId("SecondUserId")
+    @MapsId("secondUserId")
     @JoinColumn(name = "second_user_id")
     protected AppUser secondUser;
 

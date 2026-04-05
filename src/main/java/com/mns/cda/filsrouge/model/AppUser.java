@@ -74,5 +74,11 @@ public class AppUser {
     @JoinColumn(nullable = false, name = "account_type_id")
     protected AccountType AccountType;
 
+    @OneToMany(mappedBy = "firstUser")
+    protected List<Relation> relationsUser;
+
+    @OneToMany(mappedBy = "secondUser")
+    protected List<Relation> relationsSecondUser;
+
 
 }
