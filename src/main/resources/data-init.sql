@@ -105,5 +105,10 @@ INSERT INTO app_user (app_user_name,app_user_first_name, app_user_pseudo, app_us
             ('Smith', 'Emily', 'esmith', 'nceiz@aa.com', 'password', '0615161718', now(), now(), 5),
             ('Johnson', 'Michael', 'mjohnson', 'cziu@aa.com', 'password', '0619202122', now(), now(), 2);
 
-
+INSERT INTO relation (first_user_id, second_user_id, status_relation) VALUES
+            (1, 2, 'accepted'),
+            (1, 3, 'pending'),
+            (2, 4, 'accepted'),
+            (3, 5, 'rejected'),
+            (4, 6, 'accepted');
 
