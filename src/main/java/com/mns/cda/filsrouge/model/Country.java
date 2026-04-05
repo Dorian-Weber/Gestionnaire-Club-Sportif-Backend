@@ -30,5 +30,5 @@ public class Country {
 
     @OneToMany(mappedBy = "country")
     @JsonView(CountryView.class)
-    List<Athlete> athletes;
+    protected List<Athlete> athletes;
 }

@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class AppUser {
 
+    public interface OnUpdate {};
+    public interface OnCreate {};
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idAppUser;
@@ -40,21 +43,23 @@ public class AppUser {
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _")
     protected String AppUserPseudo;
 
-    @NotBlank
-    @Email
-    @Size(min = 5, max = 100)
-    @Column(unique = true)
+    @NotBlank( message = "L'email ne peut pas être vide")
+    @Email( message = "L'email est incorrect")
+    @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères")
+    @Column(unique = true, nullable = false)
     protected String AppUserEmail;
 
-    @NotBlank
-    @Size(min = 8, max = 100)
+    @NotBlank(message = "Le mot de passe ne peut pas être vide")
+    @Size(min = 8, max = 50, message = "Le mot de passe doit contenir entre 8 et 50 caractères")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
              message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial")
+    @Column(nullable = false)
     protected String AppUserPassword;
 
-    @NotBlank
+    @NotBlank(message = "Le numéro de téléphone ne peut pas être vide")
     @Pattern(regexp = "^\\+?[0-9]{10,15}$",
             message = "Le numéro de téléphone doit être composé de 10 à 15 chiffres et peut commencer par +")
+    @Column(nullable = false)
     protected String AppUserPhone;
 
     @CreatedDate
@@ -63,6 +68,10 @@ public class AppUser {
 
     @LastModifiedDate
     protected LocalDateTime lastModifiedDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "account_type_id")
+    protected AccountType AccountType;
 
 
 }

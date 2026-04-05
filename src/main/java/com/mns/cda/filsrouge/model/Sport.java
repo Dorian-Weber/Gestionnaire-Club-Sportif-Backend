@@ -37,10 +37,10 @@ public class Sport {
 
     @OneToMany(mappedBy = "sport")
     @JsonView(SportView.class)
-    List<Discipline> disciplines;
+    protected List<Discipline> disciplines;
 
     @OneToMany(mappedBy = "sport")
     @JsonView({SportView.class,
             DisciplineView.class})
-    List<Event> events;
+    protected List<Event> events;
 }

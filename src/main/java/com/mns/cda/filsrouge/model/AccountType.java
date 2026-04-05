@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -22,5 +24,6 @@ public class AccountType {
 
     @NotBlank
     protected String AccountTypeName;
-    
+
+
 }
