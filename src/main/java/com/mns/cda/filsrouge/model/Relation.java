@@ -40,6 +40,6 @@ public class Relation {
     protected AppUser secondUser;
 
     @NotBlank
-    protected String statusRelation;
+    protected String relationStatus;
 
 }

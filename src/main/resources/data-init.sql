@@ -6,12 +6,12 @@ INSERT INTO sport (sport_name) VALUES
               ('Athlétisme');
 
 INSERT INTO discipline (discipline_name, event_record,world_record, sport_id) VALUES
-              ('Saut en hauteur', '2.45 m', '2.45 m',5),
-              ('Saut en longueur', '8.95 m', '8.95 m',5),
-              ('Lancer de poids', '23.37 m', '23.37 m',5),
-              ('Lancer de javelot', '98.48 m', '98.48 m', 5),
-              ('Nage libre', '20.91 s', '20.91 s',4),
-              ('Papillon', '49.45 s', '49.45 s',4);
+          ('Saut en hauteur', '2.45 m', '2.45 m',5),
+          ('Saut en longueur', '8.95 m', '8.95 m',5),
+          ('Lancer de poids', '23.37 m', '23.37 m',5),
+          ('Lancer de javelot', '98.48 m', '98.48 m', 5),
+          ('Nage libre', '20.91 s', '20.91 s',4),
+          ('Papillon', '49.45 s', '49.45 s',4);
 
 INSERT INTO event_type (event_type_name) VALUES
             ('Match'),
@@ -91,11 +91,11 @@ INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
           (5, 6);
 
 INSERT INTO account_type (account_type_name) VALUES
-                         ('Admin'),
-                         ('User public'),
-                         ('Super Admin'),
-                         ('User private'),
-                         ('user closed');
+         ('Admin'),
+         ('User public'),
+         ('Super Admin'),
+         ('User private'),
+         ('user closed');
 
 INSERT INTO app_user (app_user_name,app_user_first_name, app_user_pseudo, app_user_email, app_user_password,app_user_phone, created_date, last_modified_date, account_type_id) VALUES
             ('Dupont', 'Jean', 'jdupont', 'cbnezu@dnh.com', 'password', '0601020304', now(), now(), 1),
@@ -105,10 +105,17 @@ INSERT INTO app_user (app_user_name,app_user_first_name, app_user_pseudo, app_us
             ('Smith', 'Emily', 'esmith', 'nceiz@aa.com', 'password', '0615161718', now(), now(), 5),
             ('Johnson', 'Michael', 'mjohnson', 'cziu@aa.com', 'password', '0619202122', now(), now(), 2);
 
-INSERT INTO relation (first_user_id, second_user_id, status_relation) VALUES
+INSERT INTO relation (first_user_id, second_user_id, relation_status) VALUES
             (1, 2, 'accepted'),
             (1, 3, 'pending'),
             (2, 4, 'accepted'),
             (3, 5, 'rejected'),
             (4, 6, 'accepted');
 
+INSERT INTO vote (user_id, event_id, athlete_id, vote_value) VALUES
+            (1, 1, 1, 5),
+            (2, 2, 3, 4),
+            (3, 3, 4, 3),
+            (4, 4, 5, 5),
+            (5, 5, 6, 4),
+            (6, 3, 9, 2);
