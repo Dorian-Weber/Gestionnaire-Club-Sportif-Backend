@@ -119,3 +119,8 @@ INSERT INTO vote (user_id, event_id, athlete_id, vote_value) VALUES
             (4, 4, 5, 5),
             (5, 5, 6, 4),
             (6, 3, 9, 2);
+
+INSERT INTO status_presence (status_name) VALUES
+            ('Présent'),
+            ('Absent'),
+            ('En attente');
