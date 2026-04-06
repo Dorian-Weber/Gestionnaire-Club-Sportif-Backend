@@ -84,5 +84,8 @@ public class Event {
     @OneToMany(mappedBy = "event")
     protected List<Vote> votes;
 
+    @OneToMany(mappedBy = "event")
+    protected List<Reservation> reservations;
+
 
 }

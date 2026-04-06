@@ -57,7 +57,8 @@ public class EventControllerUnitTest {
                 new Sport(),
                 List.of(new Team()),
                 List.of(new Athlete()),
-                List.of(new Vote()));
+                List.of(new Vote()),
+                List.of(new Reservation()));
 
         ResponseEntity<Event> response = eventController.create(event);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -94,7 +95,8 @@ public class EventControllerUnitTest {
                 new Sport(),
                 List.of(new Team()),
                 List.of(new Athlete()),
-                List.of(new Vote()));
+                List.of(new Vote()),
+                List.of(new Reservation()));
 
         ResponseEntity<Event> response = eventController.update(1, event);
 
@@ -114,7 +116,8 @@ public class EventControllerUnitTest {
                 new Sport(),
                 List.of(new Team()),
                 List.of(new Athlete()),
-                List.of(new Vote()));
+                List.of(new Vote()),
+                List.of(new Reservation()));
 
         ResponseEntity<Event> reponse = eventController.update(2, event);
 

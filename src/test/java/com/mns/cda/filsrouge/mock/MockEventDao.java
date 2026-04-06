@@ -115,7 +115,8 @@ public class MockEventDao implements EventDAO {
                     new Sport(),
                     List.of(new Team()),
                     List.of(new Athlete()),
-                    List.of(new Vote())
+                    List.of(new Vote()),
+                    List.of(new Reservation())
             ));
         }
         return Optional.empty();
@@ -137,7 +138,8 @@ public class MockEventDao implements EventDAO {
                 new Sport(),
                 List.of(new Team()),
                 List.of(new Athlete()),
-                List.of(new Vote())
+                List.of(new Vote()),
+                List.of(new Reservation())
         ));
     }
 
