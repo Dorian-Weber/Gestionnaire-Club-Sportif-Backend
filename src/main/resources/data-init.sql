@@ -120,7 +120,15 @@ INSERT INTO vote (user_id, event_id, athlete_id, vote_value) VALUES
             (5, 5, 6, 4),
             (6, 3, 9, 2);
 
-INSERT INTO status_presence (status_name) VALUES
+INSERT INTO status_presence (status_presence_name) VALUES
             ('Présent'),
             ('Absent'),
             ('En attente');
+
+INSERT INTO reservation (status_presence_id, created_at, event_id, app_user_id) VALUES
+            (1, now(), 1, 1),
+            (2, now(), 2, 2),
+            (3, now(), 3, 3),
+            (1, now(), 4, 4),
+            (2, now(), 5, 5),
+            (3, now(), 3, 6);
