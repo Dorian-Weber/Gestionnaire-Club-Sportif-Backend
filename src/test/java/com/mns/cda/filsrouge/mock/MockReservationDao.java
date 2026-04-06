@@ -1,7 +1,10 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.ReservationDAO;
+import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Reservation;
+import com.mns.cda.filsrouge.model.StatusPresence;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -108,7 +111,10 @@ public class MockReservationDao implements ReservationDAO {
     public Optional<Reservation> findById(Integer idTypeEvenement) {
         if(idTypeEvenement == 1) {
             return Optional.of(new Reservation(1,
-                    LocalDateTime.now()));
+                    LocalDateTime.now(),
+                    new StatusPresence(),
+                    new Event(),
+                    new AppUser()));
         }
         return Optional.empty();
     }
@@ -122,7 +128,10 @@ public class MockReservationDao implements ReservationDAO {
     public List<Reservation> findAll() {
 
         return List.of(new Reservation(1,
-                LocalDateTime.now()));
+                LocalDateTime.now(),
+                new StatusPresence(),
+                new Event(),
+                new AppUser()));
     }
 
     @Override

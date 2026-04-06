@@ -2,7 +2,10 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.ReservationController;
 import com.mns.cda.filsrouge.mock.MockReservationDao;
+import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Reservation;
+import com.mns.cda.filsrouge.model.StatusPresence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -49,8 +52,11 @@ public class ReservationUnitTest {
     @Test
     public void createReservation_MustReturnCode201() {
         ReservationController reservationController = new ReservationController(new MockReservationDao());
-        Reservation reservation = new Reservation(10,
-                                LocalDateTime.now());
+        Reservation reservation = new Reservation(1,
+                LocalDateTime.now(),
+                new StatusPresence(),
+                new Event(),
+                new AppUser());
 
         ResponseEntity<Reservation> response = reservationController.create(reservation);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -80,8 +86,11 @@ public class ReservationUnitTest {
     @Test
     public void updateReservation_MustReturnCode200() {
         ReservationController reservationController = new ReservationController(new MockReservationDao());
-        Reservation reservation = new Reservation(10,
-                                    LocalDateTime.now());
+        Reservation reservation = new Reservation(1,
+                LocalDateTime.now(),
+                new StatusPresence(),
+                new Event(),
+                new AppUser());
 
         ResponseEntity<Reservation> response = reservationController.update(1, reservation);
 
@@ -93,8 +102,11 @@ public class ReservationUnitTest {
     @Test
     public void updateReservationNotExist_MustReturnCode404() {
         ReservationController reservationController = new ReservationController(new MockReservationDao());
-        Reservation reservation = new Reservation(10,
-                                    LocalDateTime.now());
+        Reservation reservation = new Reservation(1,
+                LocalDateTime.now(),
+                new StatusPresence(),
+                new Event(),
+                new AppUser());
 
         ResponseEntity<Reservation> reponse = reservationController.update(2, reservation);
 
