@@ -138,3 +138,17 @@ INSERT INTO platform (platform_name) VALUES
             ('Sud'),
             ('Est'),
             ('Ouest');
+
+INSERT INTO Level (level_name,platform_id) VALUES
+            ('HautNord',1),
+            ('MilieuNord',1),
+            ('BasNord',1),
+            ('HautSud',2),
+            ('MilieuSud',2),
+            ('BasSud',2),
+            ('HautEst',3),
+            ('MilieuEst',3),
+            ('BasEst',3),
+            ('HautOuest',4),
+            ('MilieuOuest',4),
+            ('BasOuest',4);
