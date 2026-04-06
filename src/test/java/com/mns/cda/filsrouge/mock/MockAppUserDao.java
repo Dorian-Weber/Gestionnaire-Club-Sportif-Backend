@@ -1,10 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.AppUserDAO;
-import com.mns.cda.filsrouge.model.AccountType;
-import com.mns.cda.filsrouge.model.AppUser;
-import com.mns.cda.filsrouge.model.Relation;
-import com.mns.cda.filsrouge.model.Vote;
+import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -122,7 +119,8 @@ public class MockAppUserDao implements AppUserDAO {
                     new AccountType(),
                     List.of(new Relation()),
                     List.of(new Relation()),
-                    List.of(new Vote())));
+                    List.of(new Vote()),
+                    List.of(new Reservation())));
         }
         return Optional.empty();
     }
@@ -147,7 +145,8 @@ public class MockAppUserDao implements AppUserDAO {
                 new AccountType(),
                 List.of(new Relation()),
                 List.of(new Relation()),
-                List.of(new Vote())));
+                List.of(new Vote()),
+                List.of(new Reservation())));
     }
 
     @Override

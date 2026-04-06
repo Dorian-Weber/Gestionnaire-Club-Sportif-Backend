@@ -84,4 +84,7 @@ public class AppUser {
 
     @OneToMany(mappedBy = "user")
     protected List<Vote> votes;
+
+    @OneToMany(mappedBy = "user")
+    protected List<Reservation> reservations;
 }
