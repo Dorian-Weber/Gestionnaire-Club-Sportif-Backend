@@ -132,3 +132,9 @@ INSERT INTO reservation (status_presence_id, created_at, event_id, app_user_id) 
             (1, now(), 4, 4),
             (2, now(), 5, 5),
             (3, now(), 3, 6);
+
+INSERT INTO platform (platform_name) VALUES
+            ('Nord'),
+            ('Sud'),
+            ('Est'),
+            ('Ouest');
