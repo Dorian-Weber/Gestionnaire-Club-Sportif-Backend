@@ -49,14 +49,15 @@ public class EventControllerUnitTest {
     @Test
     public void createEvenement_DoitRetournerCode201() {
         EventController eventController = new EventController(new MockEventDao());
-        Event event = new Event(10,
-                "Test",
-                "Test",
-                LocalDateTime.of(2026,04,26,20,00),
+        Event event = new Event(1,
+                "Match de Football",
+                "Rencontre amicale entre deux équipes locales",
+                LocalDateTime.of(2026, 04, 15, 18, 00),
                 new EventType(),
                 new Sport(),
                 List.of(new Team()),
-                List.of(new Athlete()));
+                List.of(new Athlete()),
+                List.of(new Vote()));
 
         ResponseEntity<Event> response = eventController.create(event);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -85,14 +86,15 @@ public class EventControllerUnitTest {
     @Test
     public void updateEvenement_DoitRetournerCode200() {
         EventController eventController = new EventController(new MockEventDao());
-        Event event = new Event(10,
-                "Test",
-                "Test",
-                LocalDateTime.of(2026,04,26,20,00),
+        Event event = new Event(1,
+                "Match de Football",
+                "Rencontre amicale entre deux équipes locales",
+                LocalDateTime.of(2026, 04, 15, 18, 00),
                 new EventType(),
                 new Sport(),
                 List.of(new Team()),
-                List.of(new Athlete()));
+                List.of(new Athlete()),
+                List.of(new Vote()));
 
         ResponseEntity<Event> response = eventController.update(1, event);
 
@@ -104,14 +106,15 @@ public class EventControllerUnitTest {
     @Test
     public void updateEvenementNotExist_DoitRetournerCode404() {
         EventController eventController = new EventController(new MockEventDao());
-        Event event = new Event(10,
-                "Test",
-                "Test",
-                LocalDateTime.of(2026,04,26,20,00),
+        Event event = new Event(1,
+                "Match de Football",
+                "Rencontre amicale entre deux équipes locales",
+                LocalDateTime.of(2026, 04, 15, 18, 00),
                 new EventType(),
                 new Sport(),
                 List.of(new Team()),
-                List.of(new Athlete()));
+                List.of(new Athlete()),
+                List.of(new Vote()));
 
         ResponseEntity<Event> reponse = eventController.update(2, event);
 

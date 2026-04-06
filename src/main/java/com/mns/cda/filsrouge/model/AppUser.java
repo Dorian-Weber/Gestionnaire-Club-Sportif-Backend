@@ -70,15 +70,18 @@ public class AppUser {
     @LastModifiedDate
     protected LocalDateTime lastModifiedDate;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "account_type_id")
     protected AccountType AccountType;
 
+
     @OneToMany(mappedBy = "firstUser")
     protected List<Relation> relationsUser;
-
     @OneToMany(mappedBy = "secondUser")
     protected List<Relation> relationsSecondUser;
 
 
+    @OneToMany(mappedBy = "user")
+    protected List<Vote> votes;
 }

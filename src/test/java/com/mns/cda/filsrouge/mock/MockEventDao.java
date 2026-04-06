@@ -114,7 +114,8 @@ public class MockEventDao implements EventDAO {
                     new EventType(),
                     new Sport(),
                     List.of(new Team()),
-                    List.of(new Athlete())
+                    List.of(new Athlete()),
+                    List.of(new Vote())
             ));
         }
         return Optional.empty();
@@ -131,11 +132,12 @@ public class MockEventDao implements EventDAO {
         return List.of(new Event(1,
                 "Match de Football",
                 "Rencontre amicale entre deux équipes locales",
-                LocalDateTime.of(2026,04,15,18,00),
+                LocalDateTime.of(2026, 04, 15, 18, 00),
                 new EventType(),
                 new Sport(),
                 List.of(new Team()),
-                List.of(new Athlete())
+                List.of(new Athlete()),
+                List.of(new Vote())
         ));
     }
 

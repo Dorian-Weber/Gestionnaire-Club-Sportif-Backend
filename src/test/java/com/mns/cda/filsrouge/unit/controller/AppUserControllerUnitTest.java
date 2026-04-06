@@ -4,6 +4,8 @@ import com.mns.cda.filsrouge.controller.AppUserController;
 import com.mns.cda.filsrouge.mock.MockAppUserDao;
 import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.model.Relation;
+import com.mns.cda.filsrouge.model.Vote;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -59,7 +61,10 @@ public class AppUserControllerUnitTest {
                 "0698144242",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                new AccountType());
+                new AccountType(),
+                List.of(new Relation()),
+                List.of(new Relation()),
+                List.of(new Vote()));;
 
         ResponseEntity<AppUser> response = appUserController.create(appUser);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -98,7 +103,10 @@ public class AppUserControllerUnitTest {
                 "0698144242",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                new AccountType());
+                new AccountType(),
+                List.of(new Relation()),
+                List.of(new Relation()),
+                List.of(new Vote()));
 
         ResponseEntity<AppUser> response = appUserController.update(1, appUser);
 
@@ -119,7 +127,10 @@ public class AppUserControllerUnitTest {
                 "0698144242",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                new AccountType());
+                new AccountType(),
+                List.of(new Relation()),
+                List.of(new Relation()),
+                List.of(new Vote()));
 
         ResponseEntity<AppUser> reponse = appUserController.update(2, appUser);
 

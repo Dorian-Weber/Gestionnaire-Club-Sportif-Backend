@@ -55,7 +55,8 @@ public class AthleteControllerUnitTest {
                 List.of(new Event()),
                 List.of(new Team()),
                 List.of(new Discipline()),
-                new Country());
+                new Country(),
+                List.of(new Vote()));
 
         ResponseEntity<Athlete> response = athleteController.create(athlete);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -91,7 +92,8 @@ public class AthleteControllerUnitTest {
                 List.of(new Event()),
                 List.of(new Team()),
                 List.of(new Discipline()),
-                new Country());
+                new Country(),
+                List.of(new Vote()));
 
         ResponseEntity<Athlete> response = athleteController.update(1, athlete);
 
@@ -109,7 +111,8 @@ public class AthleteControllerUnitTest {
                 List.of(new Event()),
                 List.of(new Team()),
                 List.of(new Discipline()),
-                new Country());
+                new Country(),
+                List.of(new Vote()));
 
         ResponseEntity<Athlete> reponse = athleteController.update(2, athlete);
 

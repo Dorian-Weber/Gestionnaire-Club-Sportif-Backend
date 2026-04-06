@@ -78,4 +78,8 @@ public class Athlete {
     @JoinColumn(name = "country_id")
     @JsonView({AthleteView.class})
     protected Country country;
+
+    @OneToMany(mappedBy = "athlete")
+    protected List<Vote> votes;
+
 }

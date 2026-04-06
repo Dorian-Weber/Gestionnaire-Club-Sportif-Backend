@@ -113,8 +113,8 @@ public class MockAthleteDao implements AthleteDAO {
                     List.of(new Event()),
                     List.of(new Team()),
                     List.of(new Discipline()),
-                    new Country())
-            );
+                    new Country(),
+                    List.of(new Vote())));
         }
         return Optional.empty();
     }
@@ -133,8 +133,8 @@ public class MockAthleteDao implements AthleteDAO {
                 List.of(new Event()),
                 List.of(new Team()),
                 List.of(new Discipline()),
-                new Country()
-        ));
+                new Country(),
+                List.of(new Vote())));
     }
 
     @Override
