@@ -50,7 +50,8 @@ public class LevelControllerUnitTest {
     public void createLevel_MustReturnCode201() {
         LevelController levelController = new LevelController(new MockLevelDao());
         Level level = new Level(10,
-                "Test");
+                "Test",
+                new Platform());
 
         ResponseEntity<Level> response = levelController.create(level);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -81,7 +82,8 @@ public class LevelControllerUnitTest {
     public void updateLevel_MustReturnCode200() {
         LevelController levelController = new LevelController(new MockLevelDao());
         Level level = new Level(10,
-                "Test");
+                "Test",
+                new Platform());
 
         ResponseEntity<Level> response = levelController.update(1, level);
 
@@ -93,7 +95,9 @@ public class LevelControllerUnitTest {
     @Test
     public void updateLevelNotExist_MustReturnCode404() {
         LevelController levelController = new LevelController(new MockLevelDao());
-        Level level = new Level(10, "Test");
+        Level level = new Level(10,
+                "Test",
+                new Platform());
 
         ResponseEntity<Level> reponse = levelController.update(2, level);
 

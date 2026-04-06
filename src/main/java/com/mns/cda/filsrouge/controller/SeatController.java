@@ -1,0 +1,109 @@
+package com.mns.cda.filsrouge.controller;
+
+import com.mns.cda.filsrouge.dao.SeatDAO;
+import com.mns.cda.filsrouge.model.Seat;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/seat")
+@Tag(name = "Siège", description = "API de gestion des différents sièges")
+public class SeatController {
+
+
+    protected final SeatDAO seatDAO;
+
+    @GetMapping("/list")
+    @Operation(summary = "Récupère la liste des différents sièges",
+            description = "Cette méthode permet de récupérer la liste de tous les sièges dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des sièges récupéré avec succès")
+    })
+    public List<Seat> getSeatList() {
+        return seatDAO.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Récupérer un siège par son ID",
+            description = "Cette méthode permet de récupérer les informations d'un siège spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Siège récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Siège non trouvé")
+    })
+    public ResponseEntity<Seat> getSeatById(@PathVariable int id) {
+
+        Optional<Seat> optionalSeat = seatDAO.findById(id);
+
+        if(optionalSeat.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(optionalSeat.get(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    @Operation(summary = "Ajoute un siège à la base de données",
+            description = "Cette méthode permet de d'ajouter un nouveau siège en base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Siège ajouté avec succès")
+    })
+    public ResponseEntity<Seat> create(@RequestBody Seat seatToInsert) {
+
+        seatToInsert.setIdSeat(null);
+        seatDAO.save(seatToInsert);
+
+        return new ResponseEntity<>(seatToInsert, HttpStatus.CREATED);
+
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Supprime un siège par son ID",
+            description = "Cette méthode permet de supprimer un siège spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Siège supprimé avec succès"),
+            @ApiResponse(responseCode = "404", description = "Siège non trouvé")
+    })
+    public ResponseEntity<Seat> delete(@PathVariable int id) {
+
+        Optional<Seat> optionalSeat = seatDAO.findById(id);
+
+        if(optionalSeat.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        seatDAO.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Modifie un siège par son ID",
+            description = "Cette méthode permet de modifier les informations d'un siège spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Siège modifié avec succès"),
+            @ApiResponse(responseCode = "404", description = "Siège non trouvé")
+    })
+    public ResponseEntity<Seat> update(
+            @PathVariable int id,
+            @RequestBody Seat seatToUpdate) {
+
+        Optional<Seat> optionalSeat = seatDAO.findById(id);
+
+        if(optionalSeat.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        seatToUpdate.setIdSeat(id);
+        seatDAO.save(seatToUpdate);
+
+        return new ResponseEntity<>(seatToUpdate,HttpStatus.OK);
+    }
+
+}
