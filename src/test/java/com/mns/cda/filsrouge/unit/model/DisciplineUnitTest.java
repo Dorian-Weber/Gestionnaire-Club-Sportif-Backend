@@ -26,7 +26,7 @@ public class DisciplineUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(discipline),
-                "nameDiscipline",
+                "disciplineName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

@@ -2,10 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.ReservationController;
 import com.mns.cda.filsrouge.mock.MockReservationDao;
-import com.mns.cda.filsrouge.model.AppUser;
-import com.mns.cda.filsrouge.model.Event;
-import com.mns.cda.filsrouge.model.Reservation;
-import com.mns.cda.filsrouge.model.StatusPresence;
+import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -56,7 +53,8 @@ public class ReservationUnitTest {
                 LocalDateTime.now(),
                 new StatusPresence(),
                 new Event(),
-                new AppUser());
+                new AppUser(),
+                List.of(new Seat()));
 
         ResponseEntity<Reservation> response = reservationController.create(reservation);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -90,7 +88,8 @@ public class ReservationUnitTest {
                 LocalDateTime.now(),
                 new StatusPresence(),
                 new Event(),
-                new AppUser());
+                new AppUser(),
+                List.of(new Seat()));
 
         ResponseEntity<Reservation> response = reservationController.update(1, reservation);
 
@@ -106,7 +105,8 @@ public class ReservationUnitTest {
                 LocalDateTime.now(),
                 new StatusPresence(),
                 new Event(),
-                new AppUser());
+                new AppUser(),
+                List.of(new Seat()));
 
         ResponseEntity<Reservation> reponse = reservationController.update(2, reservation);
 

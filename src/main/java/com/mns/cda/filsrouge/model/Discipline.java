@@ -31,7 +31,7 @@ public class Discipline {
     @JsonView({DisciplineView.class,
             SportView.class,
             AthleteView.class})
-    protected String DisciplineName;
+    protected String disciplineName;
 
     @JsonView(DisciplineView.class)
     protected String eventRecord;

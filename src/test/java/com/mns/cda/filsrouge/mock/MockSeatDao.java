@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.SeatDAO;
+import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.model.Level;
 import org.springframework.data.domain.Example;
@@ -109,7 +110,8 @@ public class MockSeatDao implements SeatDAO {
         if(idTypeEvenement == 1) {
             return Optional.of(new Seat(1,
                     "Test",
-                    new Level()));
+                    new Level(),
+                    new Reservation()));
         }
         return Optional.empty();
     }
@@ -124,7 +126,8 @@ public class MockSeatDao implements SeatDAO {
 
         return List.of(new Seat(1,
                 "Test",
-                new Level()));
+                new Level(),
+                new Reservation()));
     }
 
     @Override

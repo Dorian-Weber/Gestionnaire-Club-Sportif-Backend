@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.SeatController;
 import com.mns.cda.filsrouge.mock.MockSeatDao;
+import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.model.Level;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +52,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatDao());
         Seat seat = new Seat(10,
                 "Test",
-                new Level());
+                new Level(),
+                new Reservation());
 
         ResponseEntity<Seat> response = seatController.create(seat);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -83,7 +85,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatDao());
         Seat seat = new Seat(10,
                 "Test",
-                new Level());
+                new Level(),
+                new Reservation());
 
         ResponseEntity<Seat> response = seatController.update(1, seat);
 
@@ -97,7 +100,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatDao());
         Seat seat = new Seat(10,
                 "Test",
-                new Level());
+                new Level(),
+                new Reservation());
 
         ResponseEntity<Seat> reponse = seatController.update(2, seat);
 
