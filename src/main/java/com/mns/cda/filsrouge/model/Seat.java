@@ -27,5 +27,8 @@ public class Seat {
     @JoinColumn(name = "level_id")
     protected Level level;
 
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+    protected Reservation reservation;
 
 }

@@ -8,10 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.User;
+import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Setter
@@ -41,5 +43,8 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "app_user_id", nullable = false)
     protected AppUser user;
+
+    @OneToMany(mappedBy = "reservation")
+    protected List<Seat> seats;
 
 }
