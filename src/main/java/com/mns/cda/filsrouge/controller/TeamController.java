@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/team")
 @Tag(name = "Équipe", description = "API de gestion des différentes équipes")
+@CrossOrigin
 public class TeamController {
 
     private final TeamDAO teamDAO;

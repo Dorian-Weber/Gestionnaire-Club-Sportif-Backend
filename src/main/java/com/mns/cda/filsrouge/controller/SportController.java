@@ -21,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/sport")
 @Tag(name = "Sport", description = "API de gestion des différents Sports")
+@CrossOrigin
 public class SportController {
 
     private final SportDAO sportDAO;

@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/level")
 @Tag(name = "Niveau", description = "API de gestion des différents niveaux")
+@CrossOrigin
 public class LevelController {
 
 

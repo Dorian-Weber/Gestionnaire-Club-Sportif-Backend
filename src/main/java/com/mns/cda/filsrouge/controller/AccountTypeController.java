@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/account-type")
 @Tag(name = "Type de compte", description = "API de gestion des différents types de compte")
+@CrossOrigin
 public class AccountTypeController {
 
 

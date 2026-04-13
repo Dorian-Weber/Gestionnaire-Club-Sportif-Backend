@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/event")
 @Tag(name = "Événement", description = "API de gestion des différents évènements")
+@CrossOrigin
 public class EventController {
 
 

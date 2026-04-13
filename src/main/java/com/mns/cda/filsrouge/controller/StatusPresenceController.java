@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/status-presence")
 @Tag(name = "Status de présence", description = "API de gestion des différents status de présence")
+@CrossOrigin
 public class StatusPresenceController {
 
 

@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/Athlete")
 @Tag(name = "Athlete", description = "API de gestion des différents Athlètes")
+@CrossOrigin
 public class AthleteController {
 
 

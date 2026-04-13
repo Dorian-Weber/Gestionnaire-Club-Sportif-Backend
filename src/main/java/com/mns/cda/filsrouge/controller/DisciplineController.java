@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/discipline")
 @Tag(name = "Discipline", description = "API de gestion des différentes disciplines")
+@CrossOrigin
 public class DisciplineController {
 
     private final DisciplineDAO disciplineDAO;

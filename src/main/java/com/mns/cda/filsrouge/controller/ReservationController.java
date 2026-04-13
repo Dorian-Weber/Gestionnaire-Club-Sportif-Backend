@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/reservation")
 @Tag(name = "Réservation", description = "API de gestion des différents réservations")
+@CrossOrigin
 public class ReservationController {
 
 

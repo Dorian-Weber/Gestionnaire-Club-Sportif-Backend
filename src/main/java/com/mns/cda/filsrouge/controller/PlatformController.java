@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/platform")
 @Tag(name = "Tribune", description = "API de gestion des différents tribunes")
+@CrossOrigin
 public class PlatformController {
 
 

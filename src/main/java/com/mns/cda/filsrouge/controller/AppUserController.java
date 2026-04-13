@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/appUser")
 @Tag(name = "Utilisateur", description = "API de gestion des différents utilisateur")
+@CrossOrigin
 public class AppUserController {
 
 

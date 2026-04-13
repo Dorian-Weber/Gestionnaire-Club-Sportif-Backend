@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/country")
 @Tag(name = "Pays", description = "API de gestion des différents pays")
+@CrossOrigin
 public class CountryController {
 
     private final CountryDAO countryDAO;

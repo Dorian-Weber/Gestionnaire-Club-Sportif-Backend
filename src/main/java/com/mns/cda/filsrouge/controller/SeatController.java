@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/seat")
 @Tag(name = "Siège", description = "API de gestion des différents sièges")
+@CrossOrigin
 public class SeatController {
 
 
