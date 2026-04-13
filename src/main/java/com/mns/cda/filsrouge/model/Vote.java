@@ -27,8 +27,6 @@ public class Vote {
         Integer userId;
         @Column(name = "event_id")
         Integer eventId;
-        @Column(name = "athlete_id")
-        Integer athleteId;
     }
 
     @EmbeddedId
@@ -46,14 +44,13 @@ public class Vote {
     private Event event;
 
     @ManyToOne
-    @MapsId("athleteId")
     @JoinColumn(name = "athlete_id")
     @JsonView(EventView.class)
     private Athlete athlete;
 
     @NotBlank
     @JsonView({AthleteView.class, EventView.class})
-    protected String voteValue;
+    protected Integer voteValue;
 
 
 
