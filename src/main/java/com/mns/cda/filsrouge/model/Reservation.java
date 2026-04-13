@@ -48,7 +48,8 @@ public class Reservation {
     @JsonView({AppUserView.class,
             ReservationView.class,
             SeatView.class,
-            LevelView.class})
+            LevelView.class,
+            PlatformView.class})
     protected Event event;
 
     @ManyToOne

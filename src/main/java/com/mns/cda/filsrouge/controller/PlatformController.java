@@ -1,7 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.PlatformDAO;
 import com.mns.cda.filsrouge.model.Platform;
+import com.mns.cda.filsrouge.view.PlatformView;
+import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,6 +28,7 @@ public class PlatformController {
     protected final PlatformDAO platformDAO;
 
     @GetMapping("/list")
+    @JsonView(PlatformView.class)
     @Operation(summary = "Récupère la liste des différents tribunes",
             description = "Cette méthode permet de récupérer la liste de tous les tribunes dans la base de données.")
     @ApiResponses(value = {
@@ -35,6 +39,7 @@ public class PlatformController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(PlatformView.class)
     @Operation(summary = "Récupérer un tribune par son ID",
             description = "Cette méthode permet de récupérer les informations d'un tribune spécifique en utilisant son ID.")
     @ApiResponses(value = {

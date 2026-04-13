@@ -37,7 +37,8 @@ public class Event {
             AppUserView.class,
             ReservationView.class,
             SeatView.class,
-            LevelView.class,})
+            LevelView.class,
+            PlatformView.class})
     protected String eventName;
 
     @NotBlank
@@ -59,7 +60,8 @@ public class Event {
             AppUserView.class,
             ReservationView.class,
             SeatView.class,
-            LevelView.class,})
+            LevelView.class,
+            PlatformView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne

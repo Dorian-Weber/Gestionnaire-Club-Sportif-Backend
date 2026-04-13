@@ -28,7 +28,8 @@ public class Seat {
             EventView.class,
             ReservationView.class,
             SeatView.class,
-            LevelView.class})
+            LevelView.class,
+            PlatformView.class})
     protected String seatNumber;
 
     @ManyToOne
@@ -42,7 +43,8 @@ public class Seat {
     @ManyToOne
     @JoinColumn(name = "reservation_id")
     @JsonView({SeatView.class,
-            LevelView.class})
+            LevelView.class,
+            PlatformView.class})
     protected Reservation reservation;
 
 }

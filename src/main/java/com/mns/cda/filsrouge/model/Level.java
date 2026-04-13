@@ -30,11 +30,12 @@ public class Level {
             EventView.class,
             ReservationView.class,
             SeatView.class,
-            LevelView.class})
+            LevelView.class,
+            PlatformView.class})
     protected String levelName;
 
     @OneToMany(mappedBy = "level")
-    @JsonView(LevelView.class)
+    @JsonView({LevelView.class, PlatformView.class})
     protected List<Seat> seats;
 
     @ManyToOne
