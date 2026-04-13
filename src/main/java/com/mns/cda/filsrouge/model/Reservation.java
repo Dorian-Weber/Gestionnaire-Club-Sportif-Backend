@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AppUserView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -34,10 +36,12 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "status_presence_id", nullable = false)
+    @JsonView(AppUserView.class)
     protected StatusPresence statusPresence;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonView(AppUserView.class)
     protected Event event;
 
     @ManyToOne
@@ -45,6 +49,7 @@ public class Reservation {
     protected AppUser user;
 
     @OneToMany(mappedBy = "reservation")
+    @JsonView(AppUserView.class)
     protected List<Seat> seats;
 
 }

@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AppUserView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -28,26 +30,31 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(AppUserView.class)
     protected Integer idAppUser;
 
     @NotBlank
     @Size(min = 1, max = 50)
+    @JsonView(AppUserView.class)
     protected String AppUserName;
 
     @NotBlank
     @Size(min = 1, max = 50)
+    @JsonView(AppUserView.class)
     protected String AppUserFirstName;
 
     @NotBlank
     @Size(min = 5, max = 30)
     @Column(unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _")
+    @JsonView(AppUserView.class)
     protected String AppUserPseudo;
 
     @NotBlank( message = "L'email ne peut pas être vide")
     @Email( message = "L'email est incorrect")
     @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères")
     @Column(unique = true, nullable = false)
+    @JsonView(AppUserView.class)
     protected String AppUserEmail;
 
     @NotBlank(message = "Le mot de passe ne peut pas être vide")
@@ -61,6 +68,7 @@ public class AppUser {
     @Pattern(regexp = "^\\+?[0-9]{10,15}$",
             message = "Le numéro de téléphone doit être composé de 10 à 15 chiffres et peut commencer par +")
     @Column(nullable = false)
+    @JsonView(AppUserView.class)
     protected String AppUserPhone;
 
     @CreatedDate
@@ -73,6 +81,7 @@ public class AppUser {
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "account_type_id")
+    @JsonView(AppUserView.class)
     protected AccountType AccountType;
 
 
@@ -86,5 +95,6 @@ public class AppUser {
     protected List<Vote> votes;
 
     @OneToMany(mappedBy = "user")
+    @JsonView(AppUserView.class)
     protected List<Reservation> reservations;
 }

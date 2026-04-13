@@ -33,7 +33,8 @@ public class Event {
             SportView.class,
             DisciplineView.class,
             Athlete.class,
-            TeamView.class})
+            TeamView.class,
+            AppUserView.class})
     protected String eventName;
 
     @NotBlank
@@ -51,7 +52,8 @@ public class Event {
             SportView.class,
             DisciplineView.class,
             Athlete.class,
-            TeamView.class})
+            TeamView.class,
+            AppUserView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne

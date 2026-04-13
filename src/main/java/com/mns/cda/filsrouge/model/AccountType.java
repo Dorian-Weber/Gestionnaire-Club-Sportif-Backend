@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AppUserView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ public class AccountType {
     protected Integer idAccountType;
 
     @NotBlank
+    @JsonView(AppUserView.class)
     protected String AccountTypeName;
 
 

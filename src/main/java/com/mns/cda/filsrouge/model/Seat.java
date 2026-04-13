@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AppUserView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -21,10 +23,12 @@ public class Seat {
     protected Integer idSeat;
 
     @NotBlank
+    @JsonView(AppUserView.class)
     protected String seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "level_id")
+    @JsonView(AppUserView.class)
     protected Level level;
 
     @ManyToOne
