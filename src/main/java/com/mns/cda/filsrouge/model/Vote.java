@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AthleteView;
+import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -47,10 +48,11 @@ public class Vote {
     @ManyToOne
     @MapsId("athleteId")
     @JoinColumn(name = "athlete_id")
+    @JsonView(EventView.class)
     private Athlete athlete;
 
     @NotBlank
-    @JsonView(AthleteView.class)
+    @JsonView({AthleteView.class, EventView.class})
     protected String voteValue;
 
 

@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
+import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "status_presence_id", nullable = false)
-    @JsonView(AppUserView.class)
+    @JsonView({AppUserView.class, EventView.class})
     protected StatusPresence statusPresence;
 
     @ManyToOne
@@ -46,10 +47,11 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "app_user_id", nullable = false)
+    @JsonView(EventView.class)
     protected AppUser user;
 
     @OneToMany(mappedBy = "reservation")
-    @JsonView(AppUserView.class)
+    @JsonView({AppUserView.class, EventView.class})
     protected List<Seat> seats;
 
 }

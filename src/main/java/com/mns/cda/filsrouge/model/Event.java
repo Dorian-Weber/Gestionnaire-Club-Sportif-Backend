@@ -84,9 +84,11 @@ public class Event {
     protected List<Athlete> athletes;
 
     @OneToMany(mappedBy = "event")
+    @JsonView({EventView.class})
     protected List<Vote> votes;
 
     @OneToMany(mappedBy = "event")
+    @JsonView({EventView.class})
     protected List<Reservation> reservations;
 
 

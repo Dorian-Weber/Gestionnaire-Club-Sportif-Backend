@@ -1,6 +1,9 @@
 package com.mns.cda.filsrouge.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.view.AppUserView;
+import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +27,7 @@ public class StatusPresence {
     protected Integer idStatusPresence;
 
     @NotBlank
+    @JsonView({AppUserView.class, EventView.class})
     protected String StatusPresenceName;
 
 

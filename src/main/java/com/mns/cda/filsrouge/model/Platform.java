@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
+import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Platform {
     protected Integer idPlatform;
 
     @NotBlank
-    @JsonView(AppUserView.class)
+    @JsonView({AppUserView.class, EventView.class})
     protected String platformName;
 
 
