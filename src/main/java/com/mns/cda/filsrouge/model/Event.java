@@ -35,7 +35,8 @@ public class Event {
             AthleteView.class,
             TeamView.class,
             AppUserView.class,
-            ReservationView.class})
+            ReservationView.class,
+            SeatView.class})
     protected String eventName;
 
     @NotBlank
@@ -55,7 +56,8 @@ public class Event {
             AthleteView.class,
             TeamView.class,
             AppUserView.class,
-            ReservationView.class})
+            ReservationView.class,
+            SeatView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne

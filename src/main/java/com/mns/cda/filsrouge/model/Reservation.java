@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.ReservationView;
+import com.mns.cda.filsrouge.view.SeatView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -47,16 +48,22 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    @JsonView({AppUserView.class, ReservationView.class})
+    @JsonView({AppUserView.class,
+            ReservationView.class,
+            SeatView.class})
     protected Event event;
 
     @ManyToOne
     @JoinColumn(name = "app_user_id", nullable = false)
-    @JsonView({EventView.class, ReservationView.class})
+    @JsonView({EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected AppUser user;
 
     @OneToMany(mappedBy = "reservation")
-    @JsonView({AppUserView.class, EventView.class, ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class})
     protected List<Seat> seats;
 
 }

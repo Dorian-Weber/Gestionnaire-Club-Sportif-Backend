@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.ReservationView;
+import com.mns.cda.filsrouge.view.SeatView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,10 @@ public class Platform {
     protected Integer idPlatform;
 
     @NotBlank
-    @JsonView({AppUserView.class, EventView.class,  ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected String platformName;
 
 

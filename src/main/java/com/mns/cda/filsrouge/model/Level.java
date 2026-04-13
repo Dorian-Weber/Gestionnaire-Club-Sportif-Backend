@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.ReservationView;
+import com.mns.cda.filsrouge.view.SeatView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -25,12 +26,18 @@ public class Level {
     protected Integer idLevel;
 
     @NotBlank
-    @JsonView({AppUserView.class, EventView.class,  ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected String levelName;
 
     @ManyToOne
     @JoinColumn(name = "platform_id", nullable = false)
-    @JsonView({AppUserView.class, EventView.class, ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected Platform platform;
 
 

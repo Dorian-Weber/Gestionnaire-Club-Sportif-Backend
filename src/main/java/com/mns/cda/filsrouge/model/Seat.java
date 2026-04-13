@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.ReservationView;
+import com.mns.cda.filsrouge.view.SeatView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,19 +23,27 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(SeatView.class)
     protected Integer idSeat;
 
     @NotBlank
-    @JsonView({AppUserView.class, EventView.class, ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected String seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "level_id")
-    @JsonView({AppUserView.class, EventView.class, ReservationView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class,
+            SeatView.class})
     protected Level level;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id")
+    @JsonView(SeatView.class)
     protected Reservation reservation;
 
 }
