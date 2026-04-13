@@ -32,7 +32,7 @@ public class Event {
             EventTypeView.class,
             SportView.class,
             DisciplineView.class,
-            Athlete.class,
+            AthleteView.class,
             TeamView.class,
             AppUserView.class})
     protected String eventName;
@@ -51,7 +51,7 @@ public class Event {
             EventTypeView.class,
             SportView.class,
             DisciplineView.class,
-            Athlete.class,
+            AthleteView.class,
             TeamView.class,
             AppUserView.class})
     protected LocalDateTime eventDate;

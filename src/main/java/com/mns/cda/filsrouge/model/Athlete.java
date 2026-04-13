@@ -80,6 +80,7 @@ public class Athlete {
     protected Country country;
 
     @OneToMany(mappedBy = "athlete")
+    @JsonView(AthleteView.class)
     protected List<Vote> votes;
 
 }
