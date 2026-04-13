@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.dao.LevelDAO;
 import com.mns.cda.filsrouge.model.Level;
+import com.mns.cda.filsrouge.view.LevelView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,6 +27,7 @@ public class LevelController {
     protected final LevelDAO levelDAO;
 
     @GetMapping("/list")
+    @JsonView(LevelView.class)
     @Operation(summary = "Récupère la liste des différents niveaux",
             description = "Cette méthode permet de récupérer la liste de tous les niveaux dans la base de données.")
     @ApiResponses(value = {
@@ -35,6 +38,7 @@ public class LevelController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(LevelView.class)
     @Operation(summary = "Récupérer un niveau par son ID",
             description = "Cette méthode permet de récupérer les informations d'un niveau spécifique en utilisant son ID.")
     @ApiResponses(value = {

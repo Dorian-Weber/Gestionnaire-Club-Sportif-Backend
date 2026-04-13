@@ -2,16 +2,15 @@ package com.mns.cda.filsrouge.model;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.AppUserView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.ReservationView;
-import com.mns.cda.filsrouge.view.SeatView;
+import com.mns.cda.filsrouge.view.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 
 @Setter
@@ -23,21 +22,28 @@ public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(LevelView.class)
     protected Integer idLevel;
 
     @NotBlank
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
-            SeatView.class})
+            SeatView.class,
+            LevelView.class})
     protected String levelName;
+
+    @OneToMany(mappedBy = "level")
+    @JsonView(LevelView.class)
+    protected List<Seat> seats;
 
     @ManyToOne
     @JoinColumn(name = "platform_id", nullable = false)
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
-            SeatView.class})
+            SeatView.class,
+            LevelView.class})
     protected Platform platform;
 
 

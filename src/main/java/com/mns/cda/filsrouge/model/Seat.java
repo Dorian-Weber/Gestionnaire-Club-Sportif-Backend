@@ -2,10 +2,7 @@ package com.mns.cda.filsrouge.model;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.AppUserView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.ReservationView;
-import com.mns.cda.filsrouge.view.SeatView;
+import com.mns.cda.filsrouge.view.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -30,7 +27,8 @@ public class Seat {
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
-            SeatView.class})
+            SeatView.class,
+            LevelView.class})
     protected String seatNumber;
 
     @ManyToOne
@@ -43,7 +41,8 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "reservation_id")
-    @JsonView(SeatView.class)
+    @JsonView({SeatView.class,
+            LevelView.class})
     protected Reservation reservation;
 
 }
