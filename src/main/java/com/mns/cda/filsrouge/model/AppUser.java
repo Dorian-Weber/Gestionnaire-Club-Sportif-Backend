@@ -4,6 +4,7 @@ package com.mns.cda.filsrouge.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
+import com.mns.cda.filsrouge.view.ReservationView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -36,19 +37,25 @@ public class AppUser {
 
     @NotBlank
     @Size(min = 1, max = 50)
-    @JsonView({AppUserView.class, EventView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class})
     protected String AppUserName;
 
     @NotBlank
     @Size(min = 1, max = 50)
-    @JsonView({AppUserView.class, EventView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class})
     protected String AppUserFirstName;
 
     @NotBlank
     @Size(min = 5, max = 30)
     @Column(unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _")
-    @JsonView({AppUserView.class, EventView.class})
+    @JsonView({AppUserView.class,
+            EventView.class,
+            ReservationView.class})
     protected String AppUserPseudo;
 
     @NotBlank( message = "L'email ne peut pas être vide")
