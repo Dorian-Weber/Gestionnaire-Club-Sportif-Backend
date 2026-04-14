@@ -31,7 +31,7 @@ public class StatusPresence {
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class})
-    protected String StatusPresenceName;
+    protected String statusPresenceName;
 
 
 }

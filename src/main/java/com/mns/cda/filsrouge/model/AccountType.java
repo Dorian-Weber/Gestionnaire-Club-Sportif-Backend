@@ -10,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 
 @Setter
 @Getter
@@ -26,7 +24,7 @@ public class AccountType {
 
     @NotBlank
     @JsonView(AppUserView.class)
-    protected String AccountTypeName;
+    protected String accountTypeName;
 
 
 }
