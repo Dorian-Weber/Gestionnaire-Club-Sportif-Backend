@@ -29,7 +29,7 @@ public class Athlete {
     @JsonView({AthleteView.class})
     protected Integer idAthlete;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     @NotBlank
     @JsonView({AthleteView.class,
             EventView.class,
