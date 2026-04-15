@@ -22,7 +22,7 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(TeamView.class)
+    @JsonView({TeamView.class, EventView.class})
     protected Integer idTeam;
 
     @NotBlank

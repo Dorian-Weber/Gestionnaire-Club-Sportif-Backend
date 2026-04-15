@@ -99,6 +99,7 @@ public class AppUser {
 
     @OneToMany(mappedBy = "firstUser")
     protected List<Relation> relationsUser;
+
     @OneToMany(mappedBy = "secondUser")
     protected List<Relation> relationsSecondUser;
 

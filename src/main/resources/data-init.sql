@@ -91,7 +91,7 @@ INSERT INTO athlete (athlete_name, athlete_first_name, athlete_birth_date, count
                     ('Miller', 'Ava', '1996-12-22', 10),
                     ('Anderson', 'Noah', '1995-08-18', 10),
                     ('Thompson', 'Lily', '1997-06-05', 10),
-                    ('Garcia', 'Miguel', '1994-04-12', 3);-am
+                    ('Garcia', 'Miguel', '1994-04-12', 3);
 
 INSERT INTO team (team_name) VALUES
                      ('FC Metz'),

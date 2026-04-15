@@ -26,7 +26,7 @@ public class Athlete {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({AthleteView.class})
+    @JsonView({AthleteView.class, EventView.class, TeamView.class})
     protected Integer idAthlete;
 
     @Column(length = 50, nullable = false)
