@@ -1,12 +1,14 @@
 package com.mns.cda.filsrouge.Iservice;
 
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.model.AccountType;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IAccountTypeService {
+
+    public static class AccountTypeNotFoundException extends Exception {}
+
     //GetAll
     List<AccountType> findAll();
 
@@ -20,7 +22,7 @@ public interface IAccountTypeService {
     void delete(int id);
 
     //Put
-    void update(int id, AccountType accountType) throws UserNotFoundException;
+    void update(int id, AccountType accountType) throws AccountTypeNotFoundException;
 
 
 }

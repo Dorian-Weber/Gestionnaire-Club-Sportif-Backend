@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +44,7 @@ public class AppUserService implements IAppUserService{
         Optional<AppUser> appUserOptional = appUserDAO.findById(id);
 
         if(appUserOptional.isEmpty()) {
-            throw new UserNotFoundException("NOT_FOUND");
+            throw new UserNotFoundException();
         }
         appUser.setIdAppUser(id);
         appUserDAO.save(appUser);

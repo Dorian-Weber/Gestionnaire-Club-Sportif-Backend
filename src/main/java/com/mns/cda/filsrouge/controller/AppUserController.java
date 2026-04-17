@@ -2,7 +2,6 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.view.AppUserView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -103,7 +102,7 @@ public class AppUserController {
         try {
             appUserService.update(id, appUserToUpdate);
             return new ResponseEntity<>(appUserToUpdate, HttpStatus.OK);
-        } catch (UserNotFoundException e) {
+        } catch (IAppUserService.UserNotFoundException e) {
             return new ResponseEntity<>(appUserToUpdate, HttpStatus.NOT_FOUND);
         }
 

@@ -1,11 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
-import com.mns.cda.filsrouge.dao.AccountTypeDAO;
-import com.mns.cda.filsrouge.mockDAO.MockAccountTypeDao;
 import com.mns.cda.filsrouge.model.AccountType;
-import com.mns.cda.filsrouge.service.AccountTypeService;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +31,9 @@ public class MockAccountTypeService implements IAccountTypeService {
     }
 
     @Override
-    public void update(int id, AccountType accountType) throws UserNotFoundException {
+    public void update(int id, AccountType accountType) throws AccountTypeNotFoundException {
         if (id != 1) {
-            throw new UserNotFoundException("NOT_FOUND");
+            throw new AccountTypeNotFoundException();
         }
         accountType.setIdAccountType(id);
 

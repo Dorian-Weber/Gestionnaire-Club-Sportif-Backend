@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.model.AccountType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -96,7 +95,7 @@ public class AccountTypeController {
         try {
             accountTypeService.update(id, accountTypeToUpdate);
             return new ResponseEntity<>(accountTypeToUpdate, HttpStatus.OK);
-        }catch(UserNotFoundException e) {
+        }catch(IAccountTypeService.AccountTypeNotFoundException e) {
             return new ResponseEntity<>(accountTypeToUpdate, HttpStatus.NOT_FOUND);
         }
     }

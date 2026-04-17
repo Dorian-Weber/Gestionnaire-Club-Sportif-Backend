@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.model.AccountType;
 import lombok.RequiredArgsConstructor;
@@ -41,11 +40,11 @@ public class AccountTypeService implements IAccountTypeService {
 
     //Put
     @Override
-    public void update(int id, AccountType accountType) throws UserNotFoundException {
+    public void update(int id, AccountType accountType) throws AccountTypeNotFoundException {
         Optional<AccountType> accountTypeOptional = accountTypeDAO.findById(id);
 
         if(accountTypeOptional.isEmpty()) {
-            throw new UserNotFoundException("NOT_FOUND");
+            throw new AccountTypeNotFoundException();
         }
         accountType.setIdAccountType(id);
         accountTypeDAO.save(accountType);

@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
-import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.model.*;
 
 import java.time.LocalDateTime;
@@ -61,7 +60,7 @@ public class MockAppUserService implements IAppUserService {
     @Override
     public void update(int id, AppUser appUser) throws UserNotFoundException {
         if (id != 1) {
-            throw new UserNotFoundException("NOT_FOUND");
+            throw new UserNotFoundException();
         }
         appUser.setIdAppUser(id);
 
