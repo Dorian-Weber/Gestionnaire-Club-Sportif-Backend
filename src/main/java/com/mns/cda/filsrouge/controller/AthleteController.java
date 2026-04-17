@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.AthleteDAO;
+import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.Iservice.IAthleteService;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.view.AthleteView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class AthleteController {
 
 
-    protected final AthleteDAO athleteDAO;
+    protected final IAthleteService athleteService;
 
     @GetMapping("/list")
     @JsonView(AthleteView.class)
@@ -34,7 +35,7 @@ public class AthleteController {
             @ApiResponse(responseCode = "200", description = "Liste des Athlètes récupérée avec succès")
     })
     public List<Athlete> getAthleteList() {
-        return athleteDAO.findAll();
+        return athleteService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class AthleteController {
     })
     public ResponseEntity<Athlete> getAthleteById(@PathVariable int id) {
 
-        Optional<Athlete> optionalAthlete = athleteDAO.findById(id);
+        Optional<Athlete> optionalAthlete = athleteService.findById(id);
 
         if(optionalAthlete.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,7 +65,7 @@ public class AthleteController {
     public ResponseEntity<Athlete> create(@RequestBody Athlete athleteToInsert) {
 
         athleteToInsert.setIdAthlete(null);
-        athleteDAO.save(athleteToInsert);
+        athleteService.create(athleteToInsert);
 
         return new ResponseEntity<>(athleteToInsert, HttpStatus.CREATED);
 
@@ -79,12 +80,12 @@ public class AthleteController {
     })
     public ResponseEntity<Athlete> delete(@PathVariable int id) {
 
-        Optional<Athlete> optionalAthlete = athleteDAO.findById(id);
+        Optional<Athlete> optionalAthlete = athleteService.findById(id);
 
         if(optionalAthlete.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        athleteDAO.deleteById(id);
+        athleteService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +101,12 @@ public class AthleteController {
             @PathVariable int id,
             @RequestBody Athlete athleteToUpdate) {
 
-        Optional<Athlete> optionalAthlete = athleteDAO.findById(id);
-
-        if(optionalAthlete.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            athleteService.update(id, athleteToUpdate);
+            return new ResponseEntity<>(athleteToUpdate, HttpStatus.OK);
+        } catch (IAthleteService.AthleteNotFoundException e) {
+            return new ResponseEntity<>(athleteToUpdate, HttpStatus.NOT_FOUND);
         }
-        athleteToUpdate.setIdAthlete(id);
-        athleteDAO.save(athleteToUpdate);
-
-        return new ResponseEntity<>(athleteToUpdate,HttpStatus.OK);
     }
 
 }

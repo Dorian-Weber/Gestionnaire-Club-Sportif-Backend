@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.AthleteController;
-import com.mns.cda.filsrouge.mockDAO.MockAthleteDao;
+import com.mns.cda.filsrouge.mockService.MockAthleteService;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class AthleteControllerUnitTest {
     //Test de GetAll
     @Test
     public void getAthleteListAll_MustReturnListOfAll() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
 
         List<Athlete> response = athleteController.getAthleteList();
 
@@ -30,7 +30,7 @@ public class AthleteControllerUnitTest {
     @Test
     public void getAthleteByIdExist_MustReturnCode200() {
 
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
         ResponseEntity<Athlete> response = athleteController.getAthleteById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +39,7 @@ public class AthleteControllerUnitTest {
     @Test
     public void getAthleteByIdNotExist_MustReturnCode404() {
 
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
         ResponseEntity<Athlete> response = athleteController.getAthleteById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +48,7 @@ public class AthleteControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createAthlete_MustReturnCode201() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
         Athlete athlete = new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
@@ -67,7 +67,7 @@ public class AthleteControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteAthleteExist_MustReturnCode204() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
 
         ResponseEntity<Athlete> response = athleteController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -75,7 +75,7 @@ public class AthleteControllerUnitTest {
     }
     @Test
     public void deleteAthleteNotExist_MustReturnCode404() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
 
         ResponseEntity<Athlete> response = athleteController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -85,7 +85,7 @@ public class AthleteControllerUnitTest {
 
     @Test
     public void updateAthlete_MustReturnCode200() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
         Athlete athlete = new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
@@ -104,7 +104,7 @@ public class AthleteControllerUnitTest {
 
     @Test
     public void updateAthleteNotExist_MustReturnCode404() {
-        AthleteController athleteController = new AthleteController(new MockAthleteDao());
+        AthleteController athleteController = new AthleteController(new MockAthleteService());
         Athlete athlete =new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
