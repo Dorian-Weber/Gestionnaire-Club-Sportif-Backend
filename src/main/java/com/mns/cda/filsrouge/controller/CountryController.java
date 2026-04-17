@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.CountryDAO;
+import com.mns.cda.filsrouge.Iservice.ICountryService;
 import com.mns.cda.filsrouge.model.Country;
 import com.mns.cda.filsrouge.view.CountryView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @CrossOrigin
 public class CountryController {
 
-    private final CountryDAO countryDAO;
+    private final ICountryService countryService;
 
 
     @GetMapping("/list")
@@ -34,7 +34,7 @@ public class CountryController {
             @ApiResponse(responseCode = "200", description = "Liste des pays récupéré avec succès")
     })
     public List<Country> getCountryList() {
-        return countryDAO.findAll();
+        return countryService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +47,7 @@ public class CountryController {
     })
     public ResponseEntity<Country> getCountryById(@PathVariable Integer id) {
 
-        Optional<Country> optionalCountry = countryDAO.findById(id);
+        Optional<Country> optionalCountry = countryService.findById(id);
 
         if (optionalCountry.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +63,7 @@ public class CountryController {
     })
     public ResponseEntity<Country> create(@RequestBody Country countryToInsert) {
 
-        countryToInsert.setIdCountry(null);
-        countryDAO.save(countryToInsert);
+        countryService.create(countryToInsert);
 
         return new ResponseEntity<>(countryToInsert, HttpStatus.CREATED);
     }
@@ -78,12 +77,12 @@ public class CountryController {
     })
     public ResponseEntity<Country> delete(@PathVariable Integer id) {
 
-        Optional<Country> optionalCountry = countryDAO.findById(id);
+        Optional<Country> optionalCountry = countryService.findById(id);
 
         if (optionalCountry.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        countryDAO.delete(optionalCountry.get());
+        countryService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -99,15 +98,12 @@ public class CountryController {
             @PathVariable Integer id,
             @RequestBody Country countryToUpdate) {
 
-        Optional<Country> optionalCountry = countryDAO.findById(id);
-
-        if (optionalCountry.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            countryService.update(id, countryToUpdate);
+            return new ResponseEntity<>(countryToUpdate, HttpStatus.OK);
+        } catch (ICountryService.CountryNotFoundException e) {
+            return new ResponseEntity<>(countryToUpdate, HttpStatus.NOT_FOUND);
         }
-        countryToUpdate.setIdCountry(id);
-        countryDAO.save(countryToUpdate);
-
-        return new ResponseEntity<>(countryToUpdate, HttpStatus.OK);
 
     }
 }

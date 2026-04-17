@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.CountryController;
-import com.mns.cda.filsrouge.mockDAO.MockCountryDao;
+import com.mns.cda.filsrouge.mockService.MockCountryService;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Country;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,7 @@ public class CountryControllerUnitTest {
     //Test de GetAll
     @Test
     public void getCountryAll_DoitRetournerUneList() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
 
         List<Country> response = countryController.getCountryList();
 
@@ -30,7 +30,7 @@ public class CountryControllerUnitTest {
     @Test
     public void getCountryByIdExist_DoitRetournerCode200() {
 
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
         ResponseEntity<Country> response = countryController.getCountryById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +39,7 @@ public class CountryControllerUnitTest {
     @Test
     public void getCountryByIdNotExist_DoitRetournerCode404() {
 
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
         ResponseEntity<Country> response = countryController.getCountryById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +48,7 @@ public class CountryControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createCountry_DoitRetournerCode201() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
         Country country = new Country(1,
                 "France",
                 List.of(new Athlete()));
@@ -62,7 +62,7 @@ public class CountryControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteCountryExist_DoitRetournerCode204() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
 
         ResponseEntity<Country> response = countryController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -70,7 +70,7 @@ public class CountryControllerUnitTest {
     }
     @Test
     public void deleteCountryNotExist_DoitRetournerCode404() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
 
         ResponseEntity<Country> response = countryController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -80,7 +80,7 @@ public class CountryControllerUnitTest {
 
     @Test
     public void updateCountry_DoitRetournerCode200() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
         Country country = new Country(1,
                 "France",
                 List.of(new Athlete()));
@@ -94,7 +94,7 @@ public class CountryControllerUnitTest {
 
     @Test
     public void updateCountryNotExist_DoitRetournerCode404() {
-        CountryController countryController = new CountryController(new MockCountryDao());
+        CountryController countryController = new CountryController(new MockCountryService());
         Country country = new Country(1,
                 "France",
                 List.of(new Athlete()));

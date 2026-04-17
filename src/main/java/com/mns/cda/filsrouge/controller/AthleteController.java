@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.view.AthleteView;
@@ -64,7 +63,6 @@ public class AthleteController {
     })
     public ResponseEntity<Athlete> create(@RequestBody Athlete athleteToInsert) {
 
-        athleteToInsert.setIdAthlete(null);
         athleteService.create(athleteToInsert);
 
         return new ResponseEntity<>(athleteToInsert, HttpStatus.CREATED);
