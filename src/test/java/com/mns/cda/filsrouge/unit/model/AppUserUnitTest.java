@@ -276,5 +276,19 @@ public class AppUserUnitTest {
         Assertions.assertTrue(constraintExist);
     }
 
+    // Test pour valider que la présence de Type compte de l'utilisateur est présent
+    @Test
+    public void validAppUserWithAppUserAccountTypeNotNull_MustBeNotValidated(){
+
+        AppUser appUser = new AppUser();
+        appUser.setAccountType(null);
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(appUser),
+                "accountType",
+                "NotNull");
+        Assertions.assertTrue(constraintExist);
+    }
+
 
 }
