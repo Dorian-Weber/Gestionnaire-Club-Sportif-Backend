@@ -1,4 +1,4 @@
-package com.mns.cda.filsrouge.mock;
+package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.AthleteDAO;
 import com.mns.cda.filsrouge.model.*;

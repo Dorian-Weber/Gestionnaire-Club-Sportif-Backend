@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.LevelController;
-import com.mns.cda.filsrouge.mock.MockLevelDao;
+import com.mns.cda.filsrouge.mockDAO.MockLevelDao;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import com.mns.cda.filsrouge.model.Seat;

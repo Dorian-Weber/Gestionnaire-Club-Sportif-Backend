@@ -1,54 +1,45 @@
-package com.mns.cda.filsrouge.service;
+package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
 import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
+import com.mns.cda.filsrouge.mockDAO.MockAccountTypeDao;
 import com.mns.cda.filsrouge.model.AccountType;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.mns.cda.filsrouge.service.AccountTypeService;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class AccountTypeService implements IAccountTypeService {
-
-    protected final AccountTypeDAO accountTypeDAO;
-
-    //GetAll
+public class MockAccountTypeService implements IAccountTypeService {
     @Override
-    public List<AccountType> findAll() { return accountTypeDAO.findAll(); }
-
-    //GetByID
-    @Override
-    public Optional<AccountType> findById(int id) {
-        return accountTypeDAO.findById(id);
+    public List<AccountType> findAll() {
+        return List.of(new AccountType(1, "Admin"), new AccountType(2, "User"));
     }
 
-    //Post
+    @Override
+    public Optional<AccountType> findById(int id) {
+        if (id == 1) {
+            return Optional.of(new AccountType(1, "Admin"));
+        }
+        return Optional.empty();
+    }
+
     @Override
     public void create(AccountType accountType) {
         accountType.setIdAccountType(null);
-        accountTypeDAO.save(accountType);
     }
 
-    //Delete
     @Override
     public void delete(int id) {
-        accountTypeDAO.deleteById(id);
+
     }
 
-    //Put
     @Override
     public void update(int id, AccountType accountType) throws UserNotFoundException {
-        Optional<AccountType> accountTypeOptional = accountTypeDAO.findById(id);
-
-        if(accountTypeOptional.isEmpty()) {
+        if (id != 1) {
             throw new UserNotFoundException("NOT_FOUND");
         }
         accountType.setIdAccountType(id);
-        accountTypeDAO.save(accountType);
-    }
 
+    }
 }

@@ -1,9 +1,9 @@
-package com.mns.cda.filsrouge.mock;
+package com.mns.cda.filsrouge.mockDAO;
 
-import com.mns.cda.filsrouge.dao.SeatDAO;
-import com.mns.cda.filsrouge.model.Reservation;
-import com.mns.cda.filsrouge.model.Seat;
+import com.mns.cda.filsrouge.dao.LevelDAO;
 import com.mns.cda.filsrouge.model.Level;
+import com.mns.cda.filsrouge.model.Platform;
+import com.mns.cda.filsrouge.model.Seat;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,24 +14,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class MockSeatDao implements SeatDAO {
+public class MockLevelDao implements LevelDAO {
     @Override
     public void flush() {
 
     }
 
     @Override
-    public <S extends Seat> S saveAndFlush(S entity) {
+    public <S extends Level> S saveAndFlush(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Seat> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Level> List<S> saveAllAndFlush(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Seat> entities) {
+    public void deleteAllInBatch(Iterable<Level> entities) {
 
     }
 
@@ -46,72 +46,72 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public Seat getOne(Integer integer) {
+    public Level getOne(Integer integer) {
         return null;
     }
 
     @Override
-    public Seat getById(Integer integer) {
+    public Level getById(Integer integer) {
         return null;
     }
 
     @Override
-    public Seat getReferenceById(Integer integer) {
+    public Level getReferenceById(Integer integer) {
         return null;
     }
 
     @Override
-    public <S extends Seat> Optional<S> findOne(Example<S> example) {
+    public <S extends Level> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends Seat> List<S> findAll(Example<S> example) {
+    public <S extends Level> List<S> findAll(Example<S> example) {
         return List.of();
     }
 
     @Override
-    public <S extends Seat> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Level> List<S> findAll(Example<S> example, Sort sort) {
         return List.of();
     }
 
     @Override
-    public <S extends Seat> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Level> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Seat> long count(Example<S> example) {
+    public <S extends Level> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends Seat> boolean exists(Example<S> example) {
+    public <S extends Level> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends Seat, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Level, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
-    public <S extends Seat> S save(S entity) {
+    public <S extends Level> S save(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Seat> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Level> List<S> saveAll(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public Optional<Seat> findById(Integer idTypeEvenement) {
+    public Optional<Level> findById(Integer idTypeEvenement) {
         if(idTypeEvenement == 1) {
-            return Optional.of(new Seat(1,
+            return Optional.of(new Level(1,
                     "Test",
-                    new Level(),
-                    new Reservation()));
+                    List.of(new Seat()),
+                    new Platform()));
         }
         return Optional.empty();
     }
@@ -122,16 +122,16 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public List<Seat> findAll() {
+    public List<Level> findAll() {
 
-        return List.of(new Seat(1,
+        return List.of(new Level(1,
                 "Test",
-                new Level(),
-                new Reservation()));
+                List.of(new Seat()),
+                new Platform()));
     }
 
     @Override
-    public List<Seat> findAllById(Iterable<Integer> integers) {
+    public List<Level> findAllById(Iterable<Integer> integers) {
         return List.of();
     }
 
@@ -146,7 +146,7 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public void delete(Seat entity) {
+    public void delete(Level entity) {
 
     }
 
@@ -156,7 +156,7 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Seat> entities) {
+    public void deleteAll(Iterable<? extends Level> entities) {
 
     }
 
@@ -166,12 +166,12 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public List<Seat> findAll(Sort sort) {
+    public List<Level> findAll(Sort sort) {
         return List.of();
     }
 
     @Override
-    public Page<Seat> findAll(Pageable pageable) {
+    public Page<Level> findAll(Pageable pageable) {
         return null;
     }
 }

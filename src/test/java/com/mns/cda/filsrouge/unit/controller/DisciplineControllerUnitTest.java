@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.DisciplineController;
-import com.mns.cda.filsrouge.mock.MockDisciplineDao;
+import com.mns.cda.filsrouge.mockDAO.MockDisciplineDao;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Sport;

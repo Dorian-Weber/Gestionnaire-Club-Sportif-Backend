@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.ReservationController;
-import com.mns.cda.filsrouge.mock.MockReservationDao;
+import com.mns.cda.filsrouge.mockDAO.MockReservationDao;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

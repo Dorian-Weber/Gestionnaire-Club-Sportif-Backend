@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.CountryController;
-import com.mns.cda.filsrouge.mock.MockCountryDao;
+import com.mns.cda.filsrouge.mockDAO.MockCountryDao;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Country;
 import org.junit.jupiter.api.Assertions;

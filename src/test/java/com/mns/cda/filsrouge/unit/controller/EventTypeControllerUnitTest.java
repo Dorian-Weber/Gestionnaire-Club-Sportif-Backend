@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.EventTypeController;
-import com.mns.cda.filsrouge.mock.MockEventTypeDao;
+import com.mns.cda.filsrouge.mockDAO.MockEventTypeDao;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.EventType;
 import org.junit.jupiter.api.Assertions;

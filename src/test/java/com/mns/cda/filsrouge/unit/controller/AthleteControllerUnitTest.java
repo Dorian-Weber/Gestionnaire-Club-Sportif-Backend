@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.AthleteController;
-import com.mns.cda.filsrouge.mock.MockAthleteDao;
+import com.mns.cda.filsrouge.mockDAO.MockAthleteDao;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

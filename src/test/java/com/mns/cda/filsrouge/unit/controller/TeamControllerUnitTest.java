@@ -1,11 +1,10 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.TeamController;
-import com.mns.cda.filsrouge.mock.MockTeamDao;
+import com.mns.cda.filsrouge.mockDAO.MockTeamDao;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
-import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

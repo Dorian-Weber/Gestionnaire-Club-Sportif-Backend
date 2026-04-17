@@ -1,10 +1,9 @@
-package com.mns.cda.filsrouge.mock;
+package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.TeamDAO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
-import com.mns.cda.filsrouge.model.Sport;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,5 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
+import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
+import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.service.AccountTypeService;
@@ -22,9 +24,7 @@ import java.util.Optional;
 @CrossOrigin
 public class AccountTypeController {
 
-
-    protected final AccountTypeDAO accountTypeDAO;
-    private final AccountTypeService accountTypeService;
+    private final IAccountTypeService accountTypeService;
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents types de comptes",
@@ -97,9 +97,9 @@ public class AccountTypeController {
 
         try {
             accountTypeService.update(id, accountTypeToUpdate);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch(AccountTypeService.UserNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(accountTypeToUpdate, HttpStatus.OK);
+        }catch(UserNotFoundException e) {
+            return new ResponseEntity<>(accountTypeToUpdate, HttpStatus.NOT_FOUND);
         }
     }
 

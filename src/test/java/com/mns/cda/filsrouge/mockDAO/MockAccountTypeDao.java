@@ -1,7 +1,6 @@
-package com.mns.cda.filsrouge.mock;
+package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
-import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.AccountType;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -96,7 +95,7 @@ public class MockAccountTypeDao implements AccountTypeDAO {
 
     @Override
     public <S extends AccountType> S save(S entity) {
-        return null;
+        return entity;
     }
 
     @Override

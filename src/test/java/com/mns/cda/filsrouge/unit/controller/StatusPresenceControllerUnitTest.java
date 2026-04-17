@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.StatusPresenceController;
-import com.mns.cda.filsrouge.mock.MockStatusPresenceDao;
+import com.mns.cda.filsrouge.mockDAO.MockStatusPresenceDao;
 import com.mns.cda.filsrouge.model.StatusPresence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

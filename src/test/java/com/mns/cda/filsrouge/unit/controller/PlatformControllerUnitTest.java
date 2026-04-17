@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.PlatformController;
-import com.mns.cda.filsrouge.mock.MockPlatformDao;
+import com.mns.cda.filsrouge.mockDAO.MockPlatformDao;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import org.junit.jupiter.api.Assertions;
