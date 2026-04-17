@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.config.UserNotFoundException;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.view.AppUserView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class AppUserController {
 
 
-    protected final AppUserDAO appUserDAO;
+    protected final IAppUserService appUserService;
 
     @GetMapping("/list")
     @JsonView(AppUserView.class)
@@ -34,7 +35,7 @@ public class AppUserController {
             @ApiResponse(responseCode = "200", description = "Liste des utilisateurs récupérée avec succès")
     })
     public List<AppUser> getAppUserList() {
-        return appUserDAO.findAll();
+        return appUserService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class AppUserController {
     })
     public ResponseEntity<AppUser> getAppUserById(@PathVariable int id) {
 
-        Optional<AppUser> optionalAppUser = appUserDAO.findById(id);
+        Optional<AppUser> optionalAppUser = appUserService.findById(id);
 
         if(optionalAppUser.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class AppUserController {
     })
     public ResponseEntity<AppUser> create(@RequestBody AppUser appUserToInsert) {
 
-        appUserToInsert.setIdAppUser(null);
-        appUserDAO.save(appUserToInsert);
+        appUserService.create(appUserToInsert);
 
         return new ResponseEntity<>(appUserToInsert, HttpStatus.CREATED);
 
@@ -79,12 +79,12 @@ public class AppUserController {
     })
     public ResponseEntity<AppUser> delete(@PathVariable int id) {
 
-        Optional<AppUser> optionalAppUser = appUserDAO.findById(id);
+        Optional<AppUser> optionalAppUser = appUserService.findById(id);
 
         if(optionalAppUser.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        appUserDAO.deleteById(id);
+        appUserService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +100,12 @@ public class AppUserController {
             @PathVariable int id,
             @RequestBody AppUser appUserToUpdate) {
 
-        Optional<AppUser> optionalAppUser = appUserDAO.findById(id);
-
-        if(optionalAppUser.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            appUserService.update(id, appUserToUpdate);
+            return new ResponseEntity<>(appUserToUpdate, HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(appUserToUpdate, HttpStatus.NOT_FOUND);
         }
-        appUserToUpdate.setIdAppUser(id);
-        appUserDAO.save(appUserToUpdate);
 
-        return new ResponseEntity<>(appUserToUpdate,HttpStatus.OK);
     }
-
 }

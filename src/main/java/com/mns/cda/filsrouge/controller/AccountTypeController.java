@@ -2,9 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
 import com.mns.cda.filsrouge.config.UserNotFoundException;
-import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.model.AccountType;
-import com.mns.cda.filsrouge.service.AccountTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

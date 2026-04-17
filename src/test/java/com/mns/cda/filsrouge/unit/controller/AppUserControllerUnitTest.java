@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.AppUserController;
 import com.mns.cda.filsrouge.mockDAO.MockAppUserDao;
+import com.mns.cda.filsrouge.mockService.MockAppUserService;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class AppUserControllerUnitTest {
     //Test de GetAll
     @Test
     public void getAppUserAll_MustReturnList() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
 
         List<AppUser> response = appUserController.getAppUserList();
 
@@ -30,7 +31,7 @@ public class AppUserControllerUnitTest {
     @Test
     public void getAppUserByIdExist_MustReturnCode200() {
 
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
         ResponseEntity<AppUser> response = appUserController.getAppUserById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +40,7 @@ public class AppUserControllerUnitTest {
     @Test
     public void getAppUserByIdNotExist_MustReturnCode404() {
 
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
         ResponseEntity<AppUser> response = appUserController.getAppUserById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +49,7 @@ public class AppUserControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createAppUser_MustReturnCode201() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
         AppUser appUser = new AppUser(1,
                 "Test",
                 "Test",
@@ -62,7 +63,7 @@ public class AppUserControllerUnitTest {
                 List.of(new Relation()),
                 List.of(new Relation()),
                 List.of(new Vote()),
-                List.of(new Reservation()));;
+                List.of(new Reservation()));
 
         ResponseEntity<AppUser> response = appUserController.create(appUser);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -73,7 +74,7 @@ public class AppUserControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteAppUserExist_MustReturnCode204() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
 
         ResponseEntity<AppUser> response = appUserController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -81,7 +82,7 @@ public class AppUserControllerUnitTest {
     }
     @Test
     public void deleteAppUserNotExist_MustReturnCode404() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
 
         ResponseEntity<AppUser> response = appUserController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -91,7 +92,7 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void updateAppUser_MustReturnCode200() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
         AppUser appUser = new AppUser(1,
                 "Test",
                 "Test",
@@ -116,7 +117,7 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void updateAppUserNotExist_MustReturnCode404() {
-        AppUserController appUserController = new AppUserController(new MockAppUserDao());
+        AppUserController appUserController = new AppUserController(new MockAppUserService());
         AppUser appUser = new AppUser(1,
                 "Test",
                 "Test",
