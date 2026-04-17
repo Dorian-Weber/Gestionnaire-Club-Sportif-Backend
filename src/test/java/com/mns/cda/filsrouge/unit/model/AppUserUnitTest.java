@@ -26,7 +26,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserName",
+                "appUserName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -39,7 +39,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserName",
+                "appUserName",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -53,7 +53,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserFirstName",
+                "appUserFirstName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -66,7 +66,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserFirstName",
+                "appUserFirstName",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -80,7 +80,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPseudo",
+                "appUserPseudo",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -93,7 +93,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPseudo",
+                "appUserPseudo",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -106,7 +106,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPseudo",
+                "appUserPseudo",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -119,7 +119,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPseudo",
+                "appUserPseudo",
                 "Pattern");
         Assertions.assertTrue(constraintExist);
     }
@@ -133,7 +133,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserEmail",
+                "appUserEmail",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -147,7 +147,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserEmail",
+                "appUserEmail",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -161,7 +161,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserEmail",
+                "appUserEmail",
                 "Email");
         Assertions.assertTrue(constraintExist);
     }
@@ -175,7 +175,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPassword",
+                "appUserPassword",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -189,7 +189,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPassword",
+                "appUserPassword",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -202,7 +202,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPassword",
+                "appUserPassword",
                 "Size");
         Assertions.assertTrue(constraintExist);
     }
@@ -216,7 +216,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPassword",
+                "appUserPassword",
                 "Pattern");
         Assertions.assertTrue(constraintExist);
     }
@@ -230,7 +230,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPassword",
+                "appUserPassword",
                 "Pattern");
         Assertions.assertFalse(constraintExist);
     }
@@ -244,7 +244,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPhone",
+                "appUserPhone",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }
@@ -258,7 +258,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPhone",
+                "appUserPhone",
                 "Pattern");
         Assertions.assertTrue(constraintExist);
     }
@@ -271,7 +271,7 @@ public class AppUserUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(appUser),
-                "AppUserPhone",
+                "appUserPhone",
                 "Pattern");
         Assertions.assertTrue(constraintExist);
     }

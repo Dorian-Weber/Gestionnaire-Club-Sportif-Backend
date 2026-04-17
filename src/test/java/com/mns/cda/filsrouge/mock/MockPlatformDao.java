@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mock;
 
 import com.mns.cda.filsrouge.dao.PlatformDAO;
+import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -107,7 +108,7 @@ public class MockPlatformDao implements PlatformDAO {
     public Optional<Platform> findById(Integer idTypeEvenement) {
         if(idTypeEvenement == 1) {
             return Optional.of(new Platform(1,
-                    "Test"));
+                    "Test",List.of(new Level())));
         }
         return Optional.empty();
     }
@@ -121,7 +122,7 @@ public class MockPlatformDao implements PlatformDAO {
     public List<Platform> findAll() {
 
         return List.of(new Platform(1,
-                "Test"));
+                "Test",List.of(new Level())));
     }
 
     @Override

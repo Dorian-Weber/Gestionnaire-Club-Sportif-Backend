@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.PlatformController;
 import com.mns.cda.filsrouge.mock.MockPlatformDao;
+import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class PlatformControllerUnitTest {
     public void createPlatform_MustReturnCode201() {
         PlatformController platformController = new PlatformController(new MockPlatformDao());
         Platform platform = new Platform(10,
-                "Test");
+                "Test",List.of(new Level()));
 
         ResponseEntity<Platform> response = platformController.create(platform);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -80,7 +81,7 @@ public class PlatformControllerUnitTest {
     public void updatePlatform_MustReturnCode200() {
         PlatformController platformController = new PlatformController(new MockPlatformDao());
         Platform platform = new Platform(10,
-                "Test");
+                "Test",List.of(new Level()));
 
         ResponseEntity<Platform> response = platformController.update(1, platform);
 
@@ -92,7 +93,7 @@ public class PlatformControllerUnitTest {
     @Test
     public void updatePlatformNotExist_MustReturnCode404() {
         PlatformController platformController = new PlatformController(new MockPlatformDao());
-        Platform platform = new Platform(10, "Test");
+        Platform platform = new Platform(10, "Test",List.of(new Level()));
 
         ResponseEntity<Platform> reponse = platformController.update(2, platform);
 

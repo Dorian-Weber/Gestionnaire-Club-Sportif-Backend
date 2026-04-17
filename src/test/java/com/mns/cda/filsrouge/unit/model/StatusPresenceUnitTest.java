@@ -26,7 +26,7 @@ public class StatusPresenceUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(statusPresence),
-                "StatusPresenceName",
+                "statusPresenceName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

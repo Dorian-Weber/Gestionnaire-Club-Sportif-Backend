@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.model.AccountType;
+import com.mns.cda.filsrouge.service.AccountTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +24,7 @@ public class AccountTypeController {
 
 
     protected final AccountTypeDAO accountTypeDAO;
+    private final AccountTypeService accountTypeService;
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents types de comptes",
@@ -31,7 +33,7 @@ public class AccountTypeController {
             @ApiResponse(responseCode = "200", description = "Liste des types de comptes récupérée avec succès")
     })
     public List<AccountType> getAccountTypeList() {
-        return accountTypeDAO.findAll();
+        return accountTypeService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -43,13 +45,13 @@ public class AccountTypeController {
     })
     public ResponseEntity<AccountType> getAccountTypeById(@PathVariable int id) {
 
-        Optional<AccountType> optionalAccountType = accountTypeDAO.findById(id);
-
+        Optional<AccountType> optionalAccountType = accountTypeService.findById(id);
         if(optionalAccountType.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalAccountType.get(), HttpStatus.OK);
     }
+
 
     @PostMapping
     @Operation(summary = "Ajoute un type de compte à la base de données",
@@ -59,11 +61,9 @@ public class AccountTypeController {
     })
     public ResponseEntity<AccountType> create(@RequestBody AccountType accountTypeToInsert) {
 
-        accountTypeToInsert.setIdAccountType(null);
-        accountTypeDAO.save(accountTypeToInsert);
+        accountTypeService.create(accountTypeToInsert);
 
         return new ResponseEntity<>(accountTypeToInsert, HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("/{id}")
@@ -75,13 +75,12 @@ public class AccountTypeController {
     })
     public ResponseEntity<AccountType> delete(@PathVariable int id) {
 
-        Optional<AccountType> optionalAccountType = accountTypeDAO.findById(id);
+        Optional<AccountType> optionalAccountType = accountTypeService.findById(id);
 
         if(optionalAccountType.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        accountTypeDAO.deleteById(id);
-
+        accountTypeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -96,15 +95,12 @@ public class AccountTypeController {
             @PathVariable int id,
             @RequestBody AccountType accountTypeToUpdate) {
 
-        Optional<AccountType> optionalAccountType = accountTypeDAO.findById(id);
-
-        if(optionalAccountType.isEmpty()) {
+        try {
+            accountTypeService.update(id, accountTypeToUpdate);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(AccountTypeService.UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        accountTypeToUpdate.setIdAccountType(id);
-        accountTypeDAO.save(accountTypeToUpdate);
-
-        return new ResponseEntity<>(accountTypeToUpdate,HttpStatus.OK);
     }
 
 }

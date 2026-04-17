@@ -26,7 +26,7 @@ public class AccountTypeUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(accountType),
-                "AccountTypeName",
+                "accountTypeName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

@@ -4,6 +4,7 @@ import com.mns.cda.filsrouge.controller.LevelController;
 import com.mns.cda.filsrouge.mock.MockLevelDao;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
+import com.mns.cda.filsrouge.model.Seat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,7 @@ public class LevelControllerUnitTest {
         LevelController levelController = new LevelController(new MockLevelDao());
         Level level = new Level(10,
                 "Test",
+                List.of(new Seat()),
                 new Platform());
 
         ResponseEntity<Level> response = levelController.create(level);
@@ -83,6 +85,7 @@ public class LevelControllerUnitTest {
         LevelController levelController = new LevelController(new MockLevelDao());
         Level level = new Level(10,
                 "Test",
+                List.of(new Seat()),
                 new Platform());
 
         ResponseEntity<Level> response = levelController.update(1, level);
@@ -97,6 +100,7 @@ public class LevelControllerUnitTest {
         LevelController levelController = new LevelController(new MockLevelDao());
         Level level = new Level(10,
                 "Test",
+                List.of(new Seat()),
                 new Platform());
 
         ResponseEntity<Level> reponse = levelController.update(2, level);

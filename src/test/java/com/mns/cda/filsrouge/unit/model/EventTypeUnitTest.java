@@ -17,7 +17,7 @@ public class EventTypeUnitTest {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du typeevenement ne peut pas être vide
+    // Test pour valider que le nom du typee venement ne peut pas être vide
     @Test
     public void validEventTypeWithEventTypeNameBlank_MustBeNotValidated(){
 
@@ -26,7 +26,7 @@ public class EventTypeUnitTest {
 
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(eventType),
-                "EventTypeName",
+                "eventTypeName",
                 "NotBlank");
         Assertions.assertTrue(constraintExist);
     }

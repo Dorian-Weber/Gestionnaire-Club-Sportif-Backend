@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.mock;
 import com.mns.cda.filsrouge.dao.LevelDAO;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
+import com.mns.cda.filsrouge.model.Seat;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -109,6 +110,7 @@ public class MockLevelDao implements LevelDAO {
         if(idTypeEvenement == 1) {
             return Optional.of(new Level(1,
                     "Test",
+                    List.of(new Seat()),
                     new Platform()));
         }
         return Optional.empty();
@@ -124,6 +126,7 @@ public class MockLevelDao implements LevelDAO {
 
         return List.of(new Level(1,
                 "Test",
+                List.of(new Seat()),
                 new Platform()));
     }
 
