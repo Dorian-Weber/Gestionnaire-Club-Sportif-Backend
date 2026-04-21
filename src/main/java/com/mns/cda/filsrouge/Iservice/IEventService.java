@@ -1,0 +1,27 @@
+package com.mns.cda.filsrouge.Iservice;
+
+import com.mns.cda.filsrouge.model.Event;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface IEventService {
+
+    public static class EventNotFoundException extends Exception {}
+
+    //GetAll
+    List<Event> findAll();
+
+    //GetByID
+    Optional<Event> findById(int id);
+
+    //Post
+    void create(Event Event);
+
+    //Delete
+    void delete(int id);
+
+    //Put
+    void update(int id, Event event) throws EventNotFoundException;
+
+}

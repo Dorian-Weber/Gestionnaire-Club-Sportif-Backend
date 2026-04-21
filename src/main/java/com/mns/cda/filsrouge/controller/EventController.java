@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.EventDAO;
+import com.mns.cda.filsrouge.Iservice.IDisciplineService;
+import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class EventController {
 
 
-    protected final EventDAO eventDAO;
+    protected final IEventService eventService;
 
     @GetMapping("/list")
     @JsonView(EventView.class)
@@ -34,7 +35,7 @@ public class EventController {
             @ApiResponse(responseCode = "200", description = "Liste des évènements récupérée avec succès")
     })
     public List<Event> getEventList() {
-        return eventDAO.findAll();
+        return eventService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class EventController {
     })
     public ResponseEntity<Event> getEventById(@PathVariable int id) {
 
-        Optional<Event> optionalEvent = eventDAO.findById(id);
+        Optional<Event> optionalEvent = eventService.findById(id);
 
         if(optionalEvent.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class EventController {
     })
     public ResponseEntity<Event> create(@RequestBody Event eventToInsert) {
 
-        eventToInsert.setIdEvent(null);
-        eventDAO.save(eventToInsert);
+        eventService.create(eventToInsert);
 
         return new ResponseEntity<>(eventToInsert, HttpStatus.CREATED);
 
@@ -79,12 +79,12 @@ public class EventController {
     })
     public ResponseEntity<Event> delete(@PathVariable int id) {
 
-        Optional<Event> optionalEvent = eventDAO.findById(id);
+        Optional<Event> optionalEvent = eventService.findById(id);
 
         if(optionalEvent.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        eventDAO.deleteById(id);
+        eventService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +100,12 @@ public class EventController {
             @PathVariable int id,
             @RequestBody Event eventToUpdate) {
 
-        Optional<Event> optionalEvent = eventDAO.findById(id);
-
-        if(optionalEvent.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            eventService.update(id, eventToUpdate);
+            return new ResponseEntity<>(eventToUpdate, HttpStatus.OK);
+        } catch (IEventService.EventNotFoundException e) {
+            return new ResponseEntity<>(eventToUpdate, HttpStatus.NOT_FOUND);
         }
-        eventToUpdate.setIdEvent(id);
-        eventDAO.save(eventToUpdate);
-
-        return new ResponseEntity<>(eventToUpdate,HttpStatus.OK);
     }
 
 }

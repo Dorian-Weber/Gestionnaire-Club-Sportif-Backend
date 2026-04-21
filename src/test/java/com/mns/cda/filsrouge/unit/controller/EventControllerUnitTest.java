@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.EventController;
 import com.mns.cda.filsrouge.mockDAO.MockEventDao;
+import com.mns.cda.filsrouge.mockService.MockEventService;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class EventControllerUnitTest {
     //Test de GetAll
     @Test
     public void getEvenementAll_DoitRetournerUneList() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
 
         List<Event> response = eventController.getEventList();
 
@@ -30,7 +31,7 @@ public class EventControllerUnitTest {
     @Test
     public void getEvenementByIdExist_DoitRetournerCode200() {
 
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
         ResponseEntity<Event> response = eventController.getEventById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +40,7 @@ public class EventControllerUnitTest {
     @Test
     public void getEvenementByIdNotExist_DoitRetournerCode404() {
 
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
         ResponseEntity<Event> response = eventController.getEventById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +49,7 @@ public class EventControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createEvenement_DoitRetournerCode201() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
         Event event = new Event(1,
                 "Match de Football",
                 "Rencontre amicale entre deux équipes locales",
@@ -69,7 +70,7 @@ public class EventControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteEvenementExist_DoitRetournerCode204() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
 
         ResponseEntity<Event> response = eventController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -77,7 +78,7 @@ public class EventControllerUnitTest {
     }
     @Test
     public void deleteEvenementNotExist_DoitRetournerCode404() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
 
         ResponseEntity<Event> response = eventController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -86,7 +87,7 @@ public class EventControllerUnitTest {
     // Test de Update
     @Test
     public void updateEvenement_DoitRetournerCode200() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
         Event event = new Event(1,
                 "Match de Football",
                 "Rencontre amicale entre deux équipes locales",
@@ -107,7 +108,7 @@ public class EventControllerUnitTest {
 
     @Test
     public void updateEvenementNotExist_DoitRetournerCode404() {
-        EventController eventController = new EventController(new MockEventDao());
+        EventController eventController = new EventController(new MockEventService());
         Event event = new Event(1,
                 "Match de Football",
                 "Rencontre amicale entre deux équipes locales",
