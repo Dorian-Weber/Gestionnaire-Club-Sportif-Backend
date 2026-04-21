@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.SportDAO;
+import com.mns.cda.filsrouge.Iservice.ISeatService;
+import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.view.SportView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 @CrossOrigin
 public class SportController {
 
-    private final SportDAO sportDAO;
+    private final ISportService sportService;
 
     @GetMapping("/list")
     @JsonView(SportView.class)
@@ -34,7 +35,7 @@ public class SportController {
             @ApiResponse(responseCode = "200", description = "Liste des sports récupérée avec succès")
     })
     public List<Sport> getSportList() {
-        return sportDAO.findAll();
+        return sportService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class SportController {
     })
     public ResponseEntity<Sport> getSportById(@PathVariable Integer id) {
 
-        Optional<Sport> optionalSport = sportDAO.findById(id);
+        Optional<Sport> optionalSport = sportService.findById(id);
 
         if (optionalSport.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class SportController {
     })
     public ResponseEntity<Sport> create(@RequestBody Sport sportToInsert) {
 
-        sportToInsert.setIdSport(null);
-        sportDAO.save(sportToInsert);
+        sportService.create(sportToInsert);
 
         return new ResponseEntity<>(sportToInsert, HttpStatus.CREATED);
     }
@@ -78,12 +78,12 @@ public class SportController {
     })
     public ResponseEntity<Sport> delete(@PathVariable Integer id) {
 
-        Optional<Sport> optionalSport = sportDAO.findById(id);
+        Optional<Sport> optionalSport = sportService.findById(id);
 
         if (optionalSport.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        sportDAO.delete(optionalSport.get());
+        sportService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -99,15 +99,11 @@ public class SportController {
             @PathVariable Integer id,
             @RequestBody Sport sportToUpdate) {
 
-        Optional<Sport> optionalSport = sportDAO.findById(id);
-
-        if (optionalSport.isEmpty()) {
+        try {
+            sportService.update(id, sportToUpdate);
+            return new ResponseEntity<>(sportToUpdate, HttpStatus.OK);
+        } catch (ISportService.SportNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        sportToUpdate.setIdSport(id);
-        sportDAO.save(sportToUpdate);
-
-        return new ResponseEntity<>(sportToUpdate, HttpStatus.OK);
-
     }
 }

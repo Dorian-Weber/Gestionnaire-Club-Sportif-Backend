@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.SportController;
-import com.mns.cda.filsrouge.mockDAO.MockSportDao;
+import com.mns.cda.filsrouge.mockService.MockSportService;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
@@ -17,7 +17,7 @@ public class SportControllerUnitTest {
     //Test de GetAll
     @Test
     public void getSportAll_DoitRetournerUneList() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
 
         List<Sport> response = sportController.getSportList();
 
@@ -31,7 +31,7 @@ public class SportControllerUnitTest {
     @Test
     public void getSportByIdExist_DoitRetournerCode200() {
 
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
         ResponseEntity<Sport> response = sportController.getSportById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -40,7 +40,7 @@ public class SportControllerUnitTest {
     @Test
     public void getSportByIdNotExist_DoitRetournerCode404() {
 
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
         ResponseEntity<Sport> response = sportController.getSportById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -49,7 +49,7 @@ public class SportControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createSport_DoitRetournerCode201() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
@@ -64,7 +64,7 @@ public class SportControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteSportExist_DoitRetournerCode204() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
 
         ResponseEntity<Sport> response = sportController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -72,7 +72,7 @@ public class SportControllerUnitTest {
     }
     @Test
     public void deleteSportNotExist_DoitRetournerCode404() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
 
         ResponseEntity<Sport> response = sportController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -82,7 +82,7 @@ public class SportControllerUnitTest {
 
     @Test
     public void updateSport_DoitRetournerCode200() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
@@ -97,7 +97,7 @@ public class SportControllerUnitTest {
 
     @Test
     public void updateSportNotExist_DoitRetournerCode404() {
-        SportController sportController = new SportController(new MockSportDao());
+        SportController sportController = new SportController(new MockSportService());
         Sport sport = new Sport(10,
                 "Test",
                 List.of(new Discipline()),
