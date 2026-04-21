@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.EventTypeDAO;
+import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.Iservice.IEventTypeService;
 import com.mns.cda.filsrouge.model.EventType;
 import com.mns.cda.filsrouge.view.EventTypeView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class EventTypeController {
 
 
-    protected final EventTypeDAO eventTypeDAO;
+    protected final IEventTypeService eventTypeService;
 
     @GetMapping("/list")
     @JsonView(EventTypeView.class)
@@ -34,7 +35,7 @@ public class EventTypeController {
             @ApiResponse(responseCode = "200", description = "Liste des types d'évènements récupérée avec succès")
     })
     public List<EventType> getEventTypeList() {
-        return eventTypeDAO.findAll();
+        return eventTypeService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class EventTypeController {
     })
     public ResponseEntity<EventType> getEventTypeById(@PathVariable int id) {
 
-        Optional<EventType> optionalEventType = eventTypeDAO.findById(id);
+        Optional<EventType> optionalEventType = eventTypeService.findById(id);
 
         if(optionalEventType.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class EventTypeController {
     })
     public ResponseEntity<EventType> create(@RequestBody EventType eventTypeToInsert) {
 
-        eventTypeToInsert.setIdEventType(null);
-        eventTypeDAO.save(eventTypeToInsert);
+        eventTypeService.create(eventTypeToInsert);
 
         return new ResponseEntity<>(eventTypeToInsert, HttpStatus.CREATED);
 
@@ -79,12 +79,12 @@ public class EventTypeController {
     })
     public ResponseEntity<EventType> delete(@PathVariable int id) {
 
-        Optional<EventType> optionalEventType = eventTypeDAO.findById(id);
+        Optional<EventType> optionalEventType = eventTypeService.findById(id);
 
         if(optionalEventType.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        eventTypeDAO.deleteById(id);
+        eventTypeService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +100,12 @@ public class EventTypeController {
             @PathVariable int id,
             @RequestBody EventType eventTypeToUpdate) {
 
-        Optional<EventType> optionalEventType = eventTypeDAO.findById(id);
-
-        if(optionalEventType.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            eventTypeService.update(id, eventTypeToUpdate);
+            return new ResponseEntity<>(eventTypeToUpdate, HttpStatus.OK);
+        } catch (IEventTypeService.EventTypeNotFoundException e) {
+            return new ResponseEntity<>(eventTypeToUpdate, HttpStatus.NOT_FOUND);
         }
-        eventTypeToUpdate.setIdEventType(id);
-        eventTypeDAO.save(eventTypeToUpdate);
-
-        return new ResponseEntity<>(eventTypeToUpdate,HttpStatus.OK);
     }
 
 }
