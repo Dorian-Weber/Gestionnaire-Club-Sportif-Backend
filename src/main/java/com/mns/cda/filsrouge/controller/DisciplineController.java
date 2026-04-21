@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.DisciplineDAO;
+import com.mns.cda.filsrouge.Iservice.ICountryService;
+import com.mns.cda.filsrouge.Iservice.IDisciplineService;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.view.DisciplineView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +24,7 @@ import java.util.Optional;
 @CrossOrigin
 public class DisciplineController {
 
-    private final DisciplineDAO disciplineDAO;
+    private final IDisciplineService disciplineService;
 
 
     @GetMapping("/list")
@@ -34,7 +35,7 @@ public class DisciplineController {
             @ApiResponse(responseCode = "200", description = "Liste des disciplines récupérée avec succès")
     })
     public List<Discipline> getDisciplineList() {
-        return disciplineDAO.findAll();
+        return disciplineService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class DisciplineController {
     })
     public ResponseEntity<Discipline> getDisciplineById(@PathVariable Integer id) {
 
-        Optional<Discipline> optionalDiscipline = disciplineDAO.findById(id);
+        Optional<Discipline> optionalDiscipline = disciplineService.findById(id);
 
         if (optionalDiscipline.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class DisciplineController {
     })
     public ResponseEntity<Discipline> create(@RequestBody Discipline disciplineToInsert) {
 
-        disciplineToInsert.setIdDiscipline(null);
-        disciplineDAO.save(disciplineToInsert);
+        disciplineService.create(disciplineToInsert);
 
         return new ResponseEntity<>(disciplineToInsert, HttpStatus.CREATED);
     }
@@ -78,12 +78,12 @@ public class DisciplineController {
     })
     public ResponseEntity<Discipline> delete(@PathVariable Integer id) {
 
-        Optional<Discipline> optionalDiscipline = disciplineDAO.findById(id);
+        Optional<Discipline> optionalDiscipline = disciplineService.findById(id);
 
         if (optionalDiscipline.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        disciplineDAO.delete(optionalDiscipline.get());
+        disciplineService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -99,15 +99,12 @@ public class DisciplineController {
             @PathVariable Integer id,
             @RequestBody Discipline disciplineToUpdate) {
 
-        Optional<Discipline> optionalDiscipline = disciplineDAO.findById(id);
-
-        if (optionalDiscipline.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            disciplineService.update(id, disciplineToUpdate);
+            return new ResponseEntity<>(disciplineToUpdate, HttpStatus.OK);
+        } catch (IDisciplineService.DisciplineNotFoundException e) {
+            return new ResponseEntity<>(disciplineToUpdate, HttpStatus.NOT_FOUND);
         }
-        disciplineToUpdate.setIdDiscipline(id);
-        disciplineDAO.save(disciplineToUpdate);
-
-        return new ResponseEntity<>(disciplineToUpdate, HttpStatus.OK);
 
     }
 }

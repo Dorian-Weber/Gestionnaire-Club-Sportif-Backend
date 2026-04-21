@@ -24,7 +24,7 @@ public class EventType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(EventTypeView.class)
+    @JsonView({EventTypeView.class, EventView.class})
     protected Integer idEventType;
 
     @NotBlank
