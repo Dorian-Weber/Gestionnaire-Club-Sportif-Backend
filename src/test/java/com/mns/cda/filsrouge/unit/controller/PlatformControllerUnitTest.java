@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.PlatformController;
-import com.mns.cda.filsrouge.mockDAO.MockPlatformDao;
+import com.mns.cda.filsrouge.mockService.MockPlatformService;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,7 @@ public class PlatformControllerUnitTest {
     //Test de GetAll
     @Test
     public void getPlatformAll_MustReturnList() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
 
         List<Platform> response = platformController.getPlatformList();
 
@@ -30,7 +30,7 @@ public class PlatformControllerUnitTest {
     @Test
     public void getPlatformByIdExist_MustReturnCode200() {
 
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
         ResponseEntity<Platform> response = platformController.getPlatformById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +39,7 @@ public class PlatformControllerUnitTest {
     @Test
     public void getPlatformByIdNotExist_MustReturnCode404() {
 
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
         ResponseEntity<Platform> response = platformController.getPlatformById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +48,7 @@ public class PlatformControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createPlatform_MustReturnCode201() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
         Platform platform = new Platform(10,
                 "Test",List.of(new Level()));
 
@@ -61,7 +61,7 @@ public class PlatformControllerUnitTest {
     // Test de Delete
     @Test
     public void deletePlatformExist_MustReturnCode204() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
 
         ResponseEntity<Platform> response = platformController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -69,7 +69,7 @@ public class PlatformControllerUnitTest {
     }
     @Test
     public void deletePlatformNotExist_MustReturnCode404() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
 
         ResponseEntity<Platform> response = platformController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -79,7 +79,7 @@ public class PlatformControllerUnitTest {
 
     @Test
     public void updatePlatform_MustReturnCode200() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
         Platform platform = new Platform(10,
                 "Test",List.of(new Level()));
 
@@ -92,7 +92,7 @@ public class PlatformControllerUnitTest {
 
     @Test
     public void updatePlatformNotExist_MustReturnCode404() {
-        PlatformController platformController = new PlatformController(new MockPlatformDao());
+        PlatformController platformController = new PlatformController(new MockPlatformService());
         Platform platform = new Platform(10, "Test",List.of(new Level()));
 
         ResponseEntity<Platform> reponse = platformController.update(2, platform);

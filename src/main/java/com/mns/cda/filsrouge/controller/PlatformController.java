@@ -1,10 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.PlatformDAO;
+import com.mns.cda.filsrouge.Iservice.ILevelService;
+import com.mns.cda.filsrouge.Iservice.IPlatformService;
 import com.mns.cda.filsrouge.model.Platform;
 import com.mns.cda.filsrouge.view.PlatformView;
-import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class PlatformController {
 
 
-    protected final PlatformDAO platformDAO;
+    protected final IPlatformService platformService;
 
     @GetMapping("/list")
     @JsonView(PlatformView.class)
@@ -35,7 +35,7 @@ public class PlatformController {
             @ApiResponse(responseCode = "200", description = "Liste des tribunes récupérée avec succès")
     })
     public List<Platform> getPlatformList() {
-        return platformDAO.findAll();
+        return platformService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ public class PlatformController {
     })
     public ResponseEntity<Platform> getPlatformById(@PathVariable int id) {
 
-        Optional<Platform> optionalPlatform = platformDAO.findById(id);
+        Optional<Platform> optionalPlatform = platformService.findById(id);
 
         if(optionalPlatform.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,8 +64,7 @@ public class PlatformController {
     })
     public ResponseEntity<Platform> create(@RequestBody Platform platformToInsert) {
 
-        platformToInsert.setIdPlatform(null);
-        platformDAO.save(platformToInsert);
+        platformService.create(platformToInsert);
 
         return new ResponseEntity<>(platformToInsert, HttpStatus.CREATED);
 
@@ -80,12 +79,12 @@ public class PlatformController {
     })
     public ResponseEntity<Platform> delete(@PathVariable int id) {
 
-        Optional<Platform> optionalPlatform = platformDAO.findById(id);
+        Optional<Platform> optionalPlatform = platformService.findById(id);
 
         if(optionalPlatform.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        platformDAO.deleteById(id);
+        platformService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -101,15 +100,11 @@ public class PlatformController {
             @PathVariable int id,
             @RequestBody Platform platformToUpdate) {
 
-        Optional<Platform> optionalPlatform = platformDAO.findById(id);
-
-        if(optionalPlatform.isEmpty()) {
+        try {
+            platformService.update(id, platformToUpdate);
+            return new ResponseEntity<>(platformToUpdate, HttpStatus.OK);
+        } catch (IPlatformService.PlatformNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        platformToUpdate.setIdPlatform(id);
-        platformDAO.save(platformToUpdate);
-
-        return new ResponseEntity<>(platformToUpdate,HttpStatus.OK);
     }
-
 }
