@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.ReservationDAO;
+import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.view.ReservationView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class ReservationController {
 
 
-    protected final ReservationDAO reservationDAO;
+    protected final IReservationService reservationService;
 
     @GetMapping("/list")
     @JsonView(ReservationView.class)
@@ -34,7 +34,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "200", description = "Liste des reservations récupérée avec succès")
     })
     public List<Reservation> getReservationList() {
-        return reservationDAO.findAll();
+        return reservationService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +47,7 @@ public class ReservationController {
     })
     public ResponseEntity<Reservation> getReservationById(@PathVariable int id) {
 
-        Optional<Reservation> optionalReservation = reservationDAO.findById(id);
+        Optional<Reservation> optionalReservation = reservationService.findById(id);
 
         if(optionalReservation.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +63,7 @@ public class ReservationController {
     })
     public ResponseEntity<Reservation> create(@RequestBody Reservation reservationToInsert) {
 
-        reservationToInsert.setIdReservation(null);
-        reservationDAO.save(reservationToInsert);
+        reservationService.create(reservationToInsert);
 
         return new ResponseEntity<>(reservationToInsert, HttpStatus.CREATED);
 
@@ -79,12 +78,12 @@ public class ReservationController {
     })
     public ResponseEntity<Reservation> delete(@PathVariable int id) {
 
-        Optional<Reservation> optionalReservation = reservationDAO.findById(id);
+        Optional<Reservation> optionalReservation = reservationService.findById(id);
 
         if(optionalReservation.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        reservationDAO.deleteById(id);
+        reservationService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +99,12 @@ public class ReservationController {
             @PathVariable int id,
             @RequestBody Reservation reservationToUpdate) {
 
-        Optional<Reservation> optionalReservation = reservationDAO.findById(id);
-
-        if(optionalReservation.isEmpty()) {
+        try {
+            reservationService.update(id, reservationToUpdate);
+            return new ResponseEntity<>(reservationToUpdate, HttpStatus.OK);
+        } catch (IReservationService.ReservationNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        reservationToUpdate.setIdReservation(id);
-        reservationDAO.save(reservationToUpdate);
-
-        return new ResponseEntity<>(reservationToUpdate,HttpStatus.OK);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.ReservationController;
 import com.mns.cda.filsrouge.mockDAO.MockReservationDao;
+import com.mns.cda.filsrouge.mockService.MockReservationService;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class ReservationUnitTest {
     //Test de GetAll
     @Test
     public void getReservationAll_MustReturnList() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
 
         List<Reservation> response = reservationController.getReservationList();
 
@@ -30,7 +31,7 @@ public class ReservationUnitTest {
     @Test
     public void getReservationByIdExist_MustReturnCode200() {
 
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
         ResponseEntity<Reservation> response = reservationController.getReservationById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -39,7 +40,7 @@ public class ReservationUnitTest {
     @Test
     public void getReservationByIdNotExist_MustReturnCode404() {
 
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
         ResponseEntity<Reservation> response = reservationController.getReservationById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -48,7 +49,7 @@ public class ReservationUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createReservation_MustReturnCode201() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
         Reservation reservation = new Reservation(1,
                 LocalDateTime.now(),
                 new StatusPresence(),
@@ -65,7 +66,7 @@ public class ReservationUnitTest {
     // Test de Delete
     @Test
     public void deleteReservationExist_MustReturnCode204() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
 
         ResponseEntity<Reservation> response = reservationController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -73,7 +74,7 @@ public class ReservationUnitTest {
     }
     @Test
     public void deleteReservationNotExist_MustReturnCode404() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
 
         ResponseEntity<Reservation> response = reservationController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -83,7 +84,7 @@ public class ReservationUnitTest {
 
     @Test
     public void updateReservation_MustReturnCode200() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
         Reservation reservation = new Reservation(1,
                 LocalDateTime.now(),
                 new StatusPresence(),
@@ -100,7 +101,7 @@ public class ReservationUnitTest {
 
     @Test
     public void updateReservationNotExist_MustReturnCode404() {
-        ReservationController reservationController = new ReservationController(new MockReservationDao());
+        ReservationController reservationController = new ReservationController(new MockReservationService());
         Reservation reservation = new Reservation(1,
                 LocalDateTime.now(),
                 new StatusPresence(),
