@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.mns.cda.filsrouge.dao.StatusPresenceDAO;
+import com.mns.cda.filsrouge.Iservice.ISportService;
+import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
 import com.mns.cda.filsrouge.model.StatusPresence;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class StatusPresenceController {
 
 
-    protected final StatusPresenceDAO statusPresenceDAO;
+    protected final IStatusPresenceService statusPresenceService;
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents status de présence",
@@ -31,7 +32,7 @@ public class StatusPresenceController {
             @ApiResponse(responseCode = "200", description = "Liste des status de présence récupérée avec succès")
     })
     public List<StatusPresence> getStatusPresenceList() {
-        return statusPresenceDAO.findAll();
+        return statusPresenceService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -43,7 +44,7 @@ public class StatusPresenceController {
     })
     public ResponseEntity<StatusPresence> getStatusPresenceById(@PathVariable int id) {
 
-        Optional<StatusPresence> optionalStatusPresence = statusPresenceDAO.findById(id);
+        Optional<StatusPresence> optionalStatusPresence = statusPresenceService.findById(id);
 
         if(optionalStatusPresence.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,8 +60,7 @@ public class StatusPresenceController {
     })
     public ResponseEntity<StatusPresence> create(@RequestBody StatusPresence statusPresenceToInsert) {
 
-        statusPresenceToInsert.setIdStatusPresence(null);
-        statusPresenceDAO.save(statusPresenceToInsert);
+        statusPresenceService.create(statusPresenceToInsert);
 
         return new ResponseEntity<>(statusPresenceToInsert, HttpStatus.CREATED);
 
@@ -75,12 +75,12 @@ public class StatusPresenceController {
     })
     public ResponseEntity<StatusPresence> delete(@PathVariable int id) {
 
-        Optional<StatusPresence> optionalStatusPresence = statusPresenceDAO.findById(id);
+        Optional<StatusPresence> optionalStatusPresence = statusPresenceService.findById(id);
 
         if(optionalStatusPresence.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        statusPresenceDAO.deleteById(id);
+        statusPresenceService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -96,15 +96,12 @@ public class StatusPresenceController {
             @PathVariable int id,
             @RequestBody StatusPresence statusPresenceToUpdate) {
 
-        Optional<StatusPresence> optionalStatusPresence = statusPresenceDAO.findById(id);
-
-        if(optionalStatusPresence.isEmpty()) {
+        try {
+            statusPresenceService.update(id, statusPresenceToUpdate);
+            return new ResponseEntity<>(statusPresenceToUpdate, HttpStatus.OK);
+        } catch (IStatusPresenceService.StatusPresenceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        statusPresenceToUpdate.setIdStatusPresence(id);
-        statusPresenceDAO.save(statusPresenceToUpdate);
-
-        return new ResponseEntity<>(statusPresenceToUpdate,HttpStatus.OK);
     }
 
 }

@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.StatusPresenceController;
-import com.mns.cda.filsrouge.mockDAO.MockStatusPresenceDao;
+
+import com.mns.cda.filsrouge.mockService.MockStatusPresenceService;
 import com.mns.cda.filsrouge.model.StatusPresence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class StatusPresenceControllerUnitTest {
     //Test de GetAll
     @Test
     public void getStatusPresenceAll_MustReturnList() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
 
         List<StatusPresence> response = statusPresenceController.getStatusPresenceList();
 
@@ -29,7 +30,7 @@ public class StatusPresenceControllerUnitTest {
     @Test
     public void getStatusPresenceByIdExist_MustReturnCode200() {
 
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
         ResponseEntity<StatusPresence> response = statusPresenceController.getStatusPresenceById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -38,7 +39,7 @@ public class StatusPresenceControllerUnitTest {
     @Test
     public void getStatusPresenceByIdNotExist_MustReturnCode404() {
 
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
         ResponseEntity<StatusPresence> response = statusPresenceController.getStatusPresenceById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -47,7 +48,7 @@ public class StatusPresenceControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createStatusPresence_MustReturnCode201() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
         StatusPresence statusPresence = new StatusPresence(10,
                 "Test");
 
@@ -60,7 +61,7 @@ public class StatusPresenceControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteStatusPresenceExist_MustReturnCode204() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
 
         ResponseEntity<StatusPresence> response = statusPresenceController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -68,7 +69,7 @@ public class StatusPresenceControllerUnitTest {
     }
     @Test
     public void deleteStatusPresenceNotExist_MustReturnCode404() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
 
         ResponseEntity<StatusPresence> response = statusPresenceController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -78,7 +79,7 @@ public class StatusPresenceControllerUnitTest {
 
     @Test
     public void updateStatusPresence_MustReturnCode200() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
         StatusPresence statusPresence = new StatusPresence(10,
                 "Test");
 
@@ -91,7 +92,7 @@ public class StatusPresenceControllerUnitTest {
 
     @Test
     public void updateStatusPresenceNotExist_MustReturnCode404() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceDao());
+        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
         StatusPresence statusPresence = new StatusPresence(10, "Test");
 
         ResponseEntity<StatusPresence> reponse = statusPresenceController.update(2, statusPresence);
