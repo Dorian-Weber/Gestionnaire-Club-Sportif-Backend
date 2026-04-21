@@ -48,9 +48,6 @@ public class Vote {
     @JsonView(EventView.class)
     private Athlete athlete;
 
-    @NotBlank
-    @JsonView({AthleteView.class, EventView.class})
-    protected Integer voteValue;
 
 
 

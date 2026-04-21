@@ -213,19 +213,19 @@ INSERT INTO relation (first_user_id, second_user_id, relation_status) VALUES
                       (16, 17, 'pending');
 
 
-INSERT INTO vote (user_id, event_id, athlete_id, vote_value) VALUES
-                     (1, 1, 1, 5),
-                     (4, 2, 7, 4),
-                     (5, 2, 8, 3),
-                     (7, 4, 16, 5),
-                     (9, 5, 22, 4),
-                     (10, 6, 16, 5),
-                     (11, 7, 10, 4),
-                     (13, 8, 12, 5),
-                     (15, 10, 18, 3),
-                     (16, 11, 20, 4),
-                     (18, 13, 24, 5),
-                     (19, 14, 26, 4);
+INSERT INTO vote (user_id, event_id, athlete_id) VALUES
+                     (1, 1, 1),
+                     (4, 2, 7),
+                     (5, 2, 8),
+                     (7, 4, 16),
+                     (9, 5, 22),
+                     (10, 6, 16),
+                     (11, 7, 10),
+                     (13, 8, 12),
+                     (15, 10, 18),
+                     (16, 11, 20),
+                     (18, 13, 24),
+                     (19, 14, 26);
 
 
 INSERT INTO status_presence (status_presence_name) VALUES
