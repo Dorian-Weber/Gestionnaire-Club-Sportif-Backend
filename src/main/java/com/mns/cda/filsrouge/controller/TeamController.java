@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.TeamDAO;
+import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
+import com.mns.cda.filsrouge.Iservice.ITeamService;
 import com.mns.cda.filsrouge.model.Team;
 import com.mns.cda.filsrouge.view.TeamView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +24,7 @@ import java.util.Optional;
 @CrossOrigin
 public class TeamController {
 
-    private final TeamDAO teamDAO;
+    private final ITeamService teamService;
 
 
     @GetMapping("/list")
@@ -34,7 +35,7 @@ public class TeamController {
             @ApiResponse(responseCode = "200", description = "Liste des équipes récupérée avec succès")
     })
     public List<Team> getTeamList() {
-        return teamDAO.findAll();
+        return teamService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,7 @@ public class TeamController {
     })
     public ResponseEntity<Team> getTeamById(@PathVariable Integer id) {
 
-        Optional<Team> optionalTeam = teamDAO.findById(id);
+        Optional<Team> optionalTeam = teamService.findById(id);
 
         if (optionalTeam.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +64,7 @@ public class TeamController {
     })
     public ResponseEntity<Team> create(@RequestBody Team teamToInsert) {
 
-        teamToInsert.setIdTeam(null);
-        teamDAO.save(teamToInsert);
+        teamService.create(teamToInsert);
 
         return new ResponseEntity<>(teamToInsert, HttpStatus.CREATED);
     }
@@ -78,12 +78,12 @@ public class TeamController {
     })
     public ResponseEntity<Team> delete(@PathVariable Integer id) {
 
-        Optional<Team> optionalTeam = teamDAO.findById(id);
+        Optional<Team> optionalTeam = teamService.findById(id);
 
         if (optionalTeam.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        teamDAO.delete(optionalTeam.get());
+        teamService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -99,15 +99,11 @@ public class TeamController {
             @PathVariable Integer id,
             @RequestBody Team teamToUpdate) {
 
-        Optional<Team> optionalTeam = teamDAO.findById(id);
-
-        if (optionalTeam.isEmpty()) {
+        try {
+            teamService.update(id, teamToUpdate);
+            return new ResponseEntity<>(teamToUpdate, HttpStatus.OK);
+        } catch (ITeamService.TeamNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        teamToUpdate.setIdTeam(id);
-        teamDAO.save(teamToUpdate);
-
-        return new ResponseEntity<>(teamToUpdate, HttpStatus.OK);
-
     }
 }

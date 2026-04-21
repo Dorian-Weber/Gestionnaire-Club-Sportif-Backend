@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.TeamController;
-import com.mns.cda.filsrouge.mockDAO.MockTeamDao;
+import com.mns.cda.filsrouge.mockService.MockTeamService;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
@@ -17,7 +17,7 @@ public class TeamControllerUnitTest {
     //Test de GetAll
     @Test
     public void getTeamListAll_MustReturnList() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
 
         List<Team> response = teamController.getTeamList();
 
@@ -31,7 +31,7 @@ public class TeamControllerUnitTest {
     @Test
     public void getTeamByIdExist_MustReturnCode200() {
 
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
         ResponseEntity<Team> response = teamController.getTeamById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -40,7 +40,7 @@ public class TeamControllerUnitTest {
     @Test
     public void getTeamByIdNotExist_MustReturnCode404() {
 
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
         ResponseEntity<Team> response = teamController.getTeamById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -49,7 +49,7 @@ public class TeamControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createTeam_MustReturnCode201() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
         Team team = new Team(1,
                 "Test",
                 List.of(new Event()),
@@ -64,7 +64,7 @@ public class TeamControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteTeamExist_MustReturnCode204() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
 
         ResponseEntity<Team> response = teamController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -72,7 +72,7 @@ public class TeamControllerUnitTest {
     }
     @Test
     public void deleteTeamNotExist_MustReturnCode404() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
 
         ResponseEntity<Team> response = teamController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -82,7 +82,7 @@ public class TeamControllerUnitTest {
 
     @Test
     public void updateTeam_MustReturnCode200() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
         Team team = new Team(1,
                 "Test",
                 List.of(new Event()),
@@ -97,7 +97,7 @@ public class TeamControllerUnitTest {
 
     @Test
     public void updateTeamNotExist_MustReturnCode404() {
-        TeamController teamController = new TeamController(new MockTeamDao());
+        TeamController teamController = new TeamController(new MockTeamService());
         Team team = new Team(1,
                 "Test",
                 List.of(new Event()),
