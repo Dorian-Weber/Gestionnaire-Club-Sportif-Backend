@@ -1,7 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.LevelDAO;
+import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
+import com.mns.cda.filsrouge.Iservice.ILevelService;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.view.LevelView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class LevelController {
 
 
-    protected final LevelDAO levelDAO;
+    protected final ILevelService levelService;
 
     @GetMapping("/list")
     @JsonView(LevelView.class)
@@ -34,7 +35,7 @@ public class LevelController {
             @ApiResponse(responseCode = "200", description = "Liste des niveaux récupérée avec succès")
     })
     public List<Level> getLevelList() {
-        return levelDAO.findAll();
+        return levelService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,9 +48,9 @@ public class LevelController {
     })
     public ResponseEntity<Level> getLevelById(@PathVariable int id) {
 
-        Optional<Level> optionalLevel = levelDAO.findById(id);
+        Optional<Level> optionalLevel = levelService.findById(id);
 
-        if(optionalLevel.isEmpty()) {
+        if (optionalLevel.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalLevel.get(), HttpStatus.OK);
@@ -63,8 +64,7 @@ public class LevelController {
     })
     public ResponseEntity<Level> create(@RequestBody Level levelToInsert) {
 
-        levelToInsert.setIdLevel(null);
-        levelDAO.save(levelToInsert);
+        levelService.create(levelToInsert);
 
         return new ResponseEntity<>(levelToInsert, HttpStatus.CREATED);
 
@@ -79,12 +79,12 @@ public class LevelController {
     })
     public ResponseEntity<Level> delete(@PathVariable int id) {
 
-        Optional<Level> optionalLevel = levelDAO.findById(id);
+        Optional<Level> optionalLevel = levelService.findById(id);
 
-        if(optionalLevel.isEmpty()) {
+        if (optionalLevel.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        levelDAO.deleteById(id);
+        levelService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +100,12 @@ public class LevelController {
             @PathVariable int id,
             @RequestBody Level levelToUpdate) {
 
-        Optional<Level> optionalLevel = levelDAO.findById(id);
-
-        if(optionalLevel.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            levelService.update(id, levelToUpdate);
+            return new ResponseEntity<>(levelToUpdate, HttpStatus.OK);
+        } catch (ILevelService.LevelNotFoundException e) {
+            return new ResponseEntity<>(levelToUpdate, HttpStatus.NOT_FOUND);
         }
-        levelToUpdate.setIdLevel(id);
-        levelDAO.save(levelToUpdate);
 
-        return new ResponseEntity<>(levelToUpdate,HttpStatus.OK);
     }
-
 }

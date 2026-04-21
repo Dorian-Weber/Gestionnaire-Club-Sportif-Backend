@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.LevelController;
 import com.mns.cda.filsrouge.mockDAO.MockLevelDao;
+import com.mns.cda.filsrouge.mockService.MockLevelService;
 import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import com.mns.cda.filsrouge.model.Seat;
@@ -17,7 +18,7 @@ public class LevelControllerUnitTest {
     //Test de GetAll
     @Test
     public void getLevelAll_MustReturnList() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
 
         List<Level> response = levelController.getLevelList();
 
@@ -31,7 +32,7 @@ public class LevelControllerUnitTest {
     @Test
     public void getLevelByIdExist_MustReturnCode200() {
 
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
         ResponseEntity<Level> response = levelController.getLevelById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -40,7 +41,7 @@ public class LevelControllerUnitTest {
     @Test
     public void getLevelByIdNotExist_MustReturnCode404() {
 
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
         ResponseEntity<Level> response = levelController.getLevelById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -49,7 +50,7 @@ public class LevelControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createLevel_MustReturnCode201() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
         Level level = new Level(10,
                 "Test",
                 List.of(new Seat()),
@@ -64,7 +65,7 @@ public class LevelControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteLevelExist_MustReturnCode204() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
 
         ResponseEntity<Level> response = levelController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -72,7 +73,7 @@ public class LevelControllerUnitTest {
     }
     @Test
     public void deleteLevelNotExist_MustReturnCode404() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
 
         ResponseEntity<Level> response = levelController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -82,7 +83,7 @@ public class LevelControllerUnitTest {
 
     @Test
     public void updateLevel_MustReturnCode200() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
         Level level = new Level(10,
                 "Test",
                 List.of(new Seat()),
@@ -97,7 +98,7 @@ public class LevelControllerUnitTest {
 
     @Test
     public void updateLevelNotExist_MustReturnCode404() {
-        LevelController levelController = new LevelController(new MockLevelDao());
+        LevelController levelController = new LevelController(new MockLevelService());
         Level level = new Level(10,
                 "Test",
                 List.of(new Seat()),
