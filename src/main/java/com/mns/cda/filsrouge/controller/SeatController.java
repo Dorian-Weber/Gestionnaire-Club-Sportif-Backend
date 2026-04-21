@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.dao.SeatDAO;
+import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class SeatController {
 
 
-    protected final SeatDAO seatDAO;
+    protected final ISeatService seatService;
 
     @GetMapping("/list")
     @JsonView(SeatView.class)
@@ -34,7 +34,7 @@ public class SeatController {
             @ApiResponse(responseCode = "200", description = "Liste des sièges récupéré avec succès")
     })
     public List<Seat> getSeatList() {
-        return seatDAO.findAll();
+        return seatService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +47,7 @@ public class SeatController {
     })
     public ResponseEntity<Seat> getSeatById(@PathVariable int id) {
 
-        Optional<Seat> optionalSeat = seatDAO.findById(id);
+        Optional<Seat> optionalSeat = seatService.findById(id);
 
         if(optionalSeat.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +63,7 @@ public class SeatController {
     })
     public ResponseEntity<Seat> create(@RequestBody Seat seatToInsert) {
 
-        seatToInsert.setIdSeat(null);
-        seatDAO.save(seatToInsert);
+        seatService.create(seatToInsert);
 
         return new ResponseEntity<>(seatToInsert, HttpStatus.CREATED);
 
@@ -79,12 +78,12 @@ public class SeatController {
     })
     public ResponseEntity<Seat> delete(@PathVariable int id) {
 
-        Optional<Seat> optionalSeat = seatDAO.findById(id);
+        Optional<Seat> optionalSeat = seatService.findById(id);
 
         if(optionalSeat.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        seatDAO.deleteById(id);
+        seatService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,15 +99,12 @@ public class SeatController {
             @PathVariable int id,
             @RequestBody Seat seatToUpdate) {
 
-        Optional<Seat> optionalSeat = seatDAO.findById(id);
-
-        if(optionalSeat.isEmpty()) {
+        try {
+            seatService.update(id, seatToUpdate);
+            return new ResponseEntity<>(seatToUpdate, HttpStatus.OK);
+        } catch (ISeatService.SeatNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        seatToUpdate.setIdSeat(id);
-        seatDAO.save(seatToUpdate);
-
-        return new ResponseEntity<>(seatToUpdate,HttpStatus.OK);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.SeatController;
 import com.mns.cda.filsrouge.mockDAO.MockSeatDao;
+import com.mns.cda.filsrouge.mockService.MockSeatService;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.model.Level;
@@ -17,7 +18,7 @@ public class SeatControllerUnitTest {
     //Test de GetAll
     @Test
     public void getSeatAll_MustReturnList() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
 
         List<Seat> response = seatController.getSeatList();
 
@@ -31,7 +32,7 @@ public class SeatControllerUnitTest {
     @Test
     public void getSeatByIdExist_MustReturnCode200() {
 
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
         ResponseEntity<Seat> response = seatController.getSeatById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -40,7 +41,7 @@ public class SeatControllerUnitTest {
     @Test
     public void getSeatByIdNotExist_MustReturnCode404() {
 
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
         ResponseEntity<Seat> response = seatController.getSeatById(2);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -49,7 +50,7 @@ public class SeatControllerUnitTest {
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test
     public void createSeat_MustReturnCode201() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
                 new Level(),
@@ -64,7 +65,7 @@ public class SeatControllerUnitTest {
     // Test de Delete
     @Test
     public void deleteSeatExist_MustReturnCode204() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
 
         ResponseEntity<Seat> response = seatController.delete(1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -72,7 +73,7 @@ public class SeatControllerUnitTest {
     }
     @Test
     public void deleteSeatNotExist_MustReturnCode404() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
 
         ResponseEntity<Seat> response = seatController.delete(2);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -82,7 +83,7 @@ public class SeatControllerUnitTest {
 
     @Test
     public void updateSeat_MustReturnCode200() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
                 new Level(),
@@ -97,7 +98,7 @@ public class SeatControllerUnitTest {
 
     @Test
     public void updateSeatNotExist_MustReturnCode404() {
-        SeatController seatController = new SeatController(new MockSeatDao());
+        SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
                 new Level(),
