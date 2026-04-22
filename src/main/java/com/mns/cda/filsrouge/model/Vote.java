@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -27,6 +28,18 @@ public class Vote {
         Integer userId;
         @Column(name = "event_id")
         Integer eventId;
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            VoteKey voteKey = (VoteKey) o;
+            return Objects.equals(userId, voteKey.userId) && Objects.equals(eventId, voteKey.eventId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(userId, eventId);
+        }
     }
 
     @EmbeddedId
