@@ -99,6 +99,7 @@ public class RelationController {
             @PathVariable int firstId,
             @PathVariable int secondId,
             @RequestBody Relation relationToUpdate) {
+
         Relation.Key key = new Relation.Key(firstId, secondId);
         try {
             relationService.update(key, relationToUpdate);

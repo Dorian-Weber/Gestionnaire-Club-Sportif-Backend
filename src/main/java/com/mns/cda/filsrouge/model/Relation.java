@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -24,6 +25,18 @@ public class Relation {
         Integer firstUserId;
         @Column(name = "second_user_id")
         Integer secondUserId;
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Key key = (Key) o;
+            return Objects.equals(firstUserId, key.firstUserId) && Objects.equals(secondUserId, key.secondUserId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(firstUserId, secondUserId);
+        }
     }
 
     @EmbeddedId
