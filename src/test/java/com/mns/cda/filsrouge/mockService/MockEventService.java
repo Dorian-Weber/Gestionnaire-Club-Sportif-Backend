@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.model.*;
 
 import java.time.LocalDateTime;
@@ -39,6 +40,11 @@ public class MockEventService implements IEventService {
             ));
         }
         return Optional.empty();
+    }
+    // TODO
+    @Override
+    public List<EventLight> findNextEventLight() {
+        return List.of();
     }
 
     @Override

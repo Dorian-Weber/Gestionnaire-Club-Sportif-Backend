@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.model.Event;
 
+import java.util.EventListenerProxy;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,9 @@ public interface IEventService {
 
     //GetByID
     Optional<Event> findById(int id);
+
+    //GetEventLight 3 prochains dans le temps
+    List<EventLight> findNextEventLight();
 
     //Post
     void create(Event Event);

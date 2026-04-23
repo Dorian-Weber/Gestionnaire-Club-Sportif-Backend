@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.EventDAO;
+import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.model.*;
+import org.glassfish.jaxb.core.v2.TODO;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -186,5 +188,11 @@ public class MockEventDao implements EventDAO {
     @Override
     public Page<Event> findAll(Pageable pageable) {
         return null;
+    }
+
+    // TODO
+    @Override
+    public List<EventLight> findNextEventLight() {
+        return List.of();
     }
 }

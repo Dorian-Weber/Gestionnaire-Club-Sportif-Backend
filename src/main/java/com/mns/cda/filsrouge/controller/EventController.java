@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IDisciplineService;
 import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,6 +55,11 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalEvent.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/next")
+    public List<EventLight> getEventLight() {
+        return eventService.findNextEventLight();
     }
 
     @PostMapping
