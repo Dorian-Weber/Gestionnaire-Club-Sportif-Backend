@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.dao.SportDAO;
+import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class SportService implements ISportService {
     //GetAll
     @Override
     public List<Sport> findAll() { return SportDAO.findAll(); }
+
+    @Override
+    public List<SportField> findAllSportField() {
+        return SportDAO.findAllSportField();
+    }
 
     //GetByID
     @Override

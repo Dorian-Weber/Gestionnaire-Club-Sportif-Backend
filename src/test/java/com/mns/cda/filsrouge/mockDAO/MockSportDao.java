@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.SportDAO;
+import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Discipline;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Sport;
@@ -173,5 +174,11 @@ public class MockSportDao implements SportDAO {
     @Override
     public Page<Sport> findAll(Pageable pageable) {
         return null;
+    }
+
+    //TODO
+    @Override
+    public List<SportField> findAllSportField() {
+        return List.of();
     }
 }

@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
 
 import java.util.List;
@@ -11,6 +12,9 @@ public interface ISportService {
 
     //GetAll
     List<Sport> findAll();
+
+    //GetAllbyDTO
+    List<SportField>  findAllSportField();
 
     //GetByID
     Optional<Sport> findById(int id);

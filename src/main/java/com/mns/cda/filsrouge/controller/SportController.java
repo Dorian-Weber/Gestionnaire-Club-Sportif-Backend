@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.Iservice.ISportService;
+import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.view.SportView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +37,11 @@ public class SportController {
     })
     public List<Sport> getSportList() {
         return sportService.findAll();
+    }
+
+    @GetMapping("/field")
+    public List<SportField> getSportFieldList() {
+        return sportService.findAllSportField();
     }
 
     @GetMapping("/{id}")
