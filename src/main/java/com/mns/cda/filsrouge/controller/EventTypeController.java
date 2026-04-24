@@ -1,8 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.Iservice.IEventTypeService;
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.EventType;
 import com.mns.cda.filsrouge.view.EventTypeView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +36,11 @@ public class EventTypeController {
     })
     public List<EventType> getEventTypeList() {
         return eventTypeService.findAll();
+    }
+
+    @GetMapping("/field")
+    public List<EventTypeField> findAllEventTypeField() {
+        return eventTypeService.findAllEventTypeField();
     }
 
     @GetMapping("/{id}")

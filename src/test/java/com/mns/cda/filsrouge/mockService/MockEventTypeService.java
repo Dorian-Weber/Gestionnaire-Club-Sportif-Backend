@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IEventTypeService;
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.*;
 
 import java.util.List;
@@ -12,6 +13,11 @@ public class MockEventTypeService implements IEventTypeService {
         return List.of(new EventType(1,
                 "Tournois",
                 List.of(new Event())));
+    }
+    //TODO
+    @Override
+    public List<EventTypeField> findAllEventTypeField() {
+        return List.of();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.EventTypeDAO;
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.EventType;
 import org.springframework.data.domain.Example;
@@ -170,5 +171,10 @@ public class MockEventTypeDao implements EventTypeDAO {
     @Override
     public Page<EventType> findAll(Pageable pageable) {
         return null;
+    }
+    //TODO
+    @Override
+    public List<EventTypeField> findAllEventTypeField() {
+        return List.of();
     }
 }

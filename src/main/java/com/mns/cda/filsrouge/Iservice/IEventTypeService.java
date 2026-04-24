@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.EventType;
 
 import java.util.List;
@@ -11,6 +12,9 @@ public interface IEventTypeService {
 
     //GetAll
     List<EventType> findAll();
+
+    //GetAllByDTO
+    List<EventTypeField> findAllEventTypeField();
 
     //GetByID
     Optional<EventType> findById(int id);

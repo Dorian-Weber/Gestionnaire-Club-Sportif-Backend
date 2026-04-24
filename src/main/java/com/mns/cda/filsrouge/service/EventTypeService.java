@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IEventTypeService;
 import com.mns.cda.filsrouge.dao.EventTypeDAO;
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class EventTypeService implements IEventTypeService{
     //GetAll
     @Override
     public List<EventType> findAll() { return eventTypeDAO.findAll(); }
+
+    @Override
+    public List<EventTypeField> findAllEventTypeField() {
+        return eventTypeDAO.findAllEventTypeField();
+    }
 
     //GetByID
     @Override
