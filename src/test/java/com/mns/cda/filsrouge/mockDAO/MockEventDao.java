@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.EventDAO;
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.*;
 import org.glassfish.jaxb.core.v2.TODO;
 import org.springframework.data.domain.Example;
@@ -193,6 +194,12 @@ public class MockEventDao implements EventDAO {
     // TODO
     @Override
     public List<EventLight> findNextEventLight() {
+        return List.of();
+    }
+
+    //TODO
+    @Override
+    public List<EventMedium> findAllEventMedium() {
         return List.of();
     }
 }

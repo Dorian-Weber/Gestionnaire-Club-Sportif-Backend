@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.dao;
 
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,9 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "LIMIT 3")
     List<EventLight> findNextEventLight();
 
+ @Query()
+ // SELECT COUNT(se)
+     // from Seat se
+
+ List<EventMedium> findAllEventMedium();
 }
