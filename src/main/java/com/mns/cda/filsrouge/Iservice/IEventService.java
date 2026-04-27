@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.Iservice;
 
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 
 import java.util.EventListenerProxy;
@@ -16,6 +17,10 @@ public interface IEventService {
 
     //GetByID
     Optional<Event> findById(int id);
+
+    //GetEventMediumById
+    List<EventMedium> findEventMediumById();
+
 
     //GetEventLight 3 prochains dans le temps
     List<EventLight> findNextEventLight();

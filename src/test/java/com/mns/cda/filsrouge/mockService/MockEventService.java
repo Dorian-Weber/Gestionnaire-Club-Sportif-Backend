@@ -2,8 +2,10 @@ package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.*;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +43,14 @@ public class MockEventService implements IEventService {
         }
         return Optional.empty();
     }
+
+
+    //TODO
+    @Override
+    public List<EventMedium> findEventMediumById() {
+        return List.of();
+    }
+
     // TODO
     @Override
     public List<EventLight> findNextEventLight() {

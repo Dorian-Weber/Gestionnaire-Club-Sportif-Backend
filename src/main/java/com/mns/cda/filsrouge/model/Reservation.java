@@ -59,7 +59,10 @@ public class Reservation {
             SeatView.class})
     protected AppUser user;
 
-    @OneToMany(mappedBy = "reservation")
+    @ManyToMany
+    @JoinTable(name = "reservation_seat",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "seat_id"))
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class})

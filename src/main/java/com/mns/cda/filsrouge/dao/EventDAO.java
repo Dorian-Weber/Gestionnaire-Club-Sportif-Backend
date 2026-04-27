@@ -6,8 +6,10 @@ import com.mns.cda.filsrouge.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EventDAO extends JpaRepository<Event, Integer> {
@@ -20,9 +22,16 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "LIMIT 3")
     List<EventLight> findNextEventLight();
 
- @Query()
- // SELECT COUNT(se)
-     // from Seat se
-
- List<EventMedium> findAllEventMedium();
+ @Query("SELECT new com.mns.cda.filsrouge.dto.EventMedium (e.idEvent, " +
+         "e.eventName, " +
+         "e.eventDescription, " +
+         "e.eventDate, " +
+         "e.sport.sportName,(select count(se) " +
+                        "FROM Seat se " +
+                        "Join se.reservations r2 " +
+                        "WHERE r2.event = e),(select count(se2)" +
+                                            " FROM Seat se2)) " +
+         "FROM Event e " +
+         "JOIN e.sport s ")
+ List<EventMedium> findEventMediumById();
 }

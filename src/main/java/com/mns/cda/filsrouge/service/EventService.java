@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.service;
 import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.dao.EventDAO;
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,12 @@ public class EventService implements IEventService{
     @Override
     public Optional<Event> findById(int id) {
         return eventDAO.findById(id);
+    }
+
+    //GetEventMediumById
+    @Override
+    public List<EventMedium> findEventMediumById() {
+        return eventDAO.findEventMediumById();
     }
 
     //GetEventLight 3 prochains dans le temps

@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -40,11 +42,10 @@ public class Seat {
             SeatView.class})
     protected Level level;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
+    @ManyToMany(mappedBy = "seats")
     @JsonView({SeatView.class,
             LevelView.class,
             PlatformView.class})
-    protected Reservation reservation;
+    protected List<Reservation> reservations;
 
 }

@@ -7,4 +7,5 @@ public record EventMedium(long idEvent,
                           String eventDescription,
                           LocalDateTime eventDate,
                           String sportName,
-                          int placeRestante) {}
+                          long totalSeatTaken,
+                          long maxSeat) {}

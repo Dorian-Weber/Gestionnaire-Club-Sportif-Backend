@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IDisciplineService;
 import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -60,6 +61,11 @@ public class EventController {
     @GetMapping("/next")
     public List<EventLight> getEventLight() {
         return eventService.findNextEventLight();
+    }
+
+    @GetMapping("/medium")
+    public List<EventMedium> getEventMediumById() {
+        return eventService.findEventMediumById();
     }
 
     @PostMapping
