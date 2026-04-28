@@ -197,7 +197,7 @@ public class MockEventDao implements EventDAO {
     }
 
     @Override
-    public List<EventMedium> findEventMediumById() {
+    public List<EventMedium> findEventMedium() {
         return List.of();
     }
 }

@@ -12,8 +12,8 @@ public class MockSeatService implements ISeatService {
     public List<Seat> findAll() {
         return List.of(new Seat(1,
                 "Test",
-                new Level(),
-                new Reservation()));
+                new Level(),List.of(
+                new Reservation())));
     }
 
     @Override
@@ -21,8 +21,8 @@ public class MockSeatService implements ISeatService {
         if (id == 1) {
             return Optional.of(new Seat(1,
                     "Test",
-                    new Level(),
-                    new Reservation()));
+                    new Level(),List.of(
+                    new Reservation())));
         }
         return Optional.empty();
     }

@@ -110,8 +110,8 @@ public class MockSeatDao implements SeatDAO {
         if(idTypeEvenement == 1) {
             return Optional.of(new Seat(1,
                     "Test",
-                    new Level(),
-                    new Reservation()));
+                    new Level(),List.of(
+                    new Reservation())));
         }
         return Optional.empty();
     }
@@ -126,8 +126,8 @@ public class MockSeatDao implements SeatDAO {
 
         return List.of(new Seat(1,
                 "Test",
-                new Level(),
-                new Reservation()));
+                new Level(),List.of(
+                new Reservation())));
     }
 
     @Override

@@ -53,8 +53,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
-                new Level(),
-                new Reservation());
+                new Level(),List.of(
+                new Reservation()));
 
         ResponseEntity<Seat> response = seatController.create(seat);
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -86,8 +86,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
-                new Level(),
-                new Reservation());
+                new Level(),List.of(
+                new Reservation()));
 
         ResponseEntity<Seat> response = seatController.update(1, seat);
 
@@ -101,8 +101,8 @@ public class SeatControllerUnitTest {
         SeatController seatController = new SeatController(new MockSeatService());
         Seat seat = new Seat(10,
                 "Test",
-                new Level(),
-                new Reservation());
+                new Level(),List.of(
+                new Reservation()));
 
         ResponseEntity<Seat> reponse = seatController.update(2, seat);
 

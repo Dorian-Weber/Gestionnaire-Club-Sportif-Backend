@@ -6,10 +6,8 @@ import com.mns.cda.filsrouge.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface EventDAO extends JpaRepository<Event, Integer> {
@@ -26,12 +24,16 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "e.eventName, " +
          "e.eventDescription, " +
          "e.eventDate, " +
-         "e.sport.sportName,(select count(se) " +
+         "et.idEventType, " +
+         "s.idSport, " +
+         "s.sportName,(select count(se) " +
                         "FROM Seat se " +
                         "Join se.reservations r2 " +
                         "WHERE r2.event = e),(select count(se2)" +
                                             " FROM Seat se2)) " +
          "FROM Event e " +
-         "JOIN e.sport s ")
- List<EventMedium> findEventMediumById();
+         "join e.eventType et " +
+         "JOIN e.sport s " +
+         "order by e.eventDate ASC")
+ List<EventMedium> findEventMedium();
 }

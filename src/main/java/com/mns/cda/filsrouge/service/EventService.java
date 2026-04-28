@@ -30,7 +30,7 @@ public class EventService implements IEventService{
     //GetEventMediumById
     @Override
     public List<EventMedium> findEventMediumById() {
-        return eventDAO.findEventMediumById();
+        return eventDAO.findEventMedium();
     }
 
     //GetEventLight 3 prochains dans le temps
