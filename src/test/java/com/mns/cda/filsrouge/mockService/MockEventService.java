@@ -57,6 +57,12 @@ public class MockEventService implements IEventService {
         return List.of();
     }
 
+    //TODO
+    @Override
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName) {
+        return List.of();
+    }
+
     @Override
     public void create(Event Event) {
         Event.setIdEvent(null);

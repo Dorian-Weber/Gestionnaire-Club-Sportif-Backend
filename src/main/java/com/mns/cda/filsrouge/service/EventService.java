@@ -39,6 +39,13 @@ public class EventService implements IEventService{
         return eventDAO.findNextEventLight();
     }
 
+
+    //GetEventMediumByFilter
+    @Override
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName) {
+        return eventDAO.findEventMediumByFilter(sportName, eventTypeName);
+    }
+
     //Post
     @Override
     public void create(Event event) {

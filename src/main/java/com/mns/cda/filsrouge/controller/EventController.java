@@ -57,6 +57,7 @@ public class EventController {
         return new ResponseEntity<>(optionalEvent.get(), HttpStatus.OK);
     }
 
+    // Mapping requêtes personnalisées en GET
     @GetMapping("/next")
     public List<EventLight> getEventLight() {
         return eventService.findNextEventLight();
@@ -65,6 +66,13 @@ public class EventController {
     @GetMapping("/list-event")
     public List<EventMedium> getEventMediumById() {
         return eventService.findEventMedium();
+    }
+
+    @GetMapping("/list-event/search")
+    public List<EventMedium> getEventMediumByFilter(
+            @RequestParam(required = false) String sportName,
+            @RequestParam(required = false) String eventTypeName) {
+        return eventService.findEventMediumByFilter(sportName, eventTypeName);
     }
 
     @PostMapping

@@ -200,4 +200,10 @@ public class MockEventDao implements EventDAO {
     public List<EventMedium> findEventMedium() {
         return List.of();
     }
+
+    //TODO
+    @Override
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName) {
+        return List.of();
+    }
 }

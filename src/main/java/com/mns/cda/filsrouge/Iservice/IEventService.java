@@ -17,13 +17,6 @@ public interface IEventService {
     //GetByID
     Optional<Event> findById(int id);
 
-    //GetEventMediumById
-    List<EventMedium> findEventMedium();
-
-
-    //GetEventLight 3 prochains dans le temps
-    List<EventLight> findNextEventLight();
-
     //Post
     void create(Event Event);
 
@@ -33,4 +26,14 @@ public interface IEventService {
     //Put
     void update(int id, Event event) throws EventNotFoundException;
 
+    //Requêtes personnalisées
+
+    //GetEventMediumById
+    List<EventMedium> findEventMedium();
+
+    //GetEventLight 3 prochains dans le temps
+    List<EventLight> findNextEventLight();
+
+    //GetEventMediumByFilter
+    List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName);
 }
