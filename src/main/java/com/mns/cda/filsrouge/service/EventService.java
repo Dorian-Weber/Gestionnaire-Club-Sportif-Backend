@@ -29,7 +29,7 @@ public class EventService implements IEventService{
 
     //GetEventMediumById
     @Override
-    public List<EventMedium> findEventMediumById() {
+    public List<EventMedium> findEventMedium() {
         return eventDAO.findEventMedium();
     }
 

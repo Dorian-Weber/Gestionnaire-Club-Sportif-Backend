@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.Iservice.IDisciplineService;
 import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
@@ -63,9 +62,9 @@ public class EventController {
         return eventService.findNextEventLight();
     }
 
-    @GetMapping("/medium")
+    @GetMapping("/list-event")
     public List<EventMedium> getEventMediumById() {
-        return eventService.findEventMediumById();
+        return eventService.findEventMedium();
     }
 
     @PostMapping

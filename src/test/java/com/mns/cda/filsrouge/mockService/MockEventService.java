@@ -47,7 +47,7 @@ public class MockEventService implements IEventService {
 
     //TODO
     @Override
-    public List<EventMedium> findEventMediumById() {
+    public List<EventMedium> findEventMedium() {
         return List.of();
     }
 

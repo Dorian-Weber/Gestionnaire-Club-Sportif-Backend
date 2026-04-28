@@ -5,6 +5,7 @@ import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +25,7 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "e.eventName, " +
          "e.eventDescription, " +
          "e.eventDate, " +
-         "et.idEventType, " +
-         "s.idSport, " +
+         "et.eventTypeName, " +
          "s.sportName,(select count(se) " +
                         "FROM Seat se " +
                         "Join se.reservations r2 " +
@@ -36,4 +36,24 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "JOIN e.sport s " +
          "order by e.eventDate ASC")
  List<EventMedium> findEventMedium();
+
+ @Query("select e.idEvent, " +
+                  "e.eventName, " +
+                  "e.eventDescription, " +
+                  "e.eventDate, " +
+                  "et.eventTypeName, " +
+                  "s.sportName,(select count(se) " +
+                                 "FROM Seat se " +
+                                 "Join se.reservations r2 " +
+                                 "WHERE r2.event = e),(select count(se2) " +
+                                                     " FROM Seat se2)  " +
+                  "FROM Event e " +
+                  "join e.eventType et " +
+                  "JOIN e.sport s " +
+                  "WHERE (:sportName IS NULL or s.sportName = :sportName) " +
+                  "and (:eventTypeName IS NULL or et.eventTypeName = :eventTypeName) " +
+                  "order by e.eventDate ASC")
+    List<EventMedium> findEventMediumByFilter(
+            @Param("sportName") String sportName,
+            @Param("eventTypeName") String eventTypeName);
 }
