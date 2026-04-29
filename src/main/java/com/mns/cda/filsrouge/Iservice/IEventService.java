@@ -35,5 +35,5 @@ public interface IEventService {
     List<EventLight> findNextEventLight();
 
     //GetEventMediumByFilter
-    List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName);
+    List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search);
 }

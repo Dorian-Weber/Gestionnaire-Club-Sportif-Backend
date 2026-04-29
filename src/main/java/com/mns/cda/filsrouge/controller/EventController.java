@@ -71,8 +71,9 @@ public class EventController {
     @GetMapping("/list-event/search")
     public List<EventMedium> getEventMediumByFilter(
             @RequestParam(required = false) String sportName,
-            @RequestParam(required = false) String eventTypeName) {
-        return eventService.findEventMediumByFilter(sportName, eventTypeName);
+            @RequestParam(required = false) String eventTypeName,
+            @RequestParam(required = false) String search ) {
+        return eventService.findEventMediumByFilter(sportName, eventTypeName, search);
     }
 
     @PostMapping

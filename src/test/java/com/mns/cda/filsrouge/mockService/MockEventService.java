@@ -59,7 +59,7 @@ public class MockEventService implements IEventService {
 
     //TODO
     @Override
-    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName) {
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search) {
         return List.of();
     }
 

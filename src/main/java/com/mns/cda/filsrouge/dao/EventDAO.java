@@ -51,9 +51,13 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
                   "join e.eventType et " +
                   "JOIN e.sport s " +
                   "WHERE (:sportName IS NULL or s.sportName = :sportName) " +
-                  "and (:eventTypeName IS NULL or et.eventTypeName = :eventTypeName) " +
+                  "and (:eventTypeName IS NULL or et.eventTypeName = :eventTypeName)" +
+                  "AND (:search IS NULL OR " +
+                    "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
+                    "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
                   "order by e.eventDate ASC")
     List<EventMedium> findEventMediumByFilter(
             @Param("sportName") String sportName,
-            @Param("eventTypeName") String eventTypeName);
+            @Param("eventTypeName") String eventTypeName,
+            @Param("search") String search);
 }
