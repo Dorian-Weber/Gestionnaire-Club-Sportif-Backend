@@ -55,6 +55,7 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
                   "AND (:search IS NULL OR :search = '' OR " +
                     "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
                     "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+                    "AND e.eventDate >= current timestamp " +
                   "order by e.eventDate ASC")
     List<EventMedium> findEventMediumByFilter(
             @Param("sportName") String sportName,
