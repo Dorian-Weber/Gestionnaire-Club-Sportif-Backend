@@ -34,6 +34,7 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          "FROM Event e " +
          "join e.eventType et " +
          "JOIN e.sport s " +
+         "WHERE e.eventDate >= current timestamp " +
          "order by e.eventDate ASC")
  List<EventMedium> findEventMedium();
 
