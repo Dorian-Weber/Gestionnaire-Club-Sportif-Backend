@@ -42,6 +42,22 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
             "order by e.eventDate ASC")
     List<EventMedium> findEventMedium();
 
+    @Query("SELECT new com.mns.cda.filsrouge.dto.EventMedium (e.idEvent, " +
+            "e.eventName, " +
+            "e.eventDescription, " +
+            "e.eventDate, " +
+            "et.eventTypeName, " +
+            "s.sportName,(select count(se) " +
+                        "FROM Seat se " +
+                        "Join se.reservations r2 " +
+                        "WHERE r2.event = e),(select count(se2)" +
+                                                " FROM Seat se2)) " +
+            "FROM Event e " +
+            "join e.eventType et " +
+            "JOIN e.sport s " +
+            "where e.idEvent = :eventId")
+    EventMedium findEventMediumByEventId(@Param("eventId") int eventId);
+
     @Query("select new com.mns.cda.filsrouge.dto.EventMedium(e.idEvent, " +
             "e.eventName, " +
             "e.eventDescription, " +

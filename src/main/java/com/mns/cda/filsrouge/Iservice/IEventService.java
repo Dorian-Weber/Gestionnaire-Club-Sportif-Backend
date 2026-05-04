@@ -29,8 +29,11 @@ public interface IEventService {
 
     //Requêtes personnalisées
 
-    //GetEventMediumById
+    //GetEventMedium
     List<EventMedium> findEventMedium();
+
+    //GetEventMedium par eventId
+    Optional<EventMedium> findEventMediumById(int id);
 
     //GetEventLight 3 prochains dans le temps
     List<EventLight> findNextEventLight();

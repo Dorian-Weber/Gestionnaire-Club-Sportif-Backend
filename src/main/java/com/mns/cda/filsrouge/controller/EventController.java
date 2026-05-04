@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -67,8 +66,19 @@ public class EventController {
     }
 
     @GetMapping("/list-event")
-    public List<EventMedium> getEventMediumById() {
+    public List<EventMedium> getEventMedium() {
         return eventService.findEventMedium();
+    }
+
+    @GetMapping("/eventMedium/{idEvent}")
+    public ResponseEntity<EventMedium> getEventMediumById(@PathVariable int id) {
+
+        Optional<EventMedium> optionalEventMedium = eventService.findEventMediumById(id);
+
+        if(optionalEventMedium.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(optionalEventMedium.get(), HttpStatus.OK);
     }
 
     @GetMapping("/list-event/search")

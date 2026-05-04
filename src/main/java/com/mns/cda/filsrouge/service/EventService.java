@@ -35,12 +35,20 @@ public class EventService implements IEventService{
         return eventDAO.findEventMedium();
     }
 
+    @Override
+    public Optional<EventMedium> findEventMediumById(int id) {
+        if (eventDAO.findById(id).isEmpty()) {
+            return Optional.empty();
+        }
+        EventMedium dto = eventDAO.findEventMediumByEventId(id);
+        return Optional.ofNullable(dto);
+    }
+
     //GetEventLight 3 prochains dans le temps
     @Override
     public List<EventLight> findNextEventLight() {
         return eventDAO.findNextEventLight();
     }
-
 
     //GetEventMediumByFilter
     @Override

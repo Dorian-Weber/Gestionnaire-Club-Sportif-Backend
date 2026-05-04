@@ -52,6 +52,12 @@ public class MockEventService implements IEventService {
         return List.of();
     }
 
+    //TODO
+    @Override
+    public Optional<EventMedium> findEventMediumById(int id) {
+        return Optional.empty();
+    }
+
     // TODO
     @Override
     public List<EventLight> findNextEventLight() {

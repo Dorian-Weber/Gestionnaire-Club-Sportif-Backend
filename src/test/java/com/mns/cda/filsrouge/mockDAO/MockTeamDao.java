@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.TeamDAO;
+import com.mns.cda.filsrouge.dto.TeamEvent;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
@@ -173,5 +174,11 @@ public class MockTeamDao implements TeamDAO {
     @Override
     public Page<Team> findAll(Pageable pageable) {
         return null;
+    }
+
+    //TODO
+    @Override
+    public List<Team> findTeamsByEvent(Long eventId) {
+        return List.of();
     }
 }

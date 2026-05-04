@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.AthleteDAO;
+import com.mns.cda.filsrouge.dto.AthleteEvent;
 import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -180,5 +181,16 @@ public class MockAthleteDao implements AthleteDAO {
     @Override
     public Page<Athlete> findAll(Pageable pageable) {
         return null;
+    }
+
+    //TODO
+    @Override
+    public List<AthleteEvent> findAthleteByEvent(long idEvent) {
+        return List.of();
+    }
+    //TODO
+    @Override
+    public List<AthleteEvent> findAthleteByTeam(long idTeam) {
+        return List.of();
     }
 }
