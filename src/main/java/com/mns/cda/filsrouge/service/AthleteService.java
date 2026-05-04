@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
 import com.mns.cda.filsrouge.dao.AthleteDAO;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class AthleteService implements IAthleteService{
     @Override
     public Optional<Athlete> findById(int id) {
         return athleteDAO.findById(id);
+    }
+
+    @Override
+    public List<AthleteDTO> findAthleteByEvent(int idEvent) {
+        return athleteDAO.findAthleteByEvent(idEvent);
+    }
+
+    @Override
+    public List<AthleteDTO> findAthleteByTeam(int idTeam) {
+        return athleteDAO.findAthleteByTeam(idTeam);
     }
 
     //Post

@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.*;
 
 import java.time.LocalDate;
@@ -34,6 +35,18 @@ public class MockAthleteService implements IAthleteService {
                     List.of(new Vote())));
         }
         return Optional.empty();
+    }
+
+    //TODO
+    @Override
+    public List<AthleteDTO> findAthleteByEvent(int idEvent) {
+        return List.of();
+    }
+
+    //TODO
+    @Override
+    public List<AthleteDTO> findAthleteByTeam(int idTeam) {
+        return List.of();
     }
 
     @Override

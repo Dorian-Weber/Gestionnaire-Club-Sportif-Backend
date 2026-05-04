@@ -33,7 +33,7 @@ public interface IEventService {
     List<EventMedium> findEventMedium();
 
     //GetEventMedium par eventId
-    Optional<EventMedium> findEventMediumById(int id);
+    Optional<EventMedium> findEventMediumById(int idEvent);
 
     //GetEventLight 3 prochains dans le temps
     List<EventLight> findNextEventLight();

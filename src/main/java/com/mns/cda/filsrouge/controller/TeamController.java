@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
 import com.mns.cda.filsrouge.Iservice.ITeamService;
+import com.mns.cda.filsrouge.dto.TeamEvent;
 import com.mns.cda.filsrouge.model.Team;
 import com.mns.cda.filsrouge.view.TeamView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,6 +55,11 @@ public class TeamController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalTeam.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/Event/{idEvent}")
+    public List<TeamEvent> getTeamEvents(@PathVariable Integer idEvent) {
+        return List.of();
     }
 
     @PostMapping

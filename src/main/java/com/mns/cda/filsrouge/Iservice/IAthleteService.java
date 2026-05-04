@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 
 import java.util.List;
@@ -14,6 +15,11 @@ public interface IAthleteService {
 
     //GetByID
     Optional<Athlete> findById(int id);
+
+    //GetAthlete By Event
+    List<AthleteDTO> findAthleteByEvent(int idEvent);
+    //GetAthlete By Team
+    List<AthleteDTO> findAthleteByTeam(int idTeam);
 
     //Post
     void create(Athlete athlete);

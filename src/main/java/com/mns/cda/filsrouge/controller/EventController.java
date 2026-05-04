@@ -71,9 +71,9 @@ public class EventController {
     }
 
     @GetMapping("/eventMedium/{idEvent}")
-    public ResponseEntity<EventMedium> getEventMediumById(@PathVariable int id) {
+    public ResponseEntity<EventMedium> getEventMediumById(@PathVariable int idEvent) {
 
-        Optional<EventMedium> optionalEventMedium = eventService.findEventMediumById(id);
+        Optional<EventMedium> optionalEventMedium = eventService.findEventMediumById(idEvent);
 
         if(optionalEventMedium.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -25,6 +25,11 @@ public class TeamService implements ITeamService {
         return TeamDAO.findById(id);
     }
 
+    @Override
+    public List<Team> findByEventId(int idEvent) {
+        return List.of();
+    }
+
     //Post
     @Override
     public void create(Team Team) {

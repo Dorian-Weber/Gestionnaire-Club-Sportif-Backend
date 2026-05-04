@@ -4,7 +4,9 @@ import com.mns.cda.filsrouge.dto.TeamEvent;
 import com.mns.cda.filsrouge.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,6 +17,6 @@ public interface TeamDAO extends JpaRepository<Team, Integer> {
             "FROM Team t " +
             "JOIN t.events e " +
             "WHERE e.idEvent = :eventId")
-    List<Team> findTeamsByEvent(Long eventId);
+    List<TeamEvent> findTeamsByEvent(@Param("idEvent")int eventId);
 
 }

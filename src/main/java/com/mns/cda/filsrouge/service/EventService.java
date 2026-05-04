@@ -36,11 +36,11 @@ public class EventService implements IEventService{
     }
 
     @Override
-    public Optional<EventMedium> findEventMediumById(int id) {
-        if (eventDAO.findById(id).isEmpty()) {
+    public Optional<EventMedium> findEventMediumById(int idEvent) {
+        if (eventDAO.findById(idEvent).isEmpty()) {
             return Optional.empty();
         }
-        EventMedium dto = eventDAO.findEventMediumByEventId(id);
+        EventMedium dto = eventDAO.findEventMediumByEventId(idEvent);
         return Optional.ofNullable(dto);
     }
 

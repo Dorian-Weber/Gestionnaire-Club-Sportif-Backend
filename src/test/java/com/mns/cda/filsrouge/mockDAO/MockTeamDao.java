@@ -178,7 +178,7 @@ public class MockTeamDao implements TeamDAO {
 
     //TODO
     @Override
-    public List<Team> findTeamsByEvent(Long eventId) {
+    public List<Team> findTeamsByEvent(int eventId) {
         return List.of();
     }
 }

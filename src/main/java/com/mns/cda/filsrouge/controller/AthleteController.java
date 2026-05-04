@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.view.AthleteView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,6 +55,17 @@ public class AthleteController {
         }
         return new ResponseEntity<>(optionalAthlete.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/event/{idEvent}")
+    public List<AthleteDTO> findAthleteByEvent(@PathVariable int idEvent) {
+        return athleteService.findAthleteByEvent(idEvent);
+    }
+
+    @GetMapping("/team/{idTeam}")
+    public List<AthleteDTO> findAthleteByTeam(@PathVariable int idTeam) {
+        return athleteService.findAthleteByTeam(idTeam);
+    }
+
 
     @PostMapping
     @Operation(summary = "Ajoute un Athlète à la base de données",

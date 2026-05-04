@@ -28,6 +28,12 @@ public class MockTeamService implements ITeamService {
         return Optional.empty();
     }
 
+    //TODO
+    @Override
+    public List<Team> findByEventId(int idEvent) {
+        return List.of();
+    }
+
     @Override
     public void create(Team Team) {
         Team.setIdTeam(null);
