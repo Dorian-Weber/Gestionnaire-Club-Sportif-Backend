@@ -1,10 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
 import com.mns.cda.filsrouge.Iservice.ITeamService;
-import com.mns.cda.filsrouge.dto.TeamEvent;
+import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Team;
+import com.mns.cda.filsrouge.service.TeamService;
 import com.mns.cda.filsrouge.view.TeamView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,7 +25,7 @@ import java.util.Optional;
 @CrossOrigin
 public class TeamController {
 
-    private final ITeamService teamService;
+    private final TeamService teamService;
 
 
     @GetMapping("/list")
@@ -58,8 +58,13 @@ public class TeamController {
     }
 
     @GetMapping("/Event/{idEvent}")
-    public List<TeamEvent> getTeamEvents(@PathVariable Integer idEvent) {
+    public List<TeamDTO> getTeamEvents(@PathVariable Integer idEvent) {
         return List.of();
+    }
+
+    @GetMapping("/TeamDTO/{idTeam}")
+    public TeamDTO getTeamDTO(@PathVariable Integer idTeam) {
+        return teamService.getTeamDTO(idTeam);
     }
 
     @PostMapping

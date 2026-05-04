@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.TeamDAO;
-import com.mns.cda.filsrouge.dto.TeamEvent;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;

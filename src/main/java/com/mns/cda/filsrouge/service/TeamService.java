@@ -1,7 +1,10 @@
 package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.ITeamService;
+import com.mns.cda.filsrouge.dao.AthleteDAO;
 import com.mns.cda.filsrouge.dao.TeamDAO;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
+import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.Optional;
 public class TeamService implements ITeamService {
 
     protected final TeamDAO TeamDAO;
+    private final AthleteDAO athleteDAO;
 
     //GetAll
     @Override
@@ -25,10 +29,29 @@ public class TeamService implements ITeamService {
         return TeamDAO.findById(id);
     }
 
+    //Aggregation de TeamDTO
+    public TeamDTO getTeamDTO(int idTeam) {
+
+        Team team = TeamDAO.findById(idTeam)
+                .orElseThrow(() -> new RuntimeException("Team non trouvée"));
+
+        List<AthleteDTO> athletes = athleteDAO.findAthleteByTeam(idTeam);
+
+        return new TeamDTO(
+                team.getIdTeam(),
+                team.getTeamName(),
+                athletes
+        );
+    }
+
+
+
     @Override
     public List<Team> findByEventId(int idEvent) {
         return List.of();
     }
+
+
 
     //Post
     @Override
