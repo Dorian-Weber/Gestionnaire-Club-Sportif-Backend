@@ -52,7 +52,7 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
                   "JOIN e.sport s " +
                   "WHERE (:sportName IS NULL or s.sportName = :sportName) " +
                   "and (:eventTypeName IS NULL or et.eventTypeName = :eventTypeName)" +
-                  "AND (:search IS NULL OR " +
+                  "AND (:search IS NULL OR :search = '' OR " +
                     "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
                     "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
                   "order by e.eventDate ASC")
