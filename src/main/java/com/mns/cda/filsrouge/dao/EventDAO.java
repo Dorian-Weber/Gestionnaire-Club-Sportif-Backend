@@ -8,7 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EventDAO extends JpaRepository<Event, Integer> {
@@ -56,10 +59,11 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
                   "AND (:search IS NULL OR :search = '' OR " +
                     "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
                     "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
-                    "AND e.eventDate >= current timestamp " +
+                    "AND (e.eventDate >= :dateMin) " +
                   "order by e.eventDate ASC")
     List<EventMedium> findEventMediumByFilter(
-            @Param("sportName") String sportName,
-            @Param("eventTypeName") String eventTypeName,
-            @Param("search") String search);
+         @Param("sportName") String sportName,
+         @Param("eventTypeName") String eventTypeName,
+         @Param("search") String search,
+         @Param("dateMin") LocalDateTime dateMin);
 }

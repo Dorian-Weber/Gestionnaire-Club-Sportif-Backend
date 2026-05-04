@@ -4,6 +4,7 @@ import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,5 +36,5 @@ public interface IEventService {
     List<EventLight> findNextEventLight();
 
     //GetEventMediumByFilter
-    List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search);
+    List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin);
 }

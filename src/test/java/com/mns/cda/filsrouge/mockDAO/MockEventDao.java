@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -203,7 +204,7 @@ public class MockEventDao implements EventDAO {
 
     //TODO
     @Override
-    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search) {
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDateTime dateMin) {
         return List.of();
     }
 }
