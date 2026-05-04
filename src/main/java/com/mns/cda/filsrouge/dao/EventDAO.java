@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.dao;
 
+import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
@@ -66,4 +67,27 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
          @Param("eventTypeName") String eventTypeName,
          @Param("search") String search,
          @Param("dateMin") LocalDateTime dateMin);
+
+    @Query("SELECT new com.mns.cda.filsrouge.dto.EventFull (e.idEvent, " +
+            "e.eventName, " +
+            "e.eventDescription, " +
+            "e.eventDate, " +
+            "et.eventTypeName, " +
+            "s.sportName, " +
+            "t.teamName, " +
+            "(SELECT ta.athleteName " +
+                "From" +
+                        "(select count(se) " +
+                        "FROM Seat se " +
+                        "Join se.reservations r2 " +
+                        "WHERE r2.event = e),(select count(se2)" +
+                                            " FROM Seat se2)) " +
+            "FROM Event e " +
+            "join e.eventType et " +
+            "JOIN e.sport s " +
+            "JOIN e.teams t " +
+            "Join t.athletes ta " +
+            "WHERE e.eventDate >= current timestamp " +
+            "order by e.eventDate ASC")
+    List<EventFull> findEventFull();
 }
