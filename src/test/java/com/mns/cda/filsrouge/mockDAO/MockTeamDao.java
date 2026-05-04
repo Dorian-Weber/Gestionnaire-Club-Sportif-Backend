@@ -175,9 +175,10 @@ public class MockTeamDao implements TeamDAO {
         return null;
     }
 
+
     //TODO
     @Override
-    public List<Team> findTeamsByEvent(int eventId) {
+    public List<Team> findTeamByEventId(int idEvent) {
         return List.of();
     }
 }

@@ -29,6 +29,11 @@ public class TeamService implements ITeamService {
         return TeamDAO.findById(id);
     }
 
+    @Override
+    public List<Team> findTeamByEventId(int idEvent) {
+        return TeamDAO.findTeamByEventId(idEvent);
+    }
+
     //Aggregation de TeamDTO
     public TeamDTO getTeamDTO(int idTeam) {
 
@@ -44,11 +49,9 @@ public class TeamService implements ITeamService {
         );
     }
 
-
-
     @Override
     public List<Team> findByEventId(int idEvent) {
-        return List.of();
+        return TeamDAO.findTeamByEventId(idEvent);
     }
 
 

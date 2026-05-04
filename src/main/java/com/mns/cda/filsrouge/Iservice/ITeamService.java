@@ -16,6 +16,8 @@ public interface ITeamService {
     Optional<Team> findById(int id);
 
     //GetTeamsByEvent
+    List<Team> findTeamByEventId(int idEvent);
+
     List<Team> findByEventId(int idEvent);
 
     //Post

@@ -30,6 +30,12 @@ public class MockTeamService implements ITeamService {
 
     //TODO
     @Override
+    public List<Team> findTeamByEventId(int idEvent) {
+        return List.of();
+    }
+
+    //TODO
+    @Override
     public List<Team> findByEventId(int idEvent) {
         return List.of();
     }

@@ -77,10 +77,7 @@ public class Event {
             EventTypeView.class})
     protected Sport sport;
 
-    @ManyToMany
-    @JoinTable(name = "event_teams",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    @ManyToMany(mappedBy = "events")
     @JsonView({EventView.class})
     protected List<Team> teams;
 

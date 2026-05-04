@@ -2,9 +2,11 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.service.EventAggregationService;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,6 +31,7 @@ public class EventController {
 
 
     protected final IEventService eventService;
+    private final EventAggregationService eventAggregationService;
 
     @GetMapping("/list")
     @JsonView(EventView.class)
@@ -96,6 +99,12 @@ public class EventController {
         }
         return eventService.findEventMediumByFilter(sportName, eventTypeName, search, dateMin);
     }
+
+    @GetMapping("/{idEvent}/full")
+    public EventFull getEventFull(@PathVariable int idEvent) {
+        return eventAggregationService.getEventFull(idEvent);
+    }
+
 
     @PostMapping
     @Operation(summary = "Ajoute un évènement à la base de données",
