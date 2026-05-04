@@ -8,6 +8,8 @@ import com.mns.cda.filsrouge.model.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +44,14 @@ public class EventService implements IEventService{
 
     //GetEventMediumByFilter
     @Override
-    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search) {
-        return eventDAO.findEventMediumByFilter(sportName, eventTypeName, search);
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin) {
+        LocalDateTime dateMinLdt;
+        if (dateMin != null) {
+            dateMinLdt = dateMin.atStartOfDay();
+        } else {
+            dateMinLdt = LocalDate.now().atStartOfDay();
+        }
+        return eventDAO.findEventMediumByFilter(sportName, eventTypeName, search, dateMinLdt);
     }
 
     //Post

@@ -11,10 +11,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,8 +75,16 @@ public class EventController {
     public List<EventMedium> getEventMediumByFilter(
             @RequestParam(required = false) String sportName,
             @RequestParam(required = false) String eventTypeName,
-            @RequestParam(required = false) String search ) {
-        return eventService.findEventMediumByFilter(sportName, eventTypeName, search);
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateMin) {
+
+        if (dateMin != null && dateMin.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La date minimale doit être supérieure ou égale à la date actuelle.");
+        } else if (dateMin == null) {
+            dateMin = LocalDate.now();
+        }
+        return eventService.findEventMediumByFilter(sportName, eventTypeName, search, dateMin);
     }
 
     @PostMapping

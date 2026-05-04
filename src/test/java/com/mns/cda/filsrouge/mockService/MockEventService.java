@@ -6,6 +6,7 @@ import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.*;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class MockEventService implements IEventService {
 
     //TODO
     @Override
-    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search) {
+    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin) {
         return List.of();
     }
 
