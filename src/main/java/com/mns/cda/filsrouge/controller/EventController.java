@@ -100,7 +100,7 @@ public class EventController {
         return eventService.findEventMediumByFilter(sportName, eventTypeName, search, dateMin);
     }
 
-    @GetMapping("/{idEvent}/full")
+    @GetMapping("/full/{idEvent}")
     public EventFull getEventFull(@PathVariable int idEvent) {
         return eventAggregationService.getEventFull(idEvent);
     }

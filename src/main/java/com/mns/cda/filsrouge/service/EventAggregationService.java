@@ -32,13 +32,11 @@ public class EventAggregationService {
 
         // Récupérer les teams de l’évent
         List<Team> teams = teamService.findByEventId(idEvent);
-        System.out.println("Teams trouvées : " + teams.size());
 
         // Convertir chaque team en TeamDTO
         List<TeamDTO> teamDTOs = teams.stream()
                 .map(t -> teamService.getTeamDTO(t.getIdTeam()))
                 .toList();
-        System.out.println("TeamDTOs créés : " + teamDTOs.size());
 
         // Récupérer les athlètes solo
         List<AthleteDTO> Athletes = athleteService.findAthleteByEvent(idEvent);
