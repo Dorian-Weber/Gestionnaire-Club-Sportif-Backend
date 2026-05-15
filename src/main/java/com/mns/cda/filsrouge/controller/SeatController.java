@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ISeatService;
+import com.mns.cda.filsrouge.aggregation.SeatAggregationService;
+import com.mns.cda.filsrouge.dto.SeatDTO;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +27,7 @@ public class SeatController {
 
 
     protected final ISeatService seatService;
+    private final SeatAggregationService seatAggregationService;
 
     @GetMapping("/list")
     @JsonView(SeatView.class)
@@ -54,6 +57,18 @@ public class SeatController {
         }
         return new ResponseEntity<>(optionalSeat.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/reserved/{eventId}")
+    public List<SeatDTO> getReservedSeatsByEventId(@PathVariable int eventId,
+                                                   @RequestParam int currentUserId,
+                                                   @RequestParam String platform,
+                                                   @RequestParam String level
+    ) {
+        return seatAggregationService.getSeatsForEvent(
+                eventId, currentUserId, platform, level
+        );
+    }
+
 
     @PostMapping
     @Operation(summary = "Ajoute un siège à la base de données",

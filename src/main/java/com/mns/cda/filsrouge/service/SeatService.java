@@ -13,41 +13,46 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SeatService implements ISeatService {
 
-    protected final SeatDAO SeatDAO;
+    protected final SeatDAO seatDAO;
 
     //GetAll
     @Override
-    public List<Seat> findAll() { return SeatDAO.findAll(); }
+    public List<Seat> findAll() { return seatDAO.findAll(); }
 
     //GetByID
     @Override
     public Optional<Seat> findById(int id) {
-        return SeatDAO.findById(id);
+        return seatDAO.findById(id);
+    }
+
+    //GetSeatBy IdPlatform et IdLevel
+    public List<Seat> findByPlatformAndLevel(String platform, String level) {
+        return seatDAO.findByPlatformAndLevel(platform, level);
     }
 
     //Post
     @Override
     public void create(Seat Seat) {
         Seat.setIdSeat(null);
-        SeatDAO.save(Seat);
+        seatDAO.save(Seat);
     }
 
     //Delete
     @Override
     public void delete(int id) {
-        SeatDAO.deleteById(id);
+        seatDAO.deleteById(id);
     }
 
     //Put
     @Override
     public void update(int id, Seat Seat) throws SeatNotFoundException {
-        Optional<Seat> SeatOptional = SeatDAO.findById(id);
+        Optional<Seat> SeatOptional = seatDAO.findById(id);
 
         if(SeatOptional.isEmpty()) {
             throw new SeatNotFoundException();
         }
         Seat.setIdSeat(id);
-        SeatDAO.save(Seat);
+        seatDAO.save(Seat);
     }
 
 }
