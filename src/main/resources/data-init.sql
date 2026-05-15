@@ -374,18 +374,18 @@ INSERT INTO platform (platform_name) VALUES
             ('Ouest');
 
 INSERT INTO Level (level_name,platform_id) VALUES
-            ('HautNord',1),
-            ('MilieuNord',1),
-            ('BasNord',1),
-            ('HautSud',2),
-            ('MilieuSud',2),
-            ('BasSud',2),
-            ('HautEst',3),
-            ('MilieuEst',3),
-            ('BasEst',3),
-            ('HautOuest',4),
-            ('MilieuOuest',4),
-            ('BasOuest',4);
+            ('Haut',1),
+            ('Milieu',1),
+            ('Bas',1),
+            ('Haut',2),
+            ('Milieu',2),
+            ('Bas',2),
+            ('Haut',3),
+            ('Milieu',3),
+            ('Bas',3),
+            ('Haut',4),
+            ('Milieu',4),
+            ('Bas',4);
 
 INSERT INTO seat (seat_number, level_id) VALUES
 -- Niveau 1 : A1 à A20

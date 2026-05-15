@@ -1,10 +1,9 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.EventController;
-import com.mns.cda.filsrouge.mockDAO.MockEventDao;
 import com.mns.cda.filsrouge.mockService.MockEventService;
 import com.mns.cda.filsrouge.model.*;
-import com.mns.cda.filsrouge.service.EventAggregationService;
+import com.mns.cda.filsrouge.aggregation.EventAggregationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

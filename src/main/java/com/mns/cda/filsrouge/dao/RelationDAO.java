@@ -39,6 +39,6 @@ public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
     WHERE (r.firstUser.idAppUser = :idUser OR r.secondUser.idAppUser = :idUser)
       AND r.relationStatus = 'ACCEPTED'
 """)
-    List<FriendDTO> findFriendsById(@Param("idUser") int idUser);
+    List<FriendDTO> findListFriendsByIdUser(@Param("idUser") int idUser);
 
 }

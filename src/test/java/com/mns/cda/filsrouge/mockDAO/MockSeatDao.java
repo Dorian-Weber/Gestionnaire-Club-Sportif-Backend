@@ -174,4 +174,10 @@ public class MockSeatDao implements SeatDAO {
     public Page<Seat> findAll(Pageable pageable) {
         return null;
     }
+
+    //TODO
+    @Override
+    public List<Seat> findByPlatformAndLevel(String platform, String level) {
+        return List.of();
+    }
 }

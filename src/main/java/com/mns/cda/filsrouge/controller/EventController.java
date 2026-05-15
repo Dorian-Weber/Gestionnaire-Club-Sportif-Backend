@@ -6,7 +6,7 @@ import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
-import com.mns.cda.filsrouge.service.EventAggregationService;
+import com.mns.cda.filsrouge.aggregation.EventAggregationService;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

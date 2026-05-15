@@ -1,13 +1,13 @@
-package com.mns.cda.filsrouge.service;
+package com.mns.cda.filsrouge.aggregation;
 
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
 import com.mns.cda.filsrouge.Iservice.IEventService;
-import com.mns.cda.filsrouge.Iservice.ITeamService;
 import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Team;
+import com.mns.cda.filsrouge.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

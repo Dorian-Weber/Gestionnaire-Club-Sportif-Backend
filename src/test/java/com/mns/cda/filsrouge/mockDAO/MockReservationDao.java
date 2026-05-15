@@ -177,4 +177,10 @@ public class MockReservationDao implements ReservationDAO {
     public Page<Reservation> findAll(Pageable pageable) {
         return null;
     }
+
+    //TODO
+    @Override
+    public List<Reservation> findReservationByIdEvent(int idEvent) {
+        return List.of();
+    }
 }

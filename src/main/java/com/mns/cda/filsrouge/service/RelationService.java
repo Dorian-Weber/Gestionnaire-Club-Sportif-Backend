@@ -13,41 +13,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RelationService implements IRelationService {
 
-    protected final RelationDAO RelationDAO;
+    protected final RelationDAO relationDAO;
 
     //GetAll
     @Override
-    public List<Relation> findAll() { return RelationDAO.findAll(); }
+    public List<Relation> findAll() { return relationDAO.findAll(); }
 
     //GetByID
     @Override
     public Optional<Relation> findById(Relation.Key id) {
-        return RelationDAO.findById(id);
+        return relationDAO.findById(id);
     }
 
     //Post
     @Override
     public void create(Relation Relation) {
         Relation.setKey(null);
-        RelationDAO.save(Relation);
+        relationDAO.save(Relation);
     }
 
     //Delete
     @Override
     public void delete(Relation.Key id) {
-        RelationDAO.deleteById(id);
+        relationDAO.deleteById(id);
     }
 
     //Put
     @Override
     public void update(Relation.Key id, Relation Relation) throws RelationNotFoundException {
-        Optional<Relation> RelationOptional = RelationDAO.findById(id);
+        Optional<Relation> RelationOptional = relationDAO.findById(id);
 
         if(RelationOptional.isEmpty()) {
             throw new RelationNotFoundException();
         }
         Relation.setKey(id);
-        RelationDAO.save(Relation);
+        relationDAO.save(Relation);
     }
 
 }
