@@ -38,6 +38,9 @@ public interface IEventService {
     //GetEventLight 3 prochains dans le temps
     List<EventLight> findNextEventLight();
 
+    //GetEventLight by Id
+    Optional<EventLight> findEventLightById(int idEvent);
+
     //GetEventMediumByFilter
     List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin);
 }

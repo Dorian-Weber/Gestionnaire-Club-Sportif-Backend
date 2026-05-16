@@ -25,6 +25,13 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
             "LIMIT 3")
     List<EventLight> findNextEventLight();
 
+    @Query("select new com.mns.cda.filsrouge.dto.EventLight(e.idEvent " +
+            ", e.eventName, e.eventDate, s.sportName) " +
+            "from Event e " +
+            "join e.sport s " +
+            "where e.idEvent = :eventId")
+    EventLight findEventLightByEventId(@Param("eventId") int eventId);
+
     @Query("SELECT new com.mns.cda.filsrouge.dto.EventMedium (e.idEvent, " +
             "e.eventName, " +
             "e.eventDescription, " +

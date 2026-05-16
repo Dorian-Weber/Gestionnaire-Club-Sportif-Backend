@@ -197,9 +197,21 @@ public class MockEventDao implements EventDAO {
         return List.of();
     }
 
+    //TODO
+    @Override
+    public EventLight findEventLightByEventId(int eventId) {
+        return null;
+    }
+
     @Override
     public List<EventMedium> findEventMedium() {
         return List.of();
+    }
+
+    //TODO
+    @Override
+    public EventMedium findEventMediumByEventId(int eventId) {
+        return null;
     }
 
     //TODO

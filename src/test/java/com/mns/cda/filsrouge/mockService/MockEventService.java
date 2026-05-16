@@ -66,6 +66,12 @@ public class MockEventService implements IEventService {
 
     //TODO
     @Override
+    public Optional<EventLight> findEventLightById(int idEvent) {
+        return Optional.empty();
+    }
+
+    //TODO
+    @Override
     public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin) {
         return List.of();
     }

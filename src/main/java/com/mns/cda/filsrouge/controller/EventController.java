@@ -68,6 +68,18 @@ public class EventController {
         return eventService.findNextEventLight();
     }
 
+    @GetMapping("/eventLight/{idEvent}")
+    public ResponseEntity<EventLight> getEventLightById(@PathVariable int idEvent) {
+
+        Optional<EventLight> optionalEventLight = eventService.findEventLightById(idEvent);
+
+        if(optionalEventLight.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(optionalEventLight.get(), HttpStatus.OK);
+    }
+
+
     @GetMapping("/list-event")
     public List<EventMedium> getEventMedium() {
         return eventService.findEventMedium();

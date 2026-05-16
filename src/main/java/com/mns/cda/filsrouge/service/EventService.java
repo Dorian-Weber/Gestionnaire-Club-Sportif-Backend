@@ -50,6 +50,16 @@ public class EventService implements IEventService{
         return eventDAO.findNextEventLight();
     }
 
+    //GetEventLight by id
+    @Override
+    public Optional<EventLight> findEventLightById(int idEvent) {
+        if (eventDAO.findById(idEvent).isEmpty()) {
+            return Optional.empty();
+        }
+        EventLight dto = eventDAO.findEventLightByEventId(idEvent);
+        return Optional.ofNullable(dto);
+    }
+
     //GetEventMediumByFilter
     @Override
     public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin) {
