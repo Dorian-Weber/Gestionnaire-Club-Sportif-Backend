@@ -68,7 +68,7 @@ public class EventController {
         return eventService.findNextEventLight();
     }
 
-    @GetMapping("/eventLight/{idEvent}")
+    @GetMapping("/light/{idEvent}")
     public ResponseEntity<EventLight> getEventLightById(@PathVariable int idEvent) {
 
         Optional<EventLight> optionalEventLight = eventService.findEventLightById(idEvent);
