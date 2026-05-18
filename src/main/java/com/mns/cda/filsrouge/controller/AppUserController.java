@@ -23,6 +23,9 @@ import java.util.Optional;
 @CrossOrigin
 public class AppUserController {
 
+    public class OnCreate {}
+
+
 
     protected final IAppUserService appUserService;
 

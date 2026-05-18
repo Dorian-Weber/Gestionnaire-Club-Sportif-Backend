@@ -4,6 +4,8 @@ import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class AppUserService implements IAppUserService{
 
     protected final AppUserDAO appUserDAO;
+    private final PasswordEncoder encoder;
 
     //GetAll
     @Override
@@ -29,6 +32,7 @@ public class AppUserService implements IAppUserService{
     @Override
     public void create(AppUser appUser) {
         appUser.setIdAppUser(null);
+        appUser.setAppUserPassword(encoder.encode(appUser.getAppUserPassword()));
         appUserDAO.save(appUser);
     }
 

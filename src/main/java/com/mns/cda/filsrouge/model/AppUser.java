@@ -36,49 +36,49 @@ public class AppUser {
     @JsonView(AppUserView.class)
     protected Integer idAppUser;
 
-    @NotBlank
-    @Size(min = 1, max = 50)
+    @NotBlank(groups = {OnCreate.class})
+    @Size(min = 1, max = 50, groups = {OnCreate.class})
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
             SeatView.class})
     protected String appUserName;
 
-    @NotBlank
-    @Size(min = 1, max = 50)
+    @NotBlank(groups = {OnCreate.class})
+    @Size(min = 1, max = 50, groups = {OnCreate.class})
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
             SeatView.class})
     protected String appUserFirstName;
 
-    @NotBlank
-    @Size(min = 5, max = 30)
+    @NotBlank(groups = {OnCreate.class})
+    @Size(min = 5, max = 30, groups = {OnCreate.class})
     @Column(unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _", groups = {OnCreate.class})
     @JsonView({AppUserView.class,
             EventView.class,
             ReservationView.class,
             SeatView.class})
     protected String appUserPseudo;
 
-    @NotBlank( message = "L'email ne peut pas être vide")
-    @Email( message = "L'email est incorrect")
-    @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères")
+    @NotBlank( message = "L'email ne peut pas être vide", groups = {OnCreate.class})
+    @Email( message = "L'email est incorrect", groups = {OnCreate.class})
+    @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères", groups = {OnCreate.class})
     @Column(unique = true, nullable = false)
     @JsonView(AppUserView.class)
     protected String appUserEmail;
 
-    @NotBlank(message = "Le mot de passe ne peut pas être vide")
-    @Size(min = 8, max = 50, message = "Le mot de passe doit contenir entre 8 et 50 caractères")
+    @NotBlank(message = "Le mot de passe ne peut pas être vide",groups = {OnCreate.class})
+    // @Size(min = 8, max = 50, message = "Le mot de passe doit contenir entre 8 et 50 caractères", groups = {OnCreate.class})
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-             message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial")
+             message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial", groups = {OnCreate.class})
     @Column(nullable = false)
     protected String appUserPassword;
 
-    @NotBlank(message = "Le numéro de téléphone ne peut pas être vide")
+    @NotBlank(message = "Le numéro de téléphone ne peut pas être vide",groups = {OnCreate.class})
     @Pattern(regexp = "^\\+?[0-9]{10,15}$",
-            message = "Le numéro de téléphone doit être composé de 10 à 15 chiffres et peut commencer par +")
+            message = "Le numéro de téléphone doit être composé de 10 à 15 chiffres et peut commencer par +", groups = {OnCreate.class})
     @Column(nullable = false)
     @JsonView(AppUserView.class)
     protected String appUserPhone;

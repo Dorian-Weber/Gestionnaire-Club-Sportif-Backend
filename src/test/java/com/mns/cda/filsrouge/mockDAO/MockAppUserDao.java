@@ -193,4 +193,10 @@ public class MockAppUserDao implements AppUserDAO {
     public Page<AppUser> findAll(Pageable pageable) {
         return null;
     }
+
+    //TODO
+    @Override
+    public Optional<AppUser> findByAppUserEmail(String email) {
+        return Optional.empty();
+    }
 }
