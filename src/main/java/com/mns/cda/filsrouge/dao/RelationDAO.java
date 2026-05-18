@@ -29,10 +29,6 @@ public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
         CASE 
             WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.appUserName
             ELSE r.firstUser.appUserName
-        END,
-        CASE 
-            WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.accountType.accountTypeName
-            ELSE r.firstUser.accountType.accountTypeName
         END
     )
     FROM Relation r

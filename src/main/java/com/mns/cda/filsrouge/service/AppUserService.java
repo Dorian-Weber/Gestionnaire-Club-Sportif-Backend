@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,7 @@ public class AppUserService implements IAppUserService{
     @Override
     public void create(AppUser appUser) {
         appUser.setIdAppUser(null);
+        appUser.setAppUserVisibility(UserVisibility.PRIVATE);
         appUser.setAppUserPassword(encoder.encode(appUser.getAppUserPassword()));
         appUserDAO.save(appUser);
     }

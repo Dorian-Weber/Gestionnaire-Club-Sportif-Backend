@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.model;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.view.AppUserView;
 import com.mns.cda.filsrouge.view.EventView;
 import com.mns.cda.filsrouge.view.ReservationView;
@@ -82,6 +83,11 @@ public class AppUser {
     @Column(nullable = false)
     @JsonView(AppUserView.class)
     protected String appUserPhone;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @JsonView(AppUserView.class)
+    protected UserVisibility appUserVisibility;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

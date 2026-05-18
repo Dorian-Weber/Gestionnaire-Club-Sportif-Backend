@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class MockAppUserService implements IAppUserService {
                 "Test@test.com",
                 "TestTest1!",
                 "0698144242",
+                UserVisibility.PRIVATE,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 new AccountType(),
@@ -36,6 +38,7 @@ public class MockAppUserService implements IAppUserService {
                     "Test@test.com",
                     "TestTest1!",
                     "0698144242",
+                    UserVisibility.PRIVATE,
                     LocalDateTime.now(),
                     LocalDateTime.now(),
                     new AccountType(),

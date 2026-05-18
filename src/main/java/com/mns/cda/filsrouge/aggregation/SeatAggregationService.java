@@ -6,24 +6,20 @@ import com.mns.cda.filsrouge.dao.ReservationDAO;
 import com.mns.cda.filsrouge.dao.SeatDAO;
 import com.mns.cda.filsrouge.dto.FriendDTO;
 import com.mns.cda.filsrouge.dto.SeatDTO;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.model.Seat;
-import com.mns.cda.filsrouge.service.RelationService;
-import com.mns.cda.filsrouge.service.ReservationService;
-import com.mns.cda.filsrouge.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
 public class SeatAggregationService {
+
     private final SeatDAO seatDAO;
     private final ReservationDAO reservationDAO;
     private final RelationDAO relationDAO;
@@ -31,55 +27,54 @@ public class SeatAggregationService {
     public List<SeatDTO> getSeatsForEvent(int eventId,
                                           int currentUserId,
                                           String platform,
-                                          String level
-    ){
-        // Récupère séparément toutes les données utiles dans l'aggregation
+                                          String level) {
+
         List<Seat> seats = seatDAO.findByPlatformAndLevel(platform, level);
         List<Reservation> reservations = reservationDAO.findReservationByIdEvent(eventId);
         List<FriendDTO> friends = relationDAO.findListFriendsByIdUser(currentUserId);
 
-        // Récupère les ids liées à la liste d'amis, utilisation de set sécurisé et éviter les doublons.
+        // Set des IDs amis
         Set<Integer> friendIds = friends.stream()
                 .map(FriendDTO::idAppUser)
                 .collect(Collectors.toSet());
 
-        return seats.stream()
-            .map(seat -> {
-                Reservation reservation = reservations.stream()
-                .filter(r ->r.getSeats().contains(seat))
-                .findFirst().orElse(null);
+        return seats.stream().map(seat -> {
 
-                boolean reserved = reservation != null;
-                boolean reservedByFriend = false;
+            Reservation reservation = reservations.stream()
+                    .filter(r -> r.getSeats().contains(seat))
+                    .findFirst()
+                    .orElse(null);
 
-                if (reserved){
-                    Integer reserverId = reservation.getUser().getIdAppUser();
+            boolean reserved = reservation != null;
+            boolean reservedByFriend = isReservedByFriend(reserved, reservation, friendIds);
 
-                    FriendDTO friend = friends.stream()
-                            .filter(f -> f.idAppUser().equals(reserverId))
-                            .findFirst()
-                            .orElse(null);
+            return new SeatDTO(
+                    seat.getIdSeat(),
+                    seat.getSeatNumber(),
+                    reserved,
+                    reservedByFriend
+            );
+        }).toList();
+    }
 
-                    boolean isFriend = friend != null;
-                    boolean canSee = false;
 
-                    if (isFriend){
-                        String accountTypeName = friend.accountTypeName();
+    private static boolean isReservedByFriend(boolean reserved, Reservation reservation, Set<Integer> friendIds) {
+        boolean reservedByFriend = false;
 
-                        if (accountTypeName.equals("User public") || accountTypeName.equals("User private")){
-                            canSee = true;
-                        }
-                    }
+        if (reserved) {
+            Integer reserverId = reservation.getUser().getIdAppUser();
 
-                reservedByFriend = isFriend && canSee;
-                }
+            boolean isFriend = friendIds.contains(reserverId);
 
-                return new SeatDTO(
-                        seat.getIdSeat(),
-                        seat.getSeatNumber(),
-                        reserved,
-                        reservedByFriend
-                );
-            }).toList();
+            if (isFriend) {
+                UserVisibility visibility = reservation.getUser().getAppUserVisibility();
+
+                reservedByFriend = switch (visibility) {
+                    case PUBLIC, PRIVATE -> true;
+                    case CLOSE -> false;
+                };
+            }
+        }
+        return reservedByFriend;
     }
 }

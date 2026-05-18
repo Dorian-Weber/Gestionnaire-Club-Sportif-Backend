@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -114,6 +115,7 @@ public class MockAppUserDao implements AppUserDAO {
                     "Test@test.com",
                     "TestTest1!",
                     "0698144242",
+                    UserVisibility.PRIVATE,
                     LocalDateTime.now(),
                     LocalDateTime.now(),
                     new AccountType(),
@@ -140,6 +142,7 @@ public class MockAppUserDao implements AppUserDAO {
                 "Test@test.com",
                 "TestTest1!",
                 "0698144242",
+                UserVisibility.PRIVATE,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 new AccountType(),
