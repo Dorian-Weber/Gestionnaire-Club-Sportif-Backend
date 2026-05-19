@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.controller;
 import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
 import com.mns.cda.filsrouge.model.StatusPresence;
+import com.mns.cda.filsrouge.security.isAdmin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,21 +28,23 @@ public class StatusPresenceController {
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents status de présence",
-            description = "Cette méthode permet de récupérer la liste de tous les status de présence dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les status de présence dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des status de présence récupérée avec succès")
     })
+    @isAdmin
     public List<StatusPresence> getStatusPresenceList() {
         return statusPresenceService.findAll();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Récupérer un status de présence par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un status de présence spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'un status de présence spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Status de présence récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Status de présence non trouvé")
     })
+    @isAdmin
     public ResponseEntity<StatusPresence> getStatusPresenceById(@PathVariable int id) {
 
         Optional<StatusPresence> optionalStatusPresence = statusPresenceService.findById(id);
@@ -54,10 +57,11 @@ public class StatusPresenceController {
 
     @PostMapping
     @Operation(summary = "Ajoute un status de présence à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau status de présence en base de données.")
+            description = "Cette route permet d'ajouter un nouveau status de présence en base de données.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Status de présence ajoutée avec succès")
+            @ApiResponse(responseCode = "201", description = "Status de présence ajouté avec succès")
     })
+    @isAdmin
     public ResponseEntity<StatusPresence> create(@RequestBody StatusPresence statusPresenceToInsert) {
 
         statusPresenceService.create(statusPresenceToInsert);
@@ -68,11 +72,12 @@ public class StatusPresenceController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un status de présence par son ID",
-            description = "Cette méthode permet de supprimer un status de présence spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un status de présence spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Status de présence supprimée avec succès"),
+            @ApiResponse(responseCode = "204", description = "Status de présence supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Status de présence non trouvé")
     })
+    @isAdmin
     public ResponseEntity<StatusPresence> delete(@PathVariable int id) {
 
         Optional<StatusPresence> optionalStatusPresence = statusPresenceService.findById(id);
@@ -87,11 +92,12 @@ public class StatusPresenceController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un status de présence par son ID",
-            description = "Cette méthode permet de modifier les informations d'un status de présence spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un status de présence spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Status de présence modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Status de présence non trouvé")
     })
+    @isAdmin
     public ResponseEntity<StatusPresence> update(
             @PathVariable int id,
             @RequestBody StatusPresence statusPresenceToUpdate) {

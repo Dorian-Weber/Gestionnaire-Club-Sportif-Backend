@@ -8,6 +8,9 @@ import com.mns.cda.filsrouge.service.AppUserService;
 import com.mns.cda.filsrouge.view.AppUserView;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,11 @@ public class AuthController {
 
     @PostMapping("/sign-in")
     @JsonView({AppUserView.class})
+    @Operation(summary = "Permet de d'enregistrer un utilisateur en base de données",
+            description = "Cette route permet à l'utilisateur de crée un compte utilisateur.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Utilisateur enregistré avec succès")
+    })
     public ResponseEntity<AppUser> SignIn(
             @RequestBody @Validated(AppUser.OnCreate.class) AppUser userToInsert) {
 
@@ -43,6 +51,12 @@ public class AuthController {
 
 
     @PostMapping("/log-in")
+    @Operation(summary = "Permet aux Utilisateur de se connecter",
+            description = "Cette route permet à l'utilisateur de se connecter.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur connecté avec succès"),
+            @ApiResponse(responseCode = "403", description = "Connexion non autorisé")
+    })
     public ResponseEntity<String> logIn(
             @RequestBody  AppUser user) {
         try {

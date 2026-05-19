@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
 import com.mns.cda.filsrouge.model.AccountType;
+import com.mns.cda.filsrouge.security.isSuperAdmin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,21 +26,23 @@ public class AccountTypeController {
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents types de comptes",
-            description = "Cette méthode permet de récupérer la liste de tous les types de comptes présents dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les types de comptes présents dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des types de comptes récupérée avec succès")
     })
+    @isSuperAdmin
     public List<AccountType> getAccountTypeList() {
         return accountTypeService.findAll();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Récupérer un type de compte par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un type de compte spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'un type de compte spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Type de compte récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Type de compte non trouvé")
     })
+    @isSuperAdmin
     public ResponseEntity<AccountType> getAccountTypeById(@PathVariable int id) {
 
         Optional<AccountType> optionalAccountType = accountTypeService.findById(id);
@@ -52,10 +55,11 @@ public class AccountTypeController {
 
     @PostMapping
     @Operation(summary = "Ajoute un type de compte à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau type de compte en base de données.")
+            description = "Cette route permet de d'ajouter un nouveau type de compte en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Type de compte ajoutée avec succès")
     })
+    @isSuperAdmin
     public ResponseEntity<AccountType> create(@RequestBody AccountType accountTypeToInsert) {
 
         accountTypeService.create(accountTypeToInsert);
@@ -65,11 +69,12 @@ public class AccountTypeController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un type de compte par son ID",
-            description = "Cette méthode permet de supprimer un type de compte spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un type de compte spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Type de compte supprimée avec succès"),
+            @ApiResponse(responseCode = "204", description = "Type de compte supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Type de compte non trouvé")
     })
+    @isSuperAdmin
     public ResponseEntity<AccountType> delete(@PathVariable int id) {
 
         Optional<AccountType> optionalAccountType = accountTypeService.findById(id);
@@ -83,11 +88,12 @@ public class AccountTypeController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un type de compte par son ID",
-            description = "Cette méthode permet de modifier les informations d'un type de compte spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un type de compte spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Type de compte modifiée avec succès"),
+            @ApiResponse(responseCode = "200", description = "Type de compte modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Type de compte non trouvé")
     })
+    @isSuperAdmin
     public ResponseEntity<AccountType> update(
             @PathVariable int id,
             @RequestBody AccountType accountTypeToUpdate) {

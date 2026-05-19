@@ -5,6 +5,8 @@ import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.SportView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,18 +30,12 @@ public class SportController {
 
     private final ISportService sportService;
 
-    @GetMapping("/list")
-    @JsonView(SportView.class)
+    @GetMapping("/field")
     @Operation(summary = "Récupère la liste de tous les sports",
-            description = "Cette méthode permet de récupérer la liste de tous les sports présents dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les sports présents dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des sports récupérée avec succès")
     })
-    public List<Sport> getSportList() {
-        return sportService.findAll();
-    }
-
-    @GetMapping("/field")
     public List<SportField> getSportFieldList() {
         return sportService.findAllSportField();
     }
@@ -47,11 +43,12 @@ public class SportController {
     @GetMapping("/{id}")
     @JsonView(SportView.class)
     @Operation(summary = "Récupérer un sport par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un sport spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'un sport spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sport récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Sport non trouvé")
     })
+    @isUser
     public ResponseEntity<Sport> getSportById(@PathVariable Integer id) {
 
         Optional<Sport> optionalSport = sportService.findById(id);
@@ -64,10 +61,11 @@ public class SportController {
 
     @PostMapping("")
     @Operation(summary = "Ajoute un sport à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau sport en base de données.")
+            description = "Cette route permet de d'ajouter un nouveau sport en base de données.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Sport ajoutée avec succès")
+            @ApiResponse(responseCode = "201", description = "Sport ajouté avec succès")
     })
+    @isAdmin
     public ResponseEntity<Sport> create(@RequestBody Sport sportToInsert) {
 
         sportService.create(sportToInsert);
@@ -77,11 +75,12 @@ public class SportController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un sport par son ID",
-            description = "Cette méthode permet de supprimer un sport spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un sport spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Sport supprimée avec succès"),
+            @ApiResponse(responseCode = "204", description = "Sport supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Sport non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Sport> delete(@PathVariable Integer id) {
 
         Optional<Sport> optionalSport = sportService.findById(id);
@@ -96,11 +95,12 @@ public class SportController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un sport par son ID",
-            description = "Cette méthode permet de modifier les informations d'un sport spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un sport spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sport modifiée avec succès"),
+            @ApiResponse(responseCode = "200", description = "Sport modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Sport non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Sport> update(
             @PathVariable Integer id,
             @RequestBody Sport sportToUpdate) {

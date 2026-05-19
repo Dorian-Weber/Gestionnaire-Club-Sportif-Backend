@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.model.Relation;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,21 +28,23 @@ public class RelationController {
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différentes relations",
-            description = "Cette méthode permet de récupérer la liste de toutes les relations dans la base de données.")
+            description = "Cette route permet de récupérer la liste de toutes les relations dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des relations récupérée avec succès")
     })
+    @isAdmin
     public List<Relation> getRelationList() {
         return relationService.findAll();
     }
 
     @GetMapping("/{firstId}/{secondId}")
-    @Operation(summary = "Récupérer une relation par son ID",
-            description = "Cette méthode permet de récupérer les informations d'une relation spécifique en utilisant son ID.")
+    @Operation(summary = "Récupérer une relation entre deux utilisateur par leurs ID.",
+            description = "Cette route permet de récupérer une relation spécifique entre deux utilisateur par leur ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
             @ApiResponse(responseCode = "404", description = "Relation non trouvée")
     })
+    @isUser
     public ResponseEntity<Relation> getRelationById(@PathVariable int firstId,
                                                     @PathVariable int secondId) {
 
@@ -54,11 +58,12 @@ public class RelationController {
     }
 
     @PostMapping
-    @Operation(summary = "Ajoute une relation à la base de données",
-            description = "Cette méthode permet de d'ajouter une nouvelle relation en base de données.")
+    @Operation(summary = "Ajoute une relation entre deux utilisateur en base de données",
+            description = "Cette route permet d'ajouter une nouvelle relation entre utilisateur en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Relation ajoutée avec succès")
     })
+    @isUser
     public ResponseEntity<Relation> create(@RequestBody Relation relationToInsert) {
 
         relationService.create(relationToInsert);
@@ -68,12 +73,13 @@ public class RelationController {
     }
 
     @DeleteMapping("/{firstId}/[{secondId}")
-    @Operation(summary = "Supprime une relation par son ID",
-            description = "Cette méthode permet de supprimer une relation spécifique en utilisant son ID.")
+    @Operation(summary = "Supprime une relation entre deux utilisateur par leurs ID",
+            description = "Cette route permet de supprimer une relation spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Relation supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Relation non trouvée")
     })
+    @isUser
     public ResponseEntity<Relation> delete(@PathVariable int firstId,
                                            @PathVariable int secondId) {
 
@@ -90,11 +96,12 @@ public class RelationController {
 
     @PutMapping("/{firstId}/{secondId}")
     @Operation(summary = "Modifie une relation par son ID",
-            description = "Cette méthode permet de modifier les informations d'une relation spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier une relation spécifique entre deux utilisateur par leurs ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Relation modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Relation non trouvée")
     })
+    @isUser
     public ResponseEntity<Relation> update(
             @PathVariable int firstId,
             @PathVariable int secondId,

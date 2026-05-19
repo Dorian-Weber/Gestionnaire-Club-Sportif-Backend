@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IVoteService;
 import com.mns.cda.filsrouge.model.Vote;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,17 +28,18 @@ public class VoteController {
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents votes",
-            description = "Cette méthode permet de récupérer la liste de tous les votes dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les votes dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des votes récupéré avec succès")
     })
+    @isAdmin
     public List<Vote> getVoteList() {
         return voteService.findAll();
     }
 
     @GetMapping("/{userId}/{eventId}")
-    @Operation(summary = "Récupérer un vote par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un vote spécifique en utilisant son ID.")
+    @Operation(summary = "Récupérer un vote fait par un utilisateur a un événement.",
+            description = "Cette route permet de récupérer les informations d'un vote en utilisant les ID d'un utilisateur et d'un événement.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Vote récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Vote non trouvé")
@@ -55,10 +58,11 @@ public class VoteController {
 
     @PostMapping
     @Operation(summary = "Ajoute un vote à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau vote en base de données.")
+            description = "Cette route permet de d'ajouter un nouveau vote en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Vote ajouté avec succès")
     })
+    @isUser
     public ResponseEntity<Vote> create(@RequestBody Vote voteToInsert) {
 
         voteService.create(voteToInsert);
@@ -69,11 +73,12 @@ public class VoteController {
 
     @DeleteMapping("/{userId}/[{eventId}")
     @Operation(summary = "Supprime un vote par son ID",
-            description = "Cette méthode permet de supprimer un vote spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un vote spécifique en utilisant les ID de utilisateur et d'événement.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Vote supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Vote non trouvé")
     })
+    @isUser
     public ResponseEntity<Vote> delete(@PathVariable int userId,
                                            @PathVariable int eventId) {
 
@@ -89,12 +94,13 @@ public class VoteController {
     }
 
     @PutMapping("/{userId}/{eventId}")
-    @Operation(summary = "Modifie un vote par son ID",
-            description = "Cette méthode permet de modifier les informations d'un vote spécifique en utilisant son ID.")
+    @Operation(summary = "Modifie un vote par les ID de l'utilisateur et de l'événement",
+            description = "Cette route permet de modifier les informations d'un vote spécifique en utilisant les ID de l'utilisateur et l'événement.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Vote modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Vote non trouvé")
     })
+    @isUser
     public ResponseEntity<Vote> update(
             @PathVariable int userId,
             @PathVariable int eventId,

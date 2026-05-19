@@ -99,6 +99,7 @@ public class AppUser {
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "account_type_id")
+    @NotNull
     @JsonView(AppUserView.class)
     protected AccountType accountType;
 

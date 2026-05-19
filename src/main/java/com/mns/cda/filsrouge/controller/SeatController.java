@@ -6,6 +6,8 @@ import com.mns.cda.filsrouge.aggregation.SeatAggregationService;
 import com.mns.cda.filsrouge.dto.SeatDTO;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.security.AppUserDetails;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,10 +36,11 @@ public class SeatController {
     @GetMapping("/list")
     @JsonView(SeatView.class)
     @Operation(summary = "Récupère la liste des différents sièges",
-            description = "Cette méthode permet de récupérer la liste de tous les sièges dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les sièges dans la base de données.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Liste des sièges récupéré avec succès")
+            @ApiResponse(responseCode = "200", description = "Liste des sièges récupérée avec succès")
     })
+    @isAdmin
     public List<Seat> getSeatList() {
         return seatService.findAll();
     }
@@ -45,11 +48,12 @@ public class SeatController {
     @GetMapping("/{id}")
     @JsonView(SeatView.class)
     @Operation(summary = "Récupérer un siège par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un siège spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'un siège spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Siège récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Siège non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Seat> getSeatById(@PathVariable int id) {
 
         Optional<Seat> optionalSeat = seatService.findById(id);
@@ -61,6 +65,12 @@ public class SeatController {
     }
 
     @GetMapping("/reserved/{eventId}")
+    @Operation(summary = "Récupère les listes des différents sièges libre, réserver, réserver par un ami pour un événement",
+            description = "Cette route permet de récupérer les listes de tous les sièges libre, réservé, réservé par un amis dans une tribune et un niveau choisi pour un événement.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des sièges récupérée avec succès")
+    })
+    @isUser
     public List<SeatDTO> getReservedSeatsByEventId(@PathVariable int eventId,
                                                    @AuthenticationPrincipal AppUserDetails currentUser,
                                                    @RequestParam String platform,
@@ -75,10 +85,11 @@ public class SeatController {
 
     @PostMapping
     @Operation(summary = "Ajoute un siège à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau siège en base de données.")
+            description = "Cette route permet d'ajouter un nouveau siège en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Siège ajouté avec succès")
     })
+    @isAdmin
     public ResponseEntity<Seat> create(@RequestBody Seat seatToInsert) {
 
         seatService.create(seatToInsert);
@@ -89,11 +100,12 @@ public class SeatController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un siège par son ID",
-            description = "Cette méthode permet de supprimer un siège spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un siège spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Siège supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Siège non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Seat> delete(@PathVariable int id) {
 
         Optional<Seat> optionalSeat = seatService.findById(id);
@@ -108,11 +120,12 @@ public class SeatController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un siège par son ID",
-            description = "Cette méthode permet de modifier les informations d'un siège spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un siège spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Siège modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Siège non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Seat> update(
             @PathVariable int id,
             @RequestBody Seat seatToUpdate) {

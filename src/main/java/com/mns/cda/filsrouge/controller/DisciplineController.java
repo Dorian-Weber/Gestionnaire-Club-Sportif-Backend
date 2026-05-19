@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ICountryService;
 import com.mns.cda.filsrouge.Iservice.IDisciplineService;
 import com.mns.cda.filsrouge.model.Discipline;
+import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.view.DisciplineView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,7 +31,7 @@ public class DisciplineController {
     @GetMapping("/list")
     @JsonView(DisciplineView.class)
     @Operation(summary = "Récupère la liste de toutes les disciplines",
-            description = "Cette méthode permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
+            description = "Cette route permet de récupérer la liste de toutes les disciplines présentes dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des disciplines récupérée avec succès")
     })
@@ -41,10 +42,10 @@ public class DisciplineController {
     @GetMapping("/{id}")
     @JsonView(DisciplineView.class)
     @Operation(summary = "Récupérer une discipline par son ID",
-            description = "Cette méthode permet de récupérer les informations d'une discipline spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Discipline récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Discipline non trouvé")
+            @ApiResponse(responseCode = "200", description = "Discipline récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Discipline non trouvée")
     })
     public ResponseEntity<Discipline> getDisciplineById(@PathVariable Integer id) {
 
@@ -58,10 +59,11 @@ public class DisciplineController {
 
     @PostMapping
     @Operation(summary = "Ajoute une discipline à la base de données",
-            description = "Cette méthode permet de d'ajouter une nouvelle discipline en base de données.")
+            description = "Cette route permet de d'ajouter une nouvelle discipline en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Discipline ajoutée avec succès")
     })
+    @isAdmin
     public ResponseEntity<Discipline> create(@RequestBody Discipline disciplineToInsert) {
 
         disciplineService.create(disciplineToInsert);
@@ -71,11 +73,12 @@ public class DisciplineController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime une discipline par son ID",
-            description = "Cette méthode permet de supprimer une discipline spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Discipline supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Discipline non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Discipline> delete(@PathVariable Integer id) {
 
         Optional<Discipline> optionalDiscipline = disciplineService.findById(id);
@@ -90,10 +93,10 @@ public class DisciplineController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie une discipline par son ID",
-            description = "Cette méthode permet de modifier les informations d'une discipline spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'une discipline spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Discipline modifiée avec succès"),
-            @ApiResponse(responseCode = "404", description = "Discipline non trouvé")
+            @ApiResponse(responseCode = "404", description = "Discipline non trouvée")
     })
     public ResponseEntity<Discipline> update(
             @PathVariable Integer id,

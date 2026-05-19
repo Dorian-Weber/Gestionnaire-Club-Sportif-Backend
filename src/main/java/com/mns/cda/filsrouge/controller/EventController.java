@@ -37,42 +37,26 @@ public class EventController {
     protected final IEventService eventService;
     private final EventAggregationService eventAggregationService;
 
-    @GetMapping("/list")
-    @JsonView(EventView.class)
-    @Operation(summary = "Récupère la liste des différents évènements",
-            description = "Cette méthode permet de récupérer la liste de tous les évènements présents dans la base de données.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Liste des évènements récupérée avec succès")
-    })
-    public List<Event> getEventList() {
-        return eventService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    @JsonView(EventView.class)
-    @Operation(summary = "Récupérer un évènement par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un évènement spécifique en utilisant son ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Évènement récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
-    })
-    public ResponseEntity<Event> getEventById(@PathVariable int id) {
-
-        Optional<Event> optionalEvent = eventService.findById(id);
-
-        if(optionalEvent.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(optionalEvent.get(), HttpStatus.OK);
-    }
-
     // Mapping requêtes personnalisées en GET
     @GetMapping("/next")
+    @Operation(summary = "Récupère la liste les informations minimum des trois prochains évènements.",
+            description = "Cette route permet de récupérer la liste des informations minimum des trois prochains évènements présents dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des trois prochains évènements récupérée avec succès")
+    })
     public List<EventLight> getEventLight() {
         return eventService.findNextEventLight();
     }
 
+
     @GetMapping("/light/{idEvent}")
+    @Operation(summary = "Récupère les informations minimum d'un événement spécifique avec son ID.",
+            description = "Cette route permet de récupérer les informations minimum pour un événement choisis avec son ID." )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Informations de l'évènement récupérées avec succès"),
+            @ApiResponse(responseCode = "404", description = "Événement non trouvé")
+    })
+    @isUser
     public ResponseEntity<EventLight> getEventLightById(@PathVariable int idEvent) {
 
         Optional<EventLight> optionalEventLight = eventService.findEventLightById(idEvent);
@@ -85,11 +69,23 @@ public class EventController {
 
 
     @GetMapping("/list-event")
+    @Operation(summary = "Récupère la liste des prochains évènements.",
+            description = "Cette route permet de récupérer la liste des prochains évènements présents dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des prochains évènements récupérée avec succès")
+    })
     public List<EventMedium> getEventMedium() {
         return eventService.findEventMedium();
     }
 
     @GetMapping("/eventMedium/{idEvent}")
+    @Operation(summary = "Récupère un évènements à partir de son ID.",
+            description = "Cette route permet de récupérer un évènement présents dans la base de données à partir de son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Événement récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Événement non trouvé")
+    })
+    @isUser
     public ResponseEntity<EventMedium> getEventMediumById(@PathVariable int idEvent) {
 
         Optional<EventMedium> optionalEventMedium = eventService.findEventMediumById(idEvent);
@@ -101,6 +97,12 @@ public class EventController {
     }
 
     @GetMapping("/list-event/search")
+    @Operation(summary = "Filtre les événements .",
+            description = "Cette route permet de récupérer une liste d'événements en fonction du sport, le type d'événement, d'un mot rechercher ou d'une date.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Événements récupérés avec succès"),
+            @ApiResponse(responseCode = "404", description = "Événements non trouvés")
+    })
     public List<EventMedium> getEventMediumByFilter(
             @RequestParam(required = false) String sportName,
             @RequestParam(required = false) String eventTypeName,
@@ -117,6 +119,12 @@ public class EventController {
     }
 
     @GetMapping("/full/{idEvent}")
+    @Operation(summary = "Récupère toute les informations liée a un événement à partir de son ID.",
+            description = "Cette route permet de récupérer toute les informations liée à un événement à partir de son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Événement récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
+    })
     public EventFull getEventFull(@PathVariable int idEvent) {
         return eventAggregationService.getEventFull(idEvent);
     }

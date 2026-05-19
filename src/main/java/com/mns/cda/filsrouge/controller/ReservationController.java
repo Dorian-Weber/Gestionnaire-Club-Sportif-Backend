@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
+import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.ReservationView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,10 +33,11 @@ public class ReservationController {
     @GetMapping("/list")
     @JsonView(ReservationView.class)
     @Operation(summary = "Récupère la liste des différents reservations",
-            description = "Cette méthode permet de récupérer la liste de tous les reservations dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les reservations dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des reservations récupérée avec succès")
     })
+    @isAdmin
     public List<Reservation> getReservationList() {
         return reservationService.findAll();
     }
@@ -43,11 +45,12 @@ public class ReservationController {
     @GetMapping("/{id}")
     @JsonView({ReservationView.class})
     @Operation(summary = "Récupérer une reservation par son ID",
-            description = "Cette méthode permet de récupérer les informations d'une reservation spécifique en utilisant son ID.")
+            description = "Cette route permet de récupérer les informations d'une reservation spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Reservation récupéré avec succès"),
+            @ApiResponse(responseCode = "200", description = "Reservation récupérée avec succès"),
             @ApiResponse(responseCode = "404", description = "Reservation non trouvée")
     })
+    @isUser
     public ResponseEntity<Reservation> getReservationById(@PathVariable int id) {
 
         Optional<Reservation> optionalReservation = reservationService.findById(id);
@@ -60,10 +63,11 @@ public class ReservationController {
 
     @PostMapping
     @Operation(summary = "Ajoute une reservation à la base de données",
-            description = "Cette méthode permet de d'ajouter une nouvelle reservation en base de données.")
+            description = "Cette route permet de d'ajouter une nouvelle reservation en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Reservation ajoutée avec succès")
     })
+    @isUser
     public ResponseEntity<Reservation> create(@RequestBody Reservation reservationToInsert) {
 
         reservationService.create(reservationToInsert);
@@ -74,7 +78,7 @@ public class ReservationController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime une reservation par son ID",
-            description = "Cette méthode permet de supprimer une reservation spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer une reservation spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Reservation supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Reservation non trouvée")
@@ -104,6 +108,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "200", description = "Reservation modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Reservation non trouvée")
     })
+    @isAdmin
     public ResponseEntity<Reservation> update(
             @PathVariable int id,
             @RequestBody Reservation reservationToUpdate) {

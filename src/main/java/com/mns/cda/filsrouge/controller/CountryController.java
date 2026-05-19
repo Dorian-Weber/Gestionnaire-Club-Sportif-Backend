@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ICountryService;
 import com.mns.cda.filsrouge.model.Country;
+import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.view.CountryView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,9 +30,9 @@ public class CountryController {
     @GetMapping("/list")
     @JsonView(CountryView.class)
     @Operation(summary = "Récupère la liste de tous les pays",
-            description = "Cette méthode permet de récupérer la liste de tous les pays présentes dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les pays présents dans la base de données.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Liste des pays récupéré avec succès")
+            @ApiResponse(responseCode = "200", description = "Liste des pays récupérée avec succès")
     })
     public List<Country> getCountryList() {
         return countryService.findAll();
@@ -39,8 +40,8 @@ public class CountryController {
 
     @GetMapping("/{id}")
     @JsonView(CountryView.class)
-    @Operation(summary = "Récupérer un pays par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un pays spécifique en utilisant son ID.")
+    @Operation(summary = "Récupère un pays par son ID",
+            description = "Cette route permet de récupérer les informations d'un pays spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pays récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Pays non trouvé")
@@ -57,10 +58,11 @@ public class CountryController {
 
     @PostMapping
     @Operation(summary = "Ajoute un pays à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau pays en base de données.")
+            description = "Cette route permet de d'ajouter un nouveau pays en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Pays ajouté avec succès")
     })
+    @isAdmin
     public ResponseEntity<Country> create(@RequestBody Country countryToInsert) {
 
         countryService.create(countryToInsert);
@@ -70,11 +72,12 @@ public class CountryController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un pays par son ID",
-            description = "Cette méthode permet de supprimer un pays spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un pays spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Pays supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Pays non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Country> delete(@PathVariable Integer id) {
 
         Optional<Country> optionalCountry = countryService.findById(id);
@@ -89,11 +92,12 @@ public class CountryController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un pays par son ID",
-            description = "Cette méthode permet de modifier les informations d'un pays spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un pays spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pays modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Pays non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Country> update(
             @PathVariable Integer id,
             @RequestBody Country countryToUpdate) {

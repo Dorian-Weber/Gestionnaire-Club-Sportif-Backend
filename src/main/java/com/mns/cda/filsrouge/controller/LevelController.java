@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAccountTypeService;
 import com.mns.cda.filsrouge.Iservice.ILevelService;
 import com.mns.cda.filsrouge.model.Level;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.LevelView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,22 +32,24 @@ public class LevelController {
     @GetMapping("/list")
     @JsonView(LevelView.class)
     @Operation(summary = "Récupère la liste des différents niveaux",
-            description = "Cette méthode permet de récupérer la liste de tous les niveaux dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les niveaux dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des niveaux récupérée avec succès")
     })
+    @isUser
     public List<Level> getLevelList() {
         return levelService.findAll();
     }
 
     @GetMapping("/{id}")
     @JsonView(LevelView.class)
-    @Operation(summary = "Récupérer un niveau par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un niveau spécifique en utilisant son ID.")
+    @Operation(summary = "Récupère un niveau par son ID",
+            description = "Cette route permet de récupérer les informations d'un niveau spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Niveau récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Niveau non trouvé")
     })
+    @isUser
     public ResponseEntity<Level> getLevelById(@PathVariable int id) {
 
         Optional<Level> optionalLevel = levelService.findById(id);
@@ -58,10 +62,11 @@ public class LevelController {
 
     @PostMapping
     @Operation(summary = "Ajoute un niveau à la base de données",
-            description = "Cette méthode permet de d'ajouter un nouveau niveau en base de données.")
+            description = "Cette route permet de d'ajouter un nouveau niveau en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Niveau ajouté avec succès")
     })
+    @isAdmin
     public ResponseEntity<Level> create(@RequestBody Level levelToInsert) {
 
         levelService.create(levelToInsert);
@@ -72,11 +77,12 @@ public class LevelController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un niveau par son ID",
-            description = "Cette méthode permet de supprimer un niveau spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer un niveau spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Niveau supprimée avec succès"),
+            @ApiResponse(responseCode = "204", description = "Niveau supprimé avec succès"),
             @ApiResponse(responseCode = "404", description = "Niveau non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Level> delete(@PathVariable int id) {
 
         Optional<Level> optionalLevel = levelService.findById(id);
@@ -91,11 +97,12 @@ public class LevelController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un niveau par son ID",
-            description = "Cette méthode permet de modifier les informations d'un niveau spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'un niveau spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Niveau modifiée avec succès"),
+            @ApiResponse(responseCode = "200", description = "Niveau modifié avec succès"),
             @ApiResponse(responseCode = "404", description = "Niveau non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Level> update(
             @PathVariable int id,
             @RequestBody Level levelToUpdate) {

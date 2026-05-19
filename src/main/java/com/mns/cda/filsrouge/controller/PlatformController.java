@@ -3,6 +3,8 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IPlatformService;
 import com.mns.cda.filsrouge.model.Platform;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.PlatformView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,22 +31,24 @@ public class PlatformController {
     @GetMapping("/list")
     @JsonView(PlatformView.class)
     @Operation(summary = "Récupère la liste des différents tribunes",
-            description = "Cette méthode permet de récupérer la liste de tous les tribunes dans la base de données.")
+            description = "Cette route permet de récupérer la liste de tous les tribunes dans la base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des tribunes récupérée avec succès")
     })
+    @isUser
     public List<Platform> getPlatformList() {
         return platformService.findAll();
     }
 
     @GetMapping("/{id}")
     @JsonView(PlatformView.class)
-    @Operation(summary = "Récupérer un tribune par son ID",
-            description = "Cette méthode permet de récupérer les informations d'un tribune spécifique en utilisant son ID.")
+    @Operation(summary = "Récupère une tribune par son ID",
+            description = "Cette route permet de récupérer les informations d'une tribune spécifique en utilisant son ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tribune récupéré avec succès"),
+            @ApiResponse(responseCode = "200", description = "Tribune récupérée avec succès"),
             @ApiResponse(responseCode = "404", description = "Tribune non trouvée")
     })
+    @isUser
     public ResponseEntity<Platform> getPlatformById(@PathVariable int id) {
 
         Optional<Platform> optionalPlatform = platformService.findById(id);
@@ -57,10 +61,11 @@ public class PlatformController {
 
     @PostMapping
     @Operation(summary = "Ajoute une tribune à la base de données",
-            description = "Cette méthode permet de d'ajouter une nouvelle tribune en base de données.")
+            description = "Cette route permet d'ajouter une nouvelle tribune en base de données.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Tribune ajoutée avec succès")
     })
+    @isAdmin
     public ResponseEntity<Platform> create(@RequestBody Platform platformToInsert) {
 
         platformService.create(platformToInsert);
@@ -71,11 +76,12 @@ public class PlatformController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime une tribune par son ID",
-            description = "Cette méthode permet de supprimer une tribune spécifique en utilisant son ID.")
+            description = "Cette route permet de supprimer une tribune spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Tribune supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Tribune non trouvée")
     })
+    @isAdmin
     public ResponseEntity<Platform> delete(@PathVariable int id) {
 
         Optional<Platform> optionalPlatform = platformService.findById(id);
@@ -90,11 +96,12 @@ public class PlatformController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie une tribune par son ID",
-            description = "Cette méthode permet de modifier les informations d'une tribune spécifique en utilisant son ID.")
+            description = "Cette route permet de modifier les informations d'une tribune spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tribune modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Tribune non trouvée")
     })
+    @isAdmin
     public ResponseEntity<Platform> update(
             @PathVariable int id,
             @RequestBody Platform platformToUpdate) {
