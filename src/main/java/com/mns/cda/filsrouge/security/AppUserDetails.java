@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 public class AppUserDetails implements UserDetails {
 
+
     protected AppUser user ;
 
     @Override

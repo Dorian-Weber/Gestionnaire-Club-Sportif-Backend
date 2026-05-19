@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.service.AppUserService;
 import com.mns.cda.filsrouge.view.AppUserView;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 
 @RestController
@@ -38,23 +41,27 @@ public class AuthController {
         return new ResponseEntity<>(userToInsert, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/log-in")
     public ResponseEntity<String> logIn(
             @RequestBody  AppUser user) {
         try {
-            authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
+          AppUserDetails appUser =  (AppUserDetails) authenticationProvider
+                  .authenticate(new UsernamePasswordAuthenticationToken(
                     user.getAppUserEmail(),
-                    user.getAppUserPassword()
-                    )
-            );
+                    user.getAppUserPassword())
+                  ).getPrincipal();
+
             String jwt = Jwts.builder()
                     .setSubject(user.getAppUserEmail())
+                    .addClaims(Map.of("role",appUser.getUser().getAccountType().getAccountTypeName()))
                     .signWith(SignatureAlgorithm.HS256, "azerty")
                     .compact();
 
             return new ResponseEntity<>(jwt, HttpStatus.OK);
 
         } catch (AuthenticationException e) {
+
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
     }
