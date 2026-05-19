@@ -3,6 +3,8 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.model.Reservation;
+import com.mns.cda.filsrouge.security.AppUserDetails;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.ReservationView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -76,12 +79,18 @@ public class ReservationController {
             @ApiResponse(responseCode = "204", description = "Reservation supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Reservation non trouvée")
     })
-    public ResponseEntity<Reservation> delete(@PathVariable int id) {
+    @isUser
+    public ResponseEntity<Reservation> delete(@AuthenticationPrincipal AppUserDetails userDetails,
+                                              @PathVariable int id) {
 
         Optional<Reservation> optionalReservation = reservationService.findById(id);
 
         if(optionalReservation.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if(!userDetails.getUser().getAccountType().getAccountTypeName().equals("ADMIN")
+        && !optionalReservation.get().getUser().getIdAppUser().equals(userDetails.getUser().getIdAppUser())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         reservationService.delete(id);
 

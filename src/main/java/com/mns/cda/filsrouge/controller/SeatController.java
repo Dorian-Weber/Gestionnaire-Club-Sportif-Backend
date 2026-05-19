@@ -5,6 +5,7 @@ import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.aggregation.SeatAggregationService;
 import com.mns.cda.filsrouge.dto.SeatDTO;
 import com.mns.cda.filsrouge.model.Seat;
+import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,12 +62,13 @@ public class SeatController {
 
     @GetMapping("/reserved/{eventId}")
     public List<SeatDTO> getReservedSeatsByEventId(@PathVariable int eventId,
-                                                   @RequestParam int currentUserId,
+                                                   @AuthenticationPrincipal AppUserDetails currentUser,
                                                    @RequestParam String platform,
                                                    @RequestParam String level
     ) {
+
         return seatAggregationService.getSeatsForEvent(
-                eventId, currentUserId, platform, level
+                eventId, currentUser.getUser().getIdAppUser(), platform, level
         );
     }
 

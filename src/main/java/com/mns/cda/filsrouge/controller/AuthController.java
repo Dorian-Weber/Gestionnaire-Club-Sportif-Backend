@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.service.AppUserService;
 import com.mns.cda.filsrouge.view.AppUserView;
 import io.jsonwebtoken.Jwts;
@@ -28,7 +29,7 @@ public class AuthController {
     private final AuthenticationProvider authenticationProvider;
 
     @PostMapping("/sign-in")
-    @JsonView({AppUserView.class,})
+    @JsonView({AppUserView.class})
     public ResponseEntity<AppUser> SignIn(
             @RequestBody @Validated(AppUser.OnCreate.class) AppUser userToInsert) {
 

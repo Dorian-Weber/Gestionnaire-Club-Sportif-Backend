@@ -7,6 +7,9 @@ import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.aggregation.EventAggregationService;
+import com.mns.cda.filsrouge.security.AppUserDetails;
+import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -124,6 +128,7 @@ public class EventController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Évènement ajoutée avec succès")
     })
+    @isAdmin
     public ResponseEntity<Event> create(@RequestBody Event eventToInsert) {
 
         eventService.create(eventToInsert);
@@ -139,6 +144,7 @@ public class EventController {
             @ApiResponse(responseCode = "204", description = "Évènement supprimée avec succès"),
             @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Event> delete(@PathVariable int id) {
 
         Optional<Event> optionalEvent = eventService.findById(id);
@@ -158,6 +164,7 @@ public class EventController {
             @ApiResponse(responseCode = "200", description = "Évènement modifiée avec succès"),
             @ApiResponse(responseCode = "404", description = "Évènement non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Event> update(
             @PathVariable int id,
             @RequestBody Event eventToUpdate) {
