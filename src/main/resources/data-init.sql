@@ -171,9 +171,9 @@ INSERT INTO athlete_disciplines (athlete_id, discipline_id) VALUES
                 (15, 10);
 
 INSERT INTO account_type (account_type_name) VALUES
-             ('Admin'),
-             ('Super Admin'),
-             ('User');
+             ('ADMIN'),
+             ('SUPER_ADMIN'),
+             ('USER');
 
 -- MDP : RootRoot!1
 INSERT INTO app_user (app_user_name, app_user_first_name, app_user_pseudo, app_user_email, app_user_password, app_user_phone,app_user_visibility, created_date, last_modified_date, account_type_id) VALUES

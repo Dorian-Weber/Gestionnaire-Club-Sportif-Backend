@@ -70,7 +70,6 @@ public class SeatController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des sièges récupérée avec succès")
     })
-    @isUser
     public List<SeatDTO> getReservedSeatsByEventId(@PathVariable int eventId,
                                                    @AuthenticationPrincipal AppUserDetails currentUser,
                                                    @RequestParam String platform,
