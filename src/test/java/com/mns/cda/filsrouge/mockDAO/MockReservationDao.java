@@ -183,4 +183,10 @@ public class MockReservationDao implements ReservationDAO {
     public List<Reservation> findReservationByIdEvent(int idEvent) {
         return List.of();
     }
+
+    //TODO
+    @Override
+    public boolean userHasReservation(int eventId, int userId) {
+        return false;
+    }
 }

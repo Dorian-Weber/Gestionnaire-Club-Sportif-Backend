@@ -31,6 +31,12 @@ public class MockReservationService implements IReservationService {
         return Optional.empty();
     }
 
+    //TODO
+    @Override
+    public boolean userHasReservation(int eventId, int userId) {
+        return false;
+    }
+
     @Override
     public void create(Reservation Reservation) {
         Reservation.setIdReservation(null);

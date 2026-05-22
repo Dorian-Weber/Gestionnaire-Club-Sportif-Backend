@@ -61,6 +61,13 @@ public class ReservationController {
         return new ResponseEntity<>(optionalReservation.get(), HttpStatus.OK);
     }
 
+    @GetMapping("/has-reserved")
+    public boolean hasReserved(@RequestParam int idEvent,
+            @AuthenticationPrincipal AppUserDetails user
+    ) {
+        return reservationService.userHasReservation(idEvent, user.getUser().getIdAppUser());
+    }
+
     @PostMapping
     @Operation(summary = "Ajoute une reservation à la base de données",
             description = "Cette route permet de d'ajouter une nouvelle reservation en base de données.")

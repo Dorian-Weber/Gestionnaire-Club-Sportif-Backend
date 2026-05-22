@@ -13,41 +13,46 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReservationService implements IReservationService {
 
-    protected final ReservationDAO ReservationDAO;
+    protected final ReservationDAO reservationDAO;
 
     //GetAll
     @Override
-    public List<Reservation> findAll() { return ReservationDAO.findAll(); }
+    public List<Reservation> findAll() { return reservationDAO.findAll(); }
 
     //GetByID
     @Override
     public Optional<Reservation> findById(int id) {
-        return ReservationDAO.findById(id);
+        return reservationDAO.findById(id);
+    }
+
+    //GetById Event and User
+    public boolean userHasReservation(int eventId, int userId) {
+        return reservationDAO.userHasReservation(eventId, userId);
     }
 
     //Post
     @Override
     public void create(Reservation Reservation) {
         Reservation.setIdReservation(null);
-        ReservationDAO.save(Reservation);
+        reservationDAO.save(Reservation);
     }
 
     //Delete
     @Override
     public void delete(int id) {
-        ReservationDAO.deleteById(id);
+        reservationDAO.deleteById(id);
     }
 
     //Put
     @Override
     public void update(int id, Reservation Reservation) throws ReservationNotFoundException {
-        Optional<Reservation> ReservationOptional = ReservationDAO.findById(id);
+        Optional<Reservation> ReservationOptional = reservationDAO.findById(id);
 
         if(ReservationOptional.isEmpty()) {
             throw new ReservationNotFoundException();
         }
         Reservation.setIdReservation(id);
-        ReservationDAO.save(Reservation);
+        reservationDAO.save(Reservation);
     }
 
 }
