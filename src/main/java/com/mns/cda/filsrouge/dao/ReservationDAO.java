@@ -21,8 +21,8 @@ public interface ReservationDAO extends JpaRepository<Reservation, Integer> {
 
     @Query("SELECT COUNT(r) > 0 " +
             "FROM Reservation r " +
-            "WHERE r.event.idEvent = :eventId " +
+            "WHERE r.event.idEvent = :idEvent " +
             "AND r.user.idAppUser = :userId")
-    boolean userHasReservation(@Param("eventId") int eventId, @Param("userId") int userId);
+    boolean userHasReservation(@Param("idEvent") int eventId, @Param("userId") int userId);
 
 }

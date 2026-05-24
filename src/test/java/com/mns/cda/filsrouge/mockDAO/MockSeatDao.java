@@ -180,4 +180,10 @@ public class MockSeatDao implements SeatDAO {
     public List<Seat> findByPlatformAndLevel(String platform, String level) {
         return List.of();
     }
+
+    //TODO
+    @Override
+    public boolean isFull(int eventId) {
+        return false;
+    }
 }

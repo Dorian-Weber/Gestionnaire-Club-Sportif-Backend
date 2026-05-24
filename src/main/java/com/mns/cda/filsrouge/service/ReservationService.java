@@ -1,11 +1,15 @@
 package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IReservationService;
+import com.mns.cda.filsrouge.dao.EventDAO;
 import com.mns.cda.filsrouge.dao.ReservationDAO;
+import com.mns.cda.filsrouge.dao.SeatDAO;
+import com.mns.cda.filsrouge.dto.CanReserveDTO;
 import com.mns.cda.filsrouge.model.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +18,8 @@ import java.util.Optional;
 public class ReservationService implements IReservationService {
 
     protected final ReservationDAO reservationDAO;
+    protected final SeatDAO seatDAO;
+    protected final EventDAO eventDAO;
 
     //GetAll
     @Override
@@ -29,6 +35,21 @@ public class ReservationService implements IReservationService {
     public boolean userHasReservation(int eventId, int userId) {
         return reservationDAO.userHasReservation(eventId, userId);
     }
+
+    public CanReserveDTO canReserve(int eventId, int userId) {
+
+        boolean alreadyReserved = reservationDAO.userHasReservation(eventId, userId);
+
+        boolean isFull = seatDAO.isFull(eventId);
+
+        boolean isPast = eventDAO.findById(eventId)
+                .map(e -> e.getEventDate().isBefore(LocalDateTime.now()))
+                .orElse(true);
+
+        return new CanReserveDTO(alreadyReserved, isFull, isPast);
+    }
+
+
 
     //Post
     @Override

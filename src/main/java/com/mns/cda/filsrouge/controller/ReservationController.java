@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IReservationService;
+import com.mns.cda.filsrouge.dto.CanReserveDTO;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -62,11 +63,22 @@ public class ReservationController {
     }
 
     @GetMapping("/has-reserved")
+    @isUser
     public boolean hasReserved(@RequestParam int idEvent,
-            @AuthenticationPrincipal AppUserDetails user
+                               @AuthenticationPrincipal AppUserDetails user
     ) {
         return reservationService.userHasReservation(idEvent, user.getUser().getIdAppUser());
     }
+
+    @GetMapping("/can-reserve/{eventId}")
+    @isUser
+    public CanReserveDTO canReserve(
+            @PathVariable int eventId,
+            @AuthenticationPrincipal AppUserDetails user
+    ) {
+        return reservationService.canReserve(eventId, user.getUser().getIdAppUser());
+    }
+
 
     @PostMapping
     @Operation(summary = "Ajoute une reservation à la base de données",

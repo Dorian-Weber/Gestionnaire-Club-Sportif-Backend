@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.CanReserveDTO;
 import com.mns.cda.filsrouge.model.Reservation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,8 @@ public interface IReservationService {
     Optional<Reservation> findById(int id);
 
     public boolean userHasReservation(int eventId, int userId);
+
+    public CanReserveDTO canReserve(int eventId, int userId);
 
     //Post
     void create(Reservation Reservation);
