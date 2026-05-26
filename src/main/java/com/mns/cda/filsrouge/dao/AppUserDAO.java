@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface AppUserDAO extends JpaRepository<AppUser, Integer> {
 
     Optional<AppUser> findByAppUserEmail(String email);
+
+    boolean existsByAppUserPseudo(String appUserPseudo);
+
 }

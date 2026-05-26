@@ -1,8 +1,10 @@
 package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
+import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,7 @@ public class AppUserService implements IAppUserService{
 
     protected final AppUserDAO appUserDAO;
     private final PasswordEncoder encoder;
+    protected final AccountTypeDAO accountTypeDAO;
 
     //GetAll
     @Override
@@ -32,8 +35,30 @@ public class AppUserService implements IAppUserService{
     //Post
     @Override
     public void create(AppUser appUser) {
+        //On affecte le type de compte à utilisateur par défaut
+        AccountType user = accountTypeDAO.findById(3)
+                .orElseThrow(() -> new RuntimeException("Type de compte introuvable"));
+
+        // Si aucun pseudo n'a été donnée, on en génère un à partir du prénom et du nom de l'utilisateur
+        if (appUser.getAppUserPseudo() == null || appUser.getAppUserPseudo().isBlank()) {
+            String base = (appUser.getAppUserFirstName() + "." + appUser.getAppUserName()).toLowerCase();
+            base = base.replaceAll("[^a-z0-9_]", "_");
+
+            String pseudo = base;
+            int counter = 1;
+
+            // Vérifier unicité du pseudo crée et on incrémente si besoin
+            while (appUserDAO.existsByAppUserPseudo(pseudo)) {
+                pseudo = base + counter;
+                counter++;
+            }
+
+            appUser.setAppUserPseudo(pseudo);
+        }
+
         appUser.setIdAppUser(null);
         appUser.setAppUserVisibility(UserVisibility.PRIVATE);
+        appUser.setAccountType(user);
         appUser.setAppUserPassword(encoder.encode(appUser.getAppUserPassword()));
         appUserDAO.save(appUser);
     }

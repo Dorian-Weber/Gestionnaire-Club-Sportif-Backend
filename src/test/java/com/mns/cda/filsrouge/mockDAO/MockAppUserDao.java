@@ -202,4 +202,10 @@ public class MockAppUserDao implements AppUserDAO {
     public Optional<AppUser> findByAppUserEmail(String email) {
         return Optional.empty();
     }
+
+    //TODO
+    @Override
+    public boolean existsByAppUserPseudo(String appUserPseudo) {
+        return false;
+    }
 }
