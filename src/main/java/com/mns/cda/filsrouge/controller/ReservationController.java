@@ -3,6 +3,8 @@ package com.mns.cda.filsrouge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.dto.CanReserveDTO;
+import com.mns.cda.filsrouge.dto.CreateReservation;
+import com.mns.cda.filsrouge.dto.ReservationConfirmation;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -84,15 +86,19 @@ public class ReservationController {
     @Operation(summary = "Ajoute une reservation à la base de données",
             description = "Cette route permet de d'ajouter une nouvelle reservation en base de données.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Reservation ajoutée avec succès")
+            @ApiResponse(responseCode = "201", description = "Reservation ajoutée avec succès"),
+            @ApiResponse(responseCode = "403", description = "L'utilisateur a déjà une réservation pour cet événement ou n'a pas les accès"),
+            @ApiResponse(responseCode = "409", description = "Conflit : un ou plusieurs sièges sont déjà réservés")
     })
     @isUser
-    public ResponseEntity<Reservation> create(@RequestBody Reservation reservationToInsert) {
+    public ResponseEntity<ReservationConfirmation> createReservation(
+            @RequestBody CreateReservation dto,
+            @AuthenticationPrincipal AppUserDetails user
+    ) {
+        ReservationConfirmation response =
+                reservationService.createReservation(dto, user.getUser().getIdAppUser());
 
-        reservationService.create(reservationToInsert);
-
-        return new ResponseEntity<>(reservationToInsert, HttpStatus.CREATED);
-
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

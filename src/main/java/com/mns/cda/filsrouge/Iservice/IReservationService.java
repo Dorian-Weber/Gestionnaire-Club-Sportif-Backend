@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.Iservice;
 
 import com.mns.cda.filsrouge.dto.CanReserveDTO;
+import com.mns.cda.filsrouge.dto.CreateReservation;
+import com.mns.cda.filsrouge.dto.ReservationConfirmation;
 import com.mns.cda.filsrouge.model.Reservation;
 
 import java.time.LocalDateTime;
@@ -22,7 +24,7 @@ public interface IReservationService {
     public CanReserveDTO canReserve(int eventId, int userId);
 
     //Post
-    void create(Reservation Reservation);
+    public ReservationConfirmation createReservation(CreateReservation Reservation, int userId);
 
     //Delete
     void delete(int id);

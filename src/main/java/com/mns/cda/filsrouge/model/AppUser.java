@@ -29,6 +29,10 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class AppUser {
 
+    public AppUser(Integer userId) {
+        this.idAppUser = userId;
+    }
+
     public interface OnUpdate {};
     public interface OnCreate {};
 

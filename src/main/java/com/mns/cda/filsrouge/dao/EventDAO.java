@@ -71,18 +71,18 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
             "e.eventDate, " +
             "et.eventTypeName, " +
             "s.sportName,(select count(se) " +
-            "FROM Seat se " +
-            "Join se.reservations r2 " +
-            "WHERE r2.event = e),(select count(se2) " +
-            " FROM Seat se2))  " +
+                        "FROM Seat se " +
+                        "Join se.reservations r2 " +
+                        "WHERE r2.event = e),(select count(se2) " +
+                                                " FROM Seat se2))  " +
             "FROM Event e " +
             "join e.eventType et " +
             "JOIN e.sport s " +
             "WHERE (:sportName IS NULL or s.sportName = :sportName) " +
             "and (:eventTypeName IS NULL or et.eventTypeName = :eventTypeName)" +
             "AND (:search IS NULL OR :search = '' OR " +
-            "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
-            "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+                "LOWER(e.eventName) LIKE LOWER(CONCAT( '%', :search, '%')) OR " +
+                "LOWER(e.eventDescription) LIKE LOWER(CONCAT('%', :search, '%'))) " +
             "AND (e.eventDate >= :dateMin) " +
             "order by e.eventDate ASC")
     List<EventMedium> findEventMediumByFilter(

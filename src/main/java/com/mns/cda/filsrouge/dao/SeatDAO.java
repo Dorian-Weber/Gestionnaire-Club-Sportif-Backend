@@ -36,5 +36,14 @@ WHERE e.idEvent = :eventId
 """)
     boolean isFull(@Param("eventId") int eventId);
 
+    @Query("""
+    SELECT COUNT(r) > 0
+    FROM Reservation r
+    JOIN r.seats s
+    WHERE s.idSeat IN :seatIds
+      AND r.event.idEvent = :eventId
+""")
+    boolean seatsAlreadyReserved(@Param("eventId") int eventId, @Param("seatIds") List<Integer> seatIds);
+
 
 }
