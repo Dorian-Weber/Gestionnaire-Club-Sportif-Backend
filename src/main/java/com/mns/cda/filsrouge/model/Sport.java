@@ -24,23 +24,15 @@ public class Sport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(SportView.class)
     protected Integer idSport;
 
     @Column(length = 50, nullable = false, unique = true)
     @NotBlank
-    @JsonView({SportView.class,
-            DisciplineView.class,
-            EventView.class,
-            EventTypeView.class})
     protected String sportName;
 
     @OneToMany(mappedBy = "sport")
-    @JsonView(SportView.class)
     protected List<Discipline> disciplines;
 
     @OneToMany(mappedBy = "sport")
-    @JsonView({SportView.class,
-            DisciplineView.class})
     protected List<Event> events;
 }

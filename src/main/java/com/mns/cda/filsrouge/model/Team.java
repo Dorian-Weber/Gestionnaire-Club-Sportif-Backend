@@ -22,24 +22,20 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({TeamView.class, EventView.class})
     protected Integer idTeam;
 
     @NotBlank
-    @JsonView({TeamView.class, EventView.class, AthleteView.class})
     protected String teamName;
 
     @ManyToMany
     @JoinTable(name = "event_teams",
             joinColumns = @JoinColumn(name = "team_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
-    @JsonView(TeamView.class)
     protected List<Event> events;
 
     @ManyToMany
     @JoinTable(name = "team_athletes",
             joinColumns = @JoinColumn(name ="team_id"),
             inverseJoinColumns = @JoinColumn(name = "athlete_id"))
-    @JsonView({TeamView.class, EventView.class})
     protected List<Athlete> athletes;
 }

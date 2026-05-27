@@ -22,30 +22,16 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(SeatView.class)
     protected Integer idSeat;
 
     @NotBlank
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class,
-            LevelView.class,
-            PlatformView.class})
     protected String seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "level_id")
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class})
     protected Level level;
 
     @ManyToMany(mappedBy = "seats")
-    @JsonView({SeatView.class,
-            LevelView.class,
-            PlatformView.class})
     protected List<Reservation> reservations;
 
 }

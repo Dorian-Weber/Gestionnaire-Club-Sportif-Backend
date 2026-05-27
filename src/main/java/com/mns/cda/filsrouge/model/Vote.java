@@ -56,13 +56,11 @@ public class Vote {
     @ManyToOne
     @MapsId("eventId")
     @JoinColumn(name = "event_id")
-    @JsonView(AthleteView.class)
     private Event event;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "athlete_id")
-    @JsonView(EventView.class)
     private Athlete athlete;
 
 

@@ -23,32 +23,24 @@ public class Discipline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(DisciplineView.class)
     protected Integer idDiscipline;
 
     @NotBlank
     @Column(unique = true, nullable = false)
-    @JsonView({DisciplineView.class,
-            SportView.class,
-            AthleteView.class})
     protected String disciplineName;
 
-    @JsonView(DisciplineView.class)
     protected String eventRecord;
 
-    @JsonView(DisciplineView.class)
     protected String worldRecord;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")
-    @JsonView(DisciplineView.class)
     protected Sport sport;
 
     @ManyToMany
     @JoinTable(name = "athlete_disciplines",
             joinColumns = @JoinColumn(name = "discipline_id"),
             inverseJoinColumns = @JoinColumn(name = "athlete_id"))
-    @JsonView(DisciplineView.class)
     protected List<Athlete> athletes;
 
 }

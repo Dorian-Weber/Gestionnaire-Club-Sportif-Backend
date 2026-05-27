@@ -21,14 +21,11 @@ public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(CountryView.class)
     protected Integer idCountry;
 
     @NotBlank
-    @JsonView({CountryView.class, AthleteView.class})
     protected String countryName;
 
     @OneToMany(mappedBy = "country")
-    @JsonView(CountryView.class)
     protected List<Athlete> athletes;
 }

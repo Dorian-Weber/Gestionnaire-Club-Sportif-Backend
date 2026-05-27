@@ -22,19 +22,11 @@ public class Platform {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(PlatformView.class)
     protected Integer idPlatform;
 
     @NotBlank
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class,
-            LevelView.class,
-            PlatformView.class})
     protected String platformName;
 
     @OneToMany(mappedBy = "platform")
-    @JsonView(PlatformView.class)
     protected List<Level> levels;
 }

@@ -38,40 +38,26 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(AppUserView.class)
     protected Integer idAppUser;
 
     @NotBlank(groups = {OnCreate.class})
     @Size(min = 1, max = 50, groups = {OnCreate.class})
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class})
     protected String appUserName;
 
     @NotBlank(groups = {OnCreate.class})
     @Size(min = 1, max = 50, groups = {OnCreate.class})
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class})
     protected String appUserFirstName;
 
     @NotBlank(groups = {OnCreate.class})
     @Size(min = 5, max = 30, groups = {OnCreate.class})
     @Column(unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _", groups = {OnCreate.class})
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class,
-            SeatView.class})
     protected String appUserPseudo;
 
     @NotBlank( message = "L'email ne peut pas être vide", groups = {OnCreate.class})
     @Email( message = "L'email est incorrect", groups = {OnCreate.class})
     @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères", groups = {OnCreate.class})
     @Column(unique = true, nullable = false)
-    @JsonView(AppUserView.class)
     protected String appUserEmail;
 
     @NotBlank(message = "Le mot de passe ne peut pas être vide",groups = {OnCreate.class})
@@ -85,12 +71,10 @@ public class AppUser {
     @Pattern(regexp = "^\\+?[0-9]{10,15}$",
             message = "Le numéro de téléphone doit être composé de 10 à 15 chiffres et peut commencer par +", groups = {OnCreate.class})
     @Column(nullable = false)
-    @JsonView(AppUserView.class)
     protected String appUserPhone;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @JsonView(AppUserView.class)
     protected UserVisibility appUserVisibility;
 
     @CreatedDate
@@ -104,7 +88,6 @@ public class AppUser {
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "account_type_id")
     @NotNull
-    @JsonView(AppUserView.class)
     protected AccountType accountType;
 
 
@@ -119,6 +102,5 @@ public class AppUser {
     protected List<Vote> votes;
 
     @OneToMany(mappedBy = "user")
-    @JsonView(AppUserView.class)
     protected List<Reservation> reservations;
 }

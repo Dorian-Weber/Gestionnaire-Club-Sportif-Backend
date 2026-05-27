@@ -23,7 +23,6 @@ public class AccountType {
     protected Integer idAccountType;
 
     @NotBlank
-    @JsonView(AppUserView.class)
     protected String accountTypeName;
 
 

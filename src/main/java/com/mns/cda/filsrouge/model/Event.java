@@ -24,76 +24,41 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(EventView.class)
     protected Integer idEvent;
 
     @NotBlank
-    @JsonView({EventView.class,
-            EventTypeView.class,
-            SportView.class,
-            DisciplineView.class,
-            AthleteView.class,
-            TeamView.class,
-            AppUserView.class,
-            ReservationView.class,
-            SeatView.class,
-            LevelView.class,
-            PlatformView.class})
     protected String eventName;
 
     @NotBlank
-    @JsonView({EventView.class,
-            EventTypeView.class,
-            DisciplineView.class})
     protected String eventDescription;
 
     @NotNull
     @FutureOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @JsonView({EventView.class,
-            EventTypeView.class,
-            SportView.class,
-            DisciplineView.class,
-            AthleteView.class,
-            TeamView.class,
-            AppUserView.class,
-            ReservationView.class,
-            SeatView.class,
-            LevelView.class,
-            PlatformView.class})
     protected LocalDateTime eventDate;
 
     @ManyToOne
     @JoinColumn(name = "event_type_id")
-    @JsonView({EventView.class,
-            SportView.class,
-            DisciplineView.class})
     protected EventType eventType;
 
     @ManyToOne
     @JoinColumn(name = "sport_id")
-    @JsonView({EventView.class,
-            EventTypeView.class})
     protected Sport sport;
 
     @ManyToMany(mappedBy = "events")
-    @JsonView({EventView.class})
     protected List<Team> teams;
 
     @ManyToMany
     @JoinTable(name = "event_athletes",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "athlete_id"))
-    @JsonView({EventView.class})
     protected List<Athlete> athletes;
 
     @OneToMany(mappedBy = "event")
-    @JsonView({EventView.class})
     protected List<Vote> votes;
 
     @OneToMany(mappedBy = "event")
-    @JsonView({EventView.class})
     protected List<Reservation> reservations;
 
 

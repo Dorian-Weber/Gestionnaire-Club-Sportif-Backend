@@ -28,9 +28,6 @@ public class StatusPresence {
     protected Integer idStatusPresence;
 
     @NotBlank
-    @JsonView({AppUserView.class,
-            EventView.class,
-            ReservationView.class})
     protected String statusPresenceName;
 
 
