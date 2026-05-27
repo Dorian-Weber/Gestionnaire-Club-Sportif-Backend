@@ -106,8 +106,8 @@ public class MockTeamDao implements TeamDAO {
     }
 
     @Override
-    public Optional<Team> findById(Integer idTeam) {
-        if(idTeam == 1) {
+    public Optional<Team> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Team(1,
                     "Test",
                     List.of(new Event()),

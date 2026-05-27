@@ -105,8 +105,8 @@ public class MockPlatformDao implements PlatformDAO {
     }
 
     @Override
-    public Optional<Platform> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<Platform> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Platform(1,
                     "Test",List.of(new Level())));
         }

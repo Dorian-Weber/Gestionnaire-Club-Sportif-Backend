@@ -59,21 +59,6 @@ public class AppUserController {
         return new ResponseEntity<>(optionalAppUser.get(), HttpStatus.OK);
     }
 
-    @PostMapping
-    @Operation(summary = "Ajoute un utilisateur à la base de données",
-            description = "Cette route permet de d'ajouter un nouvel utilisateur en base de données.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Utilisateur ajouté avec succès")
-    })
-    @isAdmin
-    public ResponseEntity<AppUser> create(@RequestBody AppUser appUserToInsert) {
-
-        appUserService.create(appUserToInsert);
-
-        return new ResponseEntity<>(appUserToInsert, HttpStatus.CREATED);
-
-    }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un utilisateur par son ID",
             description = "Cette route permet de supprimer un utilisateur spécifique en utilisant son ID.")

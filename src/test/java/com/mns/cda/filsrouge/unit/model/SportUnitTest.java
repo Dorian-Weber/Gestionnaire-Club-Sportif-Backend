@@ -10,26 +10,72 @@ import org.junit.jupiter.api.Test;
 
 public class SportUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du sport ne peut pas être vide
+    // sportName : @NotBlank
+
     @Test
-    public void validSportAvecSportNameBlank_MustBeNotValidated(){
+    public void sportNameBlank_MustBeNotValidated() {
 
         Sport sport = new Sport();
         sport.setSportName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(sport),
                 "sportName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
+    @Test
+    public void sportNameNull_MustBeNotValidated() {
 
+        Sport sport = new Sport();
+        sport.setSportName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(sport),
+                "sportName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void sportNameOnlySpaces_MustBeNotValidated() {
+
+        Sport sport = new Sport();
+        sport.setSportName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(sport),
+                "sportName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void sportNameValid_MustBeValidated() {
+
+        Sport sport = new Sport();
+        sport.setSportName("Athlétisme");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(sport),
+                "sportName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(exists);
+    }
 }

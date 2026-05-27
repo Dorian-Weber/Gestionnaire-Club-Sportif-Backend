@@ -106,8 +106,8 @@ public class MockAppUserDao implements AppUserDAO {
     }
 
     @Override
-    public Optional<AppUser> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<AppUser> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new AppUser(1,
                     "Test",
                     "Test",

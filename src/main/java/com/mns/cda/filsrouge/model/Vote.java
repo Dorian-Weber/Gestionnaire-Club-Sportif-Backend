@@ -5,6 +5,7 @@ import com.mns.cda.filsrouge.view.AthleteView;
 import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,17 +46,20 @@ public class Vote {
     @EmbeddedId
     private VoteKey voteKey;
 
+    @NotNull
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private AppUser user;
 
+    @NotNull
     @ManyToOne
     @MapsId("eventId")
     @JoinColumn(name = "event_id")
     @JsonView(AthleteView.class)
     private Event event;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "athlete_id")
     @JsonView(EventView.class)

@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
+import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class MockRelationService implements IRelationService {
         return List.of(new Relation(MockKey,
                 new AppUser(),
                 new AppUser(),
-                "En attente"));
+                RelationStatus.PENDING));
     }
 
     @Override
@@ -25,7 +26,7 @@ public class MockRelationService implements IRelationService {
             return Optional.of(new Relation(MockKey,
                     new AppUser(),
                     new AppUser(),
-                    "En attente"));
+                    RelationStatus.PENDING));
         }
         return Optional.empty();
     }

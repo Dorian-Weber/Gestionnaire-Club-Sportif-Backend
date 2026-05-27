@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.ITeamService;
+import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Team;
@@ -38,6 +39,12 @@ public class MockTeamService implements ITeamService {
     @Override
     public List<Team> findByEventId(int idEvent) {
         return List.of();
+    }
+
+    //TODO
+    @Override
+    public TeamDTO getTeamDTO(int idTeam) {
+        return null;
     }
 
     @Override

@@ -107,8 +107,8 @@ public class MockSportDao implements SportDAO {
     }
 
     @Override
-    public Optional<Sport> findById(Integer idSport) {
-        if(idSport == 1) {
+    public Optional<Sport> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Sport(1,
                     "Athlétisme",
                     List.of(new Discipline()),

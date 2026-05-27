@@ -106,8 +106,8 @@ public class MockAthleteDao implements AthleteDAO {
     }
 
     @Override
-    public Optional<Athlete> findById(Integer idAthlete) {
-        if(idAthlete == 1) {
+    public Optional<Athlete> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Athlete(1,
                     "Dupont","Jean",
                     LocalDate.now().minusDays(1),

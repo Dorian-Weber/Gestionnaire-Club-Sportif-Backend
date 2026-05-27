@@ -26,7 +26,7 @@ import java.util.Optional;
 @CrossOrigin
 public class TeamController {
 
-    private final TeamService teamService;
+    private final ITeamService teamService;
 
 
     @GetMapping("/list")

@@ -178,7 +178,7 @@ INSERT INTO account_type (account_type_name) VALUES
 -- MDP : RootRoot!1
 INSERT INTO app_user (app_user_name, app_user_first_name, app_user_pseudo, app_user_email, app_user_password, app_user_phone,app_user_visibility, created_date, last_modified_date, account_type_id) VALUES
                  ('Dupont', 'Jean', 'jdupont', 'jean.dupont@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000001','PRIVATE', now(), now(), 3),
-                 ('Martin', 'Claire', 'cmartin', 'claire.martin@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000002','PRIVATE', now(), now(), 3),
+                 ('Martin', 'Claire', 'cmartin', 'claire.martin@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000002','PRIVATE', now(), now(), 1),
                  ('Bernard', 'Luc', 'lbernard', 'luc.bernard@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000003','PRIVATE', now(), now(), 3),
                  ('Petit', 'Sophie', 'spetit', 'sophie.petit@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000004','PRIVATE', now(), now(), 3),
                  ('Robert', 'Hugo', 'hrobert', 'hugo.robert@mail.com', '$2a$10$GcfxgrA73G2trpiQ5lNKTea3l7B/.31LdSi/2TqGeK7BtW1pLJ1Su', '0600000005','PRIVATE', now(), now(), 3),

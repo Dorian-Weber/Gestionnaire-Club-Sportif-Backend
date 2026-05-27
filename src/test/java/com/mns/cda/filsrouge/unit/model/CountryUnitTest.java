@@ -10,16 +10,17 @@ import org.junit.jupiter.api.Test;
 
 public class CountryUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom de l'équipe ne peut pas être vide
+    // countryName : @NotBlank
+
     @Test
-    public void validCountryWithCountryNameBlank_MustBeNotValidated(){
+    public void validCountryWithCountryNameBlank_MustBeNotValidated() {
 
         Country country = new Country();
         country.setCountryName("");
@@ -27,9 +28,54 @@ public class CountryUnitTest {
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(country),
                 "countryName",
-                "NotBlank");
+                "NotBlank"
+        );
+
         Assertions.assertTrue(constraintExist);
     }
 
+    @Test
+    public void validCountryWithCountryNameNull_MustBeNotValidated() {
 
+        Country country = new Country();
+        country.setCountryName(null);
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(country),
+                "countryName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(constraintExist);
+    }
+
+    @Test
+    public void validCountryWithCountryNameOnlySpaces_MustBeNotValidated() {
+
+        Country country = new Country();
+        country.setCountryName("   ");
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(country),
+                "countryName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(constraintExist);
+    }
+
+    @Test
+    public void validCountryWithValidCountryName_MustBeValidated() {
+
+        Country country = new Country();
+        country.setCountryName("France");
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(country),
+                "countryName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(constraintExist);
+    }
 }

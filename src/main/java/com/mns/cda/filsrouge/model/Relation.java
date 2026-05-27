@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.model;
 import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,8 +54,8 @@ public class Relation {
     @JoinColumn(name = "second_user_id")
     protected AppUser secondUser;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @NotBlank
     protected RelationStatus relationStatus;
 
 }

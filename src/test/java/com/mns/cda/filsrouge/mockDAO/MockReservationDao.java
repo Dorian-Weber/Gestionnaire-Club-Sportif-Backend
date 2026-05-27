@@ -105,8 +105,8 @@ public class MockReservationDao implements ReservationDAO {
     }
 
     @Override
-    public Optional<Reservation> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<Reservation> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Reservation(1,
                     LocalDateTime.now(),
                     new StatusPresence(),

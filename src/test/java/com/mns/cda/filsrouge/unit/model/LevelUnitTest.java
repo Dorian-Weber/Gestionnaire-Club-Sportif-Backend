@@ -10,26 +10,89 @@ import org.junit.jupiter.api.Test;
 
 public class LevelUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du type de compte ne peut pas être vide
+    // levelName : @NotBlank
+
     @Test
-    public void validLevelWithLevelNameBlank_MustBeNotValidated(){
+    public void levelNameBlank_MustBeNotValidated() {
 
         Level level = new Level();
         level.setLevelName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(level),
                 "levelName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
+    @Test
+    public void levelNameNull_MustBeNotValidated() {
 
+        Level level = new Level();
+        level.setLevelName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(level),
+                "levelName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void levelNameOnlySpaces_MustBeNotValidated() {
+
+        Level level = new Level();
+        level.setLevelName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(level),
+                "levelName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void levelNameValid_MustBeValidated() {
+
+        Level level = new Level();
+        level.setLevelName("VIP");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(level),
+                "levelName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(exists);
+    }
+
+    // platform : @NotNull (via nullable = false)
+
+    @Test
+    public void platformNull_MustBeNotValidated() {
+
+        Level level = new Level();
+        level.setPlatform(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(level),
+                "platform",
+                "NotNull"
+        );
+
+        Assertions.assertTrue(exists);
+    }
 }

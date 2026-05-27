@@ -104,8 +104,8 @@ public class MockAccountTypeDao implements AccountTypeDAO {
     }
 
     @Override
-    public Optional<AccountType> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<AccountType> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new AccountType(1,
                     "Test"));
         }

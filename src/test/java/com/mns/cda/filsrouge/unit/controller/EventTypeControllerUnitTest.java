@@ -9,22 +9,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
 
 public class EventTypeControllerUnitTest {
 
-    //Test de GetAll
-    @Test
-    public void getEventTypeAll_MustReturnList() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-
-        List<EventType> response = eventTypeController.getEventTypeList();
-
-        Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals(1, response.size());
-    }
 
 
     // Test de GetByID

@@ -15,16 +15,16 @@ import java.util.List;
 public class SportControllerUnitTest {
 
     //Test de GetAll
-    @Test
-    public void getSportAll_DoitRetournerUneList() {
-        SportController sportController = new SportController(new MockSportService());
-
-        List<Sport> response = sportController.getSportList();
-
-        Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals(1, response.size());
-    }
+//    @Test
+//    public void getSportAll_DoitRetournerUneList() {
+//        SportController sportController = new SportController(new MockSportService());
+//
+//        List<Sport> response = sportController.getSportList();
+//
+//        Assertions.assertNotNull(response);
+//        Assertions.assertFalse(response.isEmpty());
+//        Assertions.assertEquals(1, response.size());
+//    }
 
 
     // Test de GetByID

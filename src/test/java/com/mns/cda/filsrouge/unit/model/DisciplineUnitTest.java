@@ -10,16 +10,17 @@ import org.junit.jupiter.api.Test;
 
 public class DisciplineUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom de la discipline ne peut pas être vide
+    // disciplineName : @NotBlank
+
     @Test
-    public void validDisciplineWithNameDisciplineBlank_MustBeNotValidated(){
+    public void validDisciplineWithDisciplineNameBlank_MustBeNotValidated() {
 
         Discipline discipline = new Discipline();
         discipline.setDisciplineName("");
@@ -27,9 +28,54 @@ public class DisciplineUnitTest {
         boolean constraintExist = TestUtilitaire.constraintViolationExist(
                 validator.validate(discipline),
                 "disciplineName",
-                "NotBlank");
+                "NotBlank"
+        );
+
         Assertions.assertTrue(constraintExist);
     }
 
+    @Test
+    public void validDisciplineWithDisciplineNameNull_MustBeNotValidated() {
 
+        Discipline discipline = new Discipline();
+        discipline.setDisciplineName(null);
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(discipline),
+                "disciplineName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(constraintExist);
+    }
+
+    @Test
+    public void validDisciplineWithDisciplineNameOnlySpaces_MustBeNotValidated() {
+
+        Discipline discipline = new Discipline();
+        discipline.setDisciplineName("   ");
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(discipline),
+                "disciplineName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(constraintExist);
+    }
+
+    @Test
+    public void validDisciplineWithValidDisciplineName_MustBeValidated() {
+
+        Discipline discipline = new Discipline();
+        discipline.setDisciplineName("100m Sprint");
+
+        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+                validator.validate(discipline),
+                "disciplineName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(constraintExist);
+    }
 }

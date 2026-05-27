@@ -104,8 +104,8 @@ public class MockStatusPresenceDao implements StatusPresenceDAO {
     }
 
     @Override
-    public Optional<StatusPresence> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<StatusPresence> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new StatusPresence(1,
                     "Test"));
         }

@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Team;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface ITeamService {
     List<Team> findTeamByEventId(int idEvent);
 
     List<Team> findByEventId(int idEvent);
+
+    public TeamDTO getTeamDTO(int idTeam);
 
     //Post
     void create(Team Team);

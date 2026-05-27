@@ -108,8 +108,8 @@ public class MockEventDao implements EventDAO {
     }
 
     @Override
-    public Optional<Event> findById(Integer idEvenement) {
-        if(idEvenement == 1) {
+    public Optional<Event> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Event(1,
                     "Match de Football",
                     "Rencontre amicale entre deux équipes locales",

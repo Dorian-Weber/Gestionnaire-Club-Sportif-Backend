@@ -10,26 +10,72 @@ import org.junit.jupiter.api.Test;
 
 public class StatusPresenceUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du type de compte ne peut pas être vide
+    // statusPresenceName : @NotBlank
+
     @Test
-    public void validStatusPresenceWithStatusPresenceNameBlank_MustBeNotValidated(){
+    public void statusPresenceNameBlank_MustBeNotValidated() {
 
-        StatusPresence statusPresence = new StatusPresence();
-        statusPresence.setStatusPresenceName("");
+        StatusPresence status = new StatusPresence();
+        status.setStatusPresenceName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(statusPresence),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(status),
                 "statusPresenceName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
+    @Test
+    public void statusPresenceNameNull_MustBeNotValidated() {
 
+        StatusPresence status = new StatusPresence();
+        status.setStatusPresenceName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(status),
+                "statusPresenceName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void statusPresenceNameOnlySpaces_MustBeNotValidated() {
+
+        StatusPresence status = new StatusPresence();
+        status.setStatusPresenceName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(status),
+                "statusPresenceName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void statusPresenceNameValid_MustBeValidated() {
+
+        StatusPresence status = new StatusPresence();
+        status.setStatusPresenceName("En attente");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(status),
+                "statusPresenceName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(exists);
+    }
 }

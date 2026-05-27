@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isUser;
@@ -31,7 +32,7 @@ import java.util.Map;
 @CrossOrigin
 public class AuthController {
 
-    private final AppUserService appUserService;
+    private final IAppUserService appUserService;
     private final AuthenticationProvider authenticationProvider;
 
     @PostMapping("/sign-in")

@@ -106,8 +106,8 @@ public class MockSeatDao implements SeatDAO {
     }
 
     @Override
-    public Optional<Seat> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<Seat> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Seat(1,
                     "Test",
                     new Level(),List.of(
@@ -184,6 +184,12 @@ public class MockSeatDao implements SeatDAO {
     //TODO
     @Override
     public boolean isFull(int eventId) {
+        return false;
+    }
+
+    //TODO
+    @Override
+    public boolean seatsAlreadyReserved(int eventId, List<Integer> seatIds) {
         return false;
     }
 }

@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.dto.CanReserveDTO;
+import com.mns.cda.filsrouge.dto.CreateReservation;
+import com.mns.cda.filsrouge.dto.ReservationConfirmation;
 import com.mns.cda.filsrouge.model.*;
 
 import java.time.LocalDateTime;
@@ -44,6 +46,13 @@ public class MockReservationService implements IReservationService {
         return null;
     }
 
+    //TODO
+    @Override
+    public ReservationConfirmation createReservation(CreateReservation Reservation, int userId) {
+        return null;
+    }
+
+    //TODO
     @Override
     public void create(Reservation Reservation) {
         Reservation.setIdReservation(null);

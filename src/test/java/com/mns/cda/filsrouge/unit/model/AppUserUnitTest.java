@@ -1,7 +1,7 @@
 package com.mns.cda.filsrouge.unit.model;
 
-import com.mns.cda.filsrouge.TestUtilitaire;
 import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.TestUtilitaire;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
@@ -10,285 +10,260 @@ import org.junit.jupiter.api.Test;
 
 public class AppUserUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom de l'utilisateur ne peut pas être vide
+    // appUserName : @NotBlank, @Size(min=1,max=50)
+
     @Test
-    public void validAppUserWithAppUserNameBlank_MustBeNotValidated(){
+    public void appUserNameBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserName("");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserName("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserName",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
-    // Test pour valider que le nom de l'utilisateur ne doit pas dépasser 50 caractères
+
     @Test
-    public void validAppUserWithAppUserNameSize_MustBeNotValidated(){
+    public void appUserNameNull_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserName(null);
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserName("leezwtxrbiopwwetsxrdchgvhtgbuihniweztxrybuguygftuvtvtvtyvtyvtyctrcetxerxrexerfutii");
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
+                "appUserName",
+                "NotBlank");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void appUserNameTooLong_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserName("A".repeat(51));
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserName",
                 "Size");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le prénom de l'utilisateur ne peut pas être vide
     @Test
-    public void validAppUserWithAppUserFirstNameBlank_MustBeNotValidated(){
+    public void appUserNameValid_MustBeValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserName("Martin");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserFirstName("");
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
+                "appUserName",
+                "NotBlank");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        Assertions.assertFalse(exists);
+    }
+
+    // appUserFirstName : @NotBlank, @Size(min=1,max=50)
+
+    @Test
+    public void appUserFirstNameBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserFirstName("");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserFirstName",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
-    // Test pour valider que le nom de l'utilisateur ne doit pas dépasser 50 caractères
+
     @Test
-    public void validAppUserWithAppUserFirstNameSize_MustBeNotValidated(){
+    public void appUserFirstNameTooLong_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserFirstName("A".repeat(51));
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserFirstName("leezwtxrbiopwwetsxrdctgbuihniweztxrybuguygftuvtvtvtyvtyvtyctrcetxerxrexerfutii");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserFirstName",
                 "Size");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le pseudo de l'utilisateur ne peut pas être vide
+    // appUserPseudo : @NotBlank, @Size(min=5,max=30), @Pattern
+
     @Test
-    public void validAppUserWithAppUserPseudoBlank_MustBeNotValidated(){
+    public void appUserPseudoBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPseudo("");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPseudo("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPseudo",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
-    // Test pour valider que le pseudo de l'utilisateur ne peut pas être de moins de 5 caractères
+
     @Test
-    public void validAppUserWithAppUserPseudoSizeMin_MustBeNotValidated(){
+    public void appUserPseudoTooShort_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPseudo("abc");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPseudo("abc");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPseudo",
                 "Size");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
-    // Test pour valider que le pseudo de l'utilisateur ne peut pas être de plus de 30 caractères
+
     @Test
-    public void validAppUserWithAppUserPseudoSizeMax_MustBeNotValidated(){
+    public void appUserPseudoInvalidPattern_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPseudo("invalid pseudo!");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPseudo("abciskldoperticnsjheyudoiqepoud");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserPseudo",
-                "Size");
-        Assertions.assertTrue(constraintExist);
-    }
-    // Test pour valider que le pseudo de l'utilisateur ne peut pas contenir autre chose que des lettres, chiffres et _.
-    @Test
-    public void validAppUserWithAppUserPseudoFormat_MustBeNotValidated(){
-
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPseudo("abciskldop*$");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPseudo",
                 "Pattern");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que l'email de l'utilisateur ne peut pas être vide
+    // appUserEmail : @NotBlank, @Email, @Size(max=100)
+
     @Test
-    public void validAppUserWithAppUserEmailBlank_MustBeNotValidated(){
+    public void appUserEmailBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserEmail("");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserEmail("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserEmail",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que l'email de l'utilisateur ne peut pas être de plus de 100 caractères
     @Test
-    public void validAppUserWithAppUserEmailSizeMax_MustBeNotValidated(){
+    public void appUserEmailInvalid_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserEmail("invalid-email");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserEmail("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@x.com");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserEmail",
-                "Size");
-        Assertions.assertTrue(constraintExist);
-    }
-
-    // Test pour valider que l'email de l'utilisateur soit au bon format
-    @Test
-    public void validAppUserWithAppUserEmailFormat_MustBeNotValidated(){
-
-        AppUser appUser = new AppUser();
-        appUser.setAppUserEmail("ifzoi");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserEmail",
                 "Email");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le mot de passe de l'utilisateur ne peut pas être vide
     @Test
-    public void validAppUserWithAppUserPasswordBlank_MustBeNotValidated(){
+    public void appUserEmailTooLong_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserEmail("a".repeat(101) + "@mail.com");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPassword("");
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
+                "appUserEmail",
+                "Size");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        Assertions.assertTrue(exists);
+    }
+
+    // appUserPassword : @NotBlank, @Pattern (mot de passe fort)
+
+    @Test
+    public void appUserPasswordBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPassword("");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPassword",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le mot de passe de l'utilisateur ne peut pas être de moins de 8 caractères
     @Test
-    public void validAppUserWithAppUserPasswordSizeMin_MustBeNotValidated(){
+    public void appUserPasswordWeak_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPassword("weakpass");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPassword("abc");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserPassword",
-                "Size");
-        Assertions.assertTrue(constraintExist);
-    }
-    // Test pour valider que le mot de passe de l'utilisateur ne peut pas être de plus de 50 caractères
-    @Test
-    public void validAppUserWithAppUserPasswordSizeMax_MustBeNotValidated(){
-
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPassword("abciskldoperticnsjheainuienuinczuinuincuinznuicnicznyudoiqepoud");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserPassword",
-                "Size");
-        Assertions.assertTrue(constraintExist);
-    }
-
-    // Test pour valider que le mot de passe de l'utilisateur utilise le bon format au moins 1 majuscule, 1 minuscule, un caractère spécial et un chiffre
-    @Test
-    public void validAppUserWithAppUserPasswordFormat_MustBeNotValidated(){
-
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPassword("abciskldo");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPassword",
                 "Pattern");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le mot de passe de l'utilisateur utilise le bon format au moins 1 majuscule, 1 minuscule, un caractère spécial et un chiffre
+    // appUserPhone : @NotBlank, @Pattern
+
     @Test
-    public void validAppUserWithAppUserPasswordFormat_MustBeValidated(){
+    public void appUserPhoneBlank_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPhone("");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPassword("abcIskldo9!");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserPassword",
-                "Pattern");
-        Assertions.assertFalse(constraintExist);
-    }
-
-    // Test pour valider que le numéro de téléphone de l'utilisateur ne peut pas être vide
-    @Test
-    public void validAppUserWithAppUserPhoneBlank_MustBeNotValidated(){
-
-        AppUser appUser = new AppUser();
-        appUser.setAppUserName("");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPhone",
                 "NotBlank");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que le numéro de téléphone de l'utilisateur est du bon format
     @Test
-    public void validAppUserWithAppUserPhoneFormatLetter_MustBeNotValidated(){
+    public void appUserPhoneInvalid_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserPhone("12-34-56");
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPhone("ndhiz");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user, AppUser.OnCreate.class),
                 "appUserPhone",
                 "Pattern");
-        Assertions.assertTrue(constraintExist);
-    }
-    // Test pour valider que le numéro de téléphone de l'utilisateur est du bon format
-    @Test
-    public void validAppUserWithAppUserPhoneFormatNumber_MustBeNotValidated(){
 
-        AppUser appUser = new AppUser();
-        appUser.setAppUserPhone("76364536261689699");
-
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
-                "appUserPhone",
-                "Pattern");
-        Assertions.assertTrue(constraintExist);
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que la présence de Type compte de l'utilisateur est présent
+    // appUserVisibility : @NotNull
+
     @Test
-    public void validAppUserWithAppUserAccountTypeNotNull_MustBeNotValidated(){
+    public void appUserVisibilityNull_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAppUserVisibility(null);
 
-        AppUser appUser = new AppUser();
-        appUser.setAccountType(null);
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user),
+                "appUserVisibility",
+                "NotNull");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
-                validator.validate(appUser),
+        Assertions.assertTrue(exists);
+    }
+
+    // accountType : @NotNull
+
+    @Test
+    public void accountTypeNull_MustBeNotValidated() {
+        AppUser user = new AppUser();
+        user.setAccountType(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(user),
                 "accountType",
                 "NotNull");
-        Assertions.assertTrue(constraintExist);
+
+        Assertions.assertTrue(exists);
     }
-
-
 }

@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.RelationController;
+import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.mockService.MockRelationService;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
@@ -52,7 +53,7 @@ public class RelationUnitTest {
         Relation relation = new Relation(new Relation.Key(1,2),
                 new AppUser(),
                 new AppUser(),
-                "En attente");
+                RelationStatus.PENDING);
 
         ResponseEntity<Relation> response = relationController.create(relation);
 
@@ -86,7 +87,7 @@ public class RelationUnitTest {
         Relation relation = new Relation(new Relation.Key(1,2),
                 new AppUser(),
                 new AppUser(),
-                "En attente");
+                RelationStatus.PENDING);
 
         ResponseEntity<Relation> response = relationController.update(1,2, relation);
 
@@ -101,7 +102,7 @@ public class RelationUnitTest {
         Relation relation = new Relation(new Relation.Key(1,2),
                 new AppUser(),
                 new AppUser(),
-                "En attente");
+                RelationStatus.PENDING);
 
         ResponseEntity<Relation> reponse = relationController.update(2,1, relation);
 

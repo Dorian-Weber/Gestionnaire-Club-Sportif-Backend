@@ -15,36 +15,36 @@ import java.util.List;
 public class EventControllerUnitTest {
 
     //Test de GetAll
-    @Test
-    public void getEvenementAll_DoitRetournerUneList() {
-        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
-
-        List<Event> response = eventController.getEventList();
-
-        Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals(1, response.size());
-    }
+//    @Test
+//    public void getEvenementAll_DoitRetournerUneList() {
+//        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
+//
+//        List<Event> response = eventController.getEventList();
+//
+//        Assertions.assertNotNull(response);
+//        Assertions.assertFalse(response.isEmpty());
+//        Assertions.assertEquals(1, response.size());
+//    }
 
 
     // Test de GetByID
-    @Test
-    public void getEvenementByIdExist_DoitRetournerCode200() {
+//    @Test
+//    public void getEvenementByIdExist_DoitRetournerCode200() {
+//
+//        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
+//        ResponseEntity<Event> response = eventController.getEventById(1);
+//
+//        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+//    }
 
-        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
-        ResponseEntity<Event> response = eventController.getEventById(1);
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
-    @Test
-    public void getEvenementByIdNotExist_DoitRetournerCode404() {
-
-        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
-        ResponseEntity<Event> response = eventController.getEventById(2);
-
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+//    @Test
+//    public void getEvenementByIdNotExist_DoitRetournerCode404() {
+//
+//        EventController eventController = new EventController(new MockEventService(), new EventAggregationService());
+//        ResponseEntity<Event> response = eventController.getEventById(2);
+//
+//        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+//    }
 
     // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
     @Test

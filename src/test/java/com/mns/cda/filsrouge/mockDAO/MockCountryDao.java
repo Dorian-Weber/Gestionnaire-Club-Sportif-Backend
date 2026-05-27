@@ -105,8 +105,8 @@ public class MockCountryDao implements CountryDAO {
     }
 
     @Override
-    public Optional<Country> findById(Integer idCountry) {
-        if(idCountry == 1) {
+    public Optional<Country> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Country(1,
                     "France",
                     List.of(new Athlete())));

@@ -10,26 +10,72 @@ import org.junit.jupiter.api.Test;
 
 public class TeamUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom de l'équipe ne peut pas être vide
+    // teamName : @NotBlank
+
     @Test
-    public void validTeamWithTeamNameBlank_MustBeNotValidated(){
+    public void teamNameBlank_MustBeNotValidated() {
 
         Team team = new Team();
         team.setTeamName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(team),
                 "teamName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
+    @Test
+    public void teamNameNull_MustBeNotValidated() {
 
+        Team team = new Team();
+        team.setTeamName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(team),
+                "teamName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void teamNameOnlySpaces_MustBeNotValidated() {
+
+        Team team = new Team();
+        team.setTeamName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(team),
+                "teamName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void teamNameValid_MustBeValidated() {
+
+        Team team = new Team();
+        team.setTeamName("Team Alpha");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(team),
+                "teamName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(exists);
+    }
 }

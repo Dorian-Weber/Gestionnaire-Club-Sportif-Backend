@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.view.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Reservation {
     @JsonView(ReservationView.class)
     protected LocalDateTime createdAt;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "status_presence_id", nullable = false)
     @JsonView({AppUserView.class,
@@ -43,6 +45,7 @@ public class Reservation {
             ReservationView.class})
     protected StatusPresence statusPresence;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
     @JsonView({AppUserView.class,
@@ -52,6 +55,7 @@ public class Reservation {
             PlatformView.class})
     protected Event event;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "app_user_id", nullable = false)
     @JsonView({EventView.class,

@@ -106,8 +106,8 @@ public class MockLevelDao implements LevelDAO {
     }
 
     @Override
-    public Optional<Level> findById(Integer idTypeEvenement) {
-        if(idTypeEvenement == 1) {
+    public Optional<Level> findById(Integer id) {
+        if(id == 1) {
             return Optional.of(new Level(1,
                     "Test",
                     List.of(new Seat()),

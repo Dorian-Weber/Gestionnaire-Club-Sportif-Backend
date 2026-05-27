@@ -12,77 +12,180 @@ import java.time.LocalDateTime;
 
 public class EventUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom de l'évènement ne peut pas être vide
+    // eventName : @NotBlank
+
     @Test
-    public void validEventWithEventNameBlank_MustBeNotValidated(){
+    public void eventNameBlank_MustBeNotValidated() {
 
         Event event = new Event();
         event.setEventName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(event),
                 "eventName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que la description de l'évènement ne peut pas être vide
     @Test
-    public void validEventWithEventDescriptionBlank_MustBeNotValidated(){
+    public void eventNameNull_MustBeNotValidated() {
+
+        Event event = new Event();
+        event.setEventName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void eventNameOnlySpaces_MustBeNotValidated() {
+
+        Event event = new Event();
+        event.setEventName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    // eventDescription : @NotBlank
+
+    @Test
+    public void eventDescriptionBlank_MustBeNotValidated() {
 
         Event event = new Event();
         event.setEventDescription("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(event),
                 "eventDescription",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que la date de l'évènement ne peut pas être vide
     @Test
-    public void validEventWithEventDateBlank_MustBeNotValidated(){
+    public void eventDescriptionNull_MustBeNotValidated() {
+
+        Event event = new Event();
+        event.setEventDescription(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDescription",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void eventDescriptionOnlySpaces_MustBeNotValidated() {
+
+        Event event = new Event();
+        event.setEventDescription("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDescription",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    // eventDate : @NotNull, @FutureOrPresent
+
+    @Test
+    public void eventDateNull_MustBeNotValidated() {
 
         Event event = new Event();
         event.setEventDate(null);
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(event),
                 "eventDate",
-                "NotNull");
-        Assertions.assertTrue(constraintExist);
+                "NotNull"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
-    // Test pour valider que la date est bien dans le futur ou au présent retourne erreur.
     @Test
-    public void validEventWithEventDateNotInPast_MustBeNotValidated(){
+    public void eventDateInPast_MustBeNotValidated() {
+
         Event event = new Event();
         event.setEventDate(LocalDateTime.now().minusDays(1));
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(event),
                 "eventDate",
-                "FutureOrPresent");
-        Assertions.assertTrue(constraintExist);
-    }
-    // Test pour valider que la date est bien dans le futur ou au présent ne retourne pas erreur.
-    @Test
-    public void validEventWithEventDateInFuture_MustBeValidated(){
-        Event event = new Event();
-        event.setEventDate(LocalDateTime.now().plusDays(1));
+                "FutureOrPresent"
+        );
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void eventDateNow_MustBeValidated() {
+
+        Event event = new Event();
+        event.setEventDate(LocalDateTime.now().plusSeconds(1));
+
+        boolean existsFuture = TestUtilitaire.constraintViolationExist(
                 validator.validate(event),
                 "eventDate",
-                "FutureOrPresent");
-        Assertions.assertFalse(constraintExist);
+                "FutureOrPresent"
+        );
+
+        boolean existsNotNull = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDate",
+                "NotNull"
+        );
+
+        Assertions.assertFalse(existsFuture);
+        Assertions.assertFalse(existsNotNull);
+    }
+
+    @Test
+    public void eventDateInFuture_MustBeValidated() {
+
+        Event event = new Event();
+        event.setEventDate(LocalDateTime.now().plusDays(5));
+
+        boolean existsFuture = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDate",
+                "FutureOrPresent"
+        );
+
+        boolean existsNotNull = TestUtilitaire.constraintViolationExist(
+                validator.validate(event),
+                "eventDate",
+                "NotNull"
+        );
+
+        Assertions.assertFalse(existsFuture);
+        Assertions.assertFalse(existsNotNull);
     }
 }

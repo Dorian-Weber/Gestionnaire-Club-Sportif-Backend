@@ -10,26 +10,72 @@ import org.junit.jupiter.api.Test;
 
 public class PlatformUnitTest {
 
-    public static Validator validator ;
+    public static Validator validator;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    // Test pour valider que le nom du type de compte ne peut pas être vide
+    // platformName : @NotBlank
+
     @Test
-    public void validPlatformWithPlatformNameBlank_MustBeNotValidated(){
+    public void platformNameBlank_MustBeNotValidated() {
 
         Platform platform = new Platform();
         platform.setPlatformName("");
 
-        boolean constraintExist = TestUtilitaire.constraintViolationExist(
+        boolean exists = TestUtilitaire.constraintViolationExist(
                 validator.validate(platform),
                 "platformName",
-                "NotBlank");
-        Assertions.assertTrue(constraintExist);
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
     }
 
+    @Test
+    public void platformNameNull_MustBeNotValidated() {
 
+        Platform platform = new Platform();
+        platform.setPlatformName(null);
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(platform),
+                "platformName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void platformNameOnlySpaces_MustBeNotValidated() {
+
+        Platform platform = new Platform();
+        platform.setPlatformName("   ");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(platform),
+                "platformName",
+                "NotBlank"
+        );
+
+        Assertions.assertTrue(exists);
+    }
+
+    @Test
+    public void platformNameValid_MustBeValidated() {
+
+        Platform platform = new Platform();
+        platform.setPlatformName("Tribune Nord");
+
+        boolean exists = TestUtilitaire.constraintViolationExist(
+                validator.validate(platform),
+                "platformName",
+                "NotBlank"
+        );
+
+        Assertions.assertFalse(exists);
+    }
 }
