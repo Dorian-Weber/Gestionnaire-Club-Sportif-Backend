@@ -1,14 +1,11 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.aggregation.SeatAggregationService;
 import com.mns.cda.filsrouge.dto.SeatDTO;
 import com.mns.cda.filsrouge.model.Seat;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
-import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.SeatView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,7 +31,6 @@ public class SeatController {
     private final SeatAggregationService seatAggregationService;
 
     @GetMapping("/list")
-    @JsonView(SeatView.class)
     @Operation(summary = "Récupère la liste des différents sièges",
             description = "Cette route permet de récupérer la liste de tous les sièges dans la base de données.")
     @ApiResponses(value = {
@@ -46,7 +42,6 @@ public class SeatController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(SeatView.class)
     @Operation(summary = "Récupérer un siège par son ID",
             description = "Cette route permet de récupérer les informations d'un siège spécifique en utilisant son ID.")
     @ApiResponses(value = {

@@ -1,10 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.security.isAdmin;
-import com.mns.cda.filsrouge.view.AppUserView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,7 +27,6 @@ public class AppUserController {
     protected final IAppUserService appUserService;
 
     @GetMapping("/list")
-    @JsonView(AppUserView.class)
     @Operation(summary = "Récupère la liste des différents utilisateurs",
             description = "Cette route permet de récupérer la liste de tous les utilisateurs présents dans la base de données.")
     @ApiResponses(value = {
@@ -41,7 +38,6 @@ public class AppUserController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(AppUserView.class)
     @Operation(summary = "Récupérer un utilisateur par son ID",
             description = "Cette route permet de récupérer les informations d'un utilisateur spécifique en utilisant son ID.")
     @ApiResponses(value = {

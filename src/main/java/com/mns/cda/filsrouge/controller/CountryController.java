@@ -1,10 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.ICountryService;
 import com.mns.cda.filsrouge.model.Country;
 import com.mns.cda.filsrouge.security.isAdmin;
-import com.mns.cda.filsrouge.view.CountryView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,7 +26,6 @@ public class CountryController {
 
 
     @GetMapping("/list")
-    @JsonView(CountryView.class)
     @Operation(summary = "Récupère la liste de tous les pays",
             description = "Cette route permet de récupérer la liste de tous les pays présents dans la base de données.")
     @ApiResponses(value = {
@@ -39,7 +36,6 @@ public class CountryController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(CountryView.class)
     @Operation(summary = "Récupère un pays par son ID",
             description = "Cette route permet de récupérer les informations d'un pays spécifique en utilisant son ID.")
     @ApiResponses(value = {

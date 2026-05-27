@@ -1,12 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IEventTypeService;
 import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.EventType;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.EventTypeView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -40,7 +38,6 @@ public class EventTypeController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(EventTypeView.class)
     @Operation(summary = "Récupérer un type d'évènement par son ID",
             description = "Cette route permet de récupérer un type d'évènement spécifique en utilisant son ID.")
     @ApiResponses(value = {

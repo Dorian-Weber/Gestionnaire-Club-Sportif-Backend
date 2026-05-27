@@ -1,10 +1,6 @@
 package com.mns.cda.filsrouge.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.AthleteView;
-import com.mns.cda.filsrouge.view.EventView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

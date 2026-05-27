@@ -9,7 +9,6 @@ import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.ReservationView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,7 +33,6 @@ public class ReservationController {
     protected final IReservationService reservationService;
 
     @GetMapping("/list")
-    @JsonView(ReservationView.class)
     @Operation(summary = "Récupère la liste des différents reservations",
             description = "Cette route permet de récupérer la liste de tous les reservations dans la base de données.")
     @ApiResponses(value = {
@@ -46,7 +44,6 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    @JsonView({ReservationView.class})
     @Operation(summary = "Récupérer une reservation par son ID",
             description = "Cette route permet de récupérer les informations d'une reservation spécifique en utilisant son ID.")
     @ApiResponses(value = {

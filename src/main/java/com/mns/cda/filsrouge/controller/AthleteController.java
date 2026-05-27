@@ -1,11 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAthleteService;
 import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.security.isAdmin;
-import com.mns.cda.filsrouge.view.AthleteView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,7 +27,6 @@ public class AthleteController {
     protected final IAthleteService athleteService;
 
     @GetMapping("/list")
-    @JsonView(AthleteView.class)
     @Operation(summary = "Récupère la liste des différents Athlètes",
             description = "Cette route permet de récupérer la liste de tous les Athlètes présents dans la base de données.")
     @ApiResponses(value = {
@@ -41,7 +38,6 @@ public class AthleteController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(AthleteView.class)
     @Operation(summary = "Récupérer un Athlète par son ID",
             description = "Cette route permet de récupérer les informations d'un Athlète spécifique en utilisant son ID.")
     @ApiResponses(value = {

@@ -1,13 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.SportView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -41,7 +38,6 @@ public class SportController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(SportView.class)
     @Operation(summary = "Récupérer un sport par son ID",
             description = "Cette route permet de récupérer les informations d'un sport spécifique en utilisant son ID.")
     @ApiResponses(value = {

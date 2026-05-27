@@ -1,6 +1,5 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.mns.cda.filsrouge.Iservice.ISportService;
 import com.mns.cda.filsrouge.Iservice.IStatusPresenceService;
 import com.mns.cda.filsrouge.model.StatusPresence;
 import com.mns.cda.filsrouge.security.isAdmin;

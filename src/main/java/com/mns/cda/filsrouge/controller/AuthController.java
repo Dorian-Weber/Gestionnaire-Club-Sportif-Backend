@@ -1,12 +1,8 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.security.AppUserDetails;
-import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.service.AppUserService;
-import com.mns.cda.filsrouge.view.AppUserView;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +32,6 @@ public class AuthController {
     private final AuthenticationProvider authenticationProvider;
 
     @PostMapping("/sign-in")
-    @JsonView({AppUserView.class})
     @Operation(summary = "Permet de d'enregistrer un utilisateur en base de données",
             description = "Cette route permet à l'utilisateur de crée un compte utilisateur.")
     @ApiResponses(value = {

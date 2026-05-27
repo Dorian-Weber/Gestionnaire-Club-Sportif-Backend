@@ -1,10 +1,6 @@
 package com.mns.cda.filsrouge.model;
 
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.mns.cda.filsrouge.view.AppUserView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.ReservationView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

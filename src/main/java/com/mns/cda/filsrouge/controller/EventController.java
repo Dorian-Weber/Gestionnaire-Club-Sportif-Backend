@@ -1,16 +1,13 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IEventService;
 import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.aggregation.EventAggregationService;
-import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.EventView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -130,6 +126,9 @@ public class EventController {
     }
 
 
+
+
+    // NotUse
     @PostMapping
     @Operation(summary = "Ajoute un évènement à la base de données",
             description = "Cette méthode permet de d'ajouter un nouvel évènement en base de données.")

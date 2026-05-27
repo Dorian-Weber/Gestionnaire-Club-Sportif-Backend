@@ -1,11 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IPlatformService;
 import com.mns.cda.filsrouge.model.Platform;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
-import com.mns.cda.filsrouge.view.PlatformView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,7 +27,6 @@ public class PlatformController {
     protected final IPlatformService platformService;
 
     @GetMapping("/list")
-    @JsonView(PlatformView.class)
     @Operation(summary = "Récupère la liste des différents tribunes",
             description = "Cette route permet de récupérer la liste de tous les tribunes dans la base de données.")
     @ApiResponses(value = {
@@ -41,7 +38,6 @@ public class PlatformController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(PlatformView.class)
     @Operation(summary = "Récupère une tribune par son ID",
             description = "Cette route permet de récupérer les informations d'une tribune spécifique en utilisant son ID.")
     @ApiResponses(value = {

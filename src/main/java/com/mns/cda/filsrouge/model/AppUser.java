@@ -1,12 +1,8 @@
 package com.mns.cda.filsrouge.model;
 
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
-import com.mns.cda.filsrouge.view.AppUserView;
-import com.mns.cda.filsrouge.view.EventView;
-import com.mns.cda.filsrouge.view.ReservationView;
-import com.mns.cda.filsrouge.view.SeatView;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
