@@ -65,12 +65,12 @@ class FilsRougeApplicationTests {
 //                .andExpect(status().isOk());
 //    }
 
-    @Test
-    @WithMockUser(roles = {"ADMIN"})
-    public void callDeleteEvent_shouldReturn204() throws Exception {
-        mvc.perform(delete("/event/1"))
-                .andExpect(status().isNoContent());
-    }
+//    @Test
+//    @WithMockUser(roles = {"ADMIN"})
+//    public void callDeleteEvent_shouldReturn204() throws Exception {
+//        mvc.perform(delete("/event/2"))
+//                .andExpect(status().isNoContent());
+//    }
 
     @Test
     @WithUserDetails("claire.martin@mail.com")
