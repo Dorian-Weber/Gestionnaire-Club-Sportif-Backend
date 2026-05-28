@@ -35,7 +35,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: rename .example.env to .env
-      run: mv .exemple.env .env
+      run: mv .example.env .env
 
     - name : build docker image
       run: docker build -t wdorian/sporthive-app-26 .
