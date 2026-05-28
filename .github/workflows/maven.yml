@@ -34,7 +34,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: rename .exemple.env to .env
+    - name: rename .example.env to .env
       run: mv .exemple.env .env
 
     - name : build docker image
