@@ -48,3 +48,13 @@ jobs:
 
     - name: Push to Docker Hub
       run: docker push wdorian/sporthive-app-26:latest
+
+    - name: Extract version from pom.xml
+      id: extract_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+    - name: Tag image with version
+      run: docker tag wdorian/sporthive-app-26 wdorian/sporthive-app-26:${{ env.VERSION }}
+
+    - name: Push to Docker Hub avec version
+      run: docker push wdorian/sporthive-app-26:${{ env.VERSION }}
