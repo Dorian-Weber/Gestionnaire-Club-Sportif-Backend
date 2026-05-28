@@ -29,5 +29,9 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+    - name: build docker image
+      run: mv .exemple.env .env
+
     - name : build docker image
       run: docker build -t wdorian/sporthive-app-26 .
