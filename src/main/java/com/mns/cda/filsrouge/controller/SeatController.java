@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.ISeatService;
+import com.mns.cda.filsrouge.aggregation.ISeatAggregationService;
 import com.mns.cda.filsrouge.aggregation.SeatAggregationService;
 import com.mns.cda.filsrouge.dto.SeatDTO;
 import com.mns.cda.filsrouge.model.Seat;
@@ -28,7 +29,7 @@ public class SeatController {
 
 
     protected final ISeatService seatService;
-    private final SeatAggregationService seatAggregationService;
+    private final ISeatAggregationService seatAggregationService;
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents sièges",

@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.AccountTypeController;
-import com.mns.cda.filsrouge.mockDAO.MockAccountTypeDao;
 import com.mns.cda.filsrouge.mockService.MockAccountTypeService;
 import com.mns.cda.filsrouge.model.AccountType;
 import org.junit.jupiter.api.Assertions;
@@ -13,90 +12,87 @@ import java.util.List;
 
 public class AccountTypeControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
     public void getAccountTypeAll_MustReturnList() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
 
-        List<AccountType> response = accountTypeController.getAccountTypeList();
+        List<AccountType> response = controller.getAccountTypeList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(2, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getAccountTypeByIdExist_MustReturnCode200() {
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
 
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
-        ResponseEntity<AccountType> response = accountTypeController.getAccountTypeById(1);
+        ResponseEntity<AccountType> response = controller.getAccountTypeById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getAccountTypeByIdNotExist_MustReturnCode404() {
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
 
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
-        ResponseEntity<AccountType> response = accountTypeController.getAccountTypeById(2);
+        ResponseEntity<AccountType> response = controller.getAccountTypeById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createAccountType_MustReturnCode201() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
-        AccountType accountType = new AccountType(10,
-                "Test");
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
+        AccountType accountType = new AccountType(10, "Test");
 
-        ResponseEntity<AccountType> response = accountTypeController.create(accountType);
+        ResponseEntity<AccountType> response = controller.create(accountType);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdAccountType());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteAccountTypeExist_MustReturnCode204() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
 
-        ResponseEntity<AccountType> response = accountTypeController.delete(1);
+        ResponseEntity<AccountType> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteAccountTypeNotExist_MustReturnCode404() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
 
-        ResponseEntity<AccountType> response = accountTypeController.delete(2);
+        ResponseEntity<AccountType> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
+    // UPDATE
     @Test
-    public void updateAccountType_MustReturnCode200() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
-        AccountType accountType = new AccountType(1,
-                "Test");
+    public void updateAccountTypeExist_MustReturnCode200() {
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
+        AccountType accountType = new AccountType(1, "Updated");
 
-        ResponseEntity<AccountType> response = accountTypeController.update(1, accountType);
+        ResponseEntity<AccountType> response = controller.update(1, accountType);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdAccountType());
     }
 
     @Test
     public void updateAccountTypeNotExist_MustReturnCode404() {
-        AccountTypeController accountTypeController = new AccountTypeController(new MockAccountTypeService());
-        AccountType accountType = new AccountType(1, "Test");
+        AccountTypeController controller = new AccountTypeController(new MockAccountTypeService());
+        AccountType accountType = new AccountType(1, "Updated");
 
-        ResponseEntity<AccountType> reponse = accountTypeController.update(2, accountType);
+        ResponseEntity<AccountType> response = controller.update(999, accountType);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

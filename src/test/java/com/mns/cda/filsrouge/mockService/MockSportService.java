@@ -19,9 +19,11 @@ public class MockSportService implements ISportService {
     //TODO
     @Override
     public List<SportField> findAllSportField() {
-        return List.of();
+        return List.of(
+                new SportField(1, "Football"),
+                new SportField(2, "Basketball")
+        );
     }
-
     @Override
     public Optional<Sport> findById(int id) {
         if (id == 1) {

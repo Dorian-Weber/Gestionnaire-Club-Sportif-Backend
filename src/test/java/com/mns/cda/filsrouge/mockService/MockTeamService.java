@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.ITeamService;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Event;
@@ -29,22 +30,19 @@ public class MockTeamService implements ITeamService {
         return Optional.empty();
     }
 
-    //TODO
-    @Override
-    public List<Team> findTeamByEventId(int idEvent) {
-        return List.of();
-    }
-
-    //TODO
     @Override
     public List<Team> findByEventId(int idEvent) {
-        return List.of();
+        return List.of(new Team());
     }
 
-    //TODO
     @Override
     public TeamDTO getTeamDTO(int idTeam) {
-        return null;
+        if (idTeam == 1) {
+            return new TeamDTO(1,
+                    "Test",
+                    List.of(new AthleteDTO(1, "John", "Doe")));
+        };
+        throw new RuntimeException("Team not found");
     }
 
     @Override

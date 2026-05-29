@@ -1,7 +1,6 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.StatusPresenceController;
-
 import com.mns.cda.filsrouge.mockService.MockStatusPresenceService;
 import com.mns.cda.filsrouge.model.StatusPresence;
 import org.junit.jupiter.api.Assertions;
@@ -13,91 +12,87 @@ import java.util.List;
 
 public class StatusPresenceControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getStatusPresenceAll_MustReturnList() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
+    public void getStatusPresenceList_MustReturnList() {
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
 
-        List<StatusPresence> response = statusPresenceController.getStatusPresenceList();
+        List<StatusPresence> response = controller.getStatusPresenceList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getStatusPresenceByIdExist_MustReturnCode200() {
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
 
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
-        ResponseEntity<StatusPresence> response = statusPresenceController.getStatusPresenceById(1);
+        ResponseEntity<StatusPresence> response = controller.getStatusPresenceById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getStatusPresenceByIdNotExist_MustReturnCode404() {
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
 
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
-        ResponseEntity<StatusPresence> response = statusPresenceController.getStatusPresenceById(2);
+        ResponseEntity<StatusPresence> response = controller.getStatusPresenceById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createStatusPresence_MustReturnCode201() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
-        StatusPresence statusPresence = new StatusPresence(10,
-                "Test");
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
+        StatusPresence sp = new StatusPresence(10, "Test");
 
-        ResponseEntity<StatusPresence> response = statusPresenceController.create(statusPresence);
+        ResponseEntity<StatusPresence> response = controller.create(sp);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdStatusPresence());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteStatusPresenceExist_MustReturnCode204() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
 
-        ResponseEntity<StatusPresence> response = statusPresenceController.delete(1);
+        ResponseEntity<StatusPresence> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteStatusPresenceNotExist_MustReturnCode404() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
 
-        ResponseEntity<StatusPresence> response = statusPresenceController.delete(2);
+        ResponseEntity<StatusPresence> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateStatusPresence_MustReturnCode200() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
-        StatusPresence statusPresence = new StatusPresence(10,
-                "Test");
+    public void updateStatusPresenceExist_MustReturnCode200() {
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
+        StatusPresence sp = new StatusPresence(1, "Updated");
 
-        ResponseEntity<StatusPresence> response = statusPresenceController.update(1, statusPresence);
+        ResponseEntity<StatusPresence> response = controller.update(1, sp);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdStatusPresence());
     }
 
     @Test
     public void updateStatusPresenceNotExist_MustReturnCode404() {
-        StatusPresenceController statusPresenceController = new StatusPresenceController(new MockStatusPresenceService());
-        StatusPresence statusPresence = new StatusPresence(10, "Test");
+        StatusPresenceController controller = new StatusPresenceController(new MockStatusPresenceService());
+        StatusPresence sp = new StatusPresence(1, "Updated");
 
-        ResponseEntity<StatusPresence> reponse = statusPresenceController.update(2, statusPresence);
+        ResponseEntity<StatusPresence> response = controller.update(999, sp);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

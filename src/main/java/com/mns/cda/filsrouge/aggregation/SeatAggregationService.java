@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SeatAggregationService {
+public class SeatAggregationService implements ISeatAggregationService {
 
     private final SeatDAO seatDAO;
     private final ReservationDAO reservationDAO;
     private final RelationDAO relationDAO;
 
+    @Override
     public List<SeatDTO> getSeatsForEvent(int eventId,
                                           int currentUserId,
                                           String platform,

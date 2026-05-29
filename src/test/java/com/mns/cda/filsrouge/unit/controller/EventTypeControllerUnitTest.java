@@ -1,97 +1,79 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.EventTypeController;
-import com.mns.cda.filsrouge.mockDAO.MockEventTypeDao;
 import com.mns.cda.filsrouge.mockService.MockEventTypeService;
-import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.dto.EventTypeField;
 import com.mns.cda.filsrouge.model.EventType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
 
 public class EventTypeControllerUnitTest {
 
-
-
-    // Test de GetByID
+    // GET FIELD LIST
     @Test
-    public void getEventTypeByIdExist_MustReturnCode200() {
+    public void findAllEventTypeField_MustReturnList() {
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
 
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-        ResponseEntity<EventType> response = eventTypeController.getEventTypeById(1);
+        List<EventTypeField> response = controller.findAllEventTypeField();
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(2, response.size());
     }
 
-    @Test
-    public void getEventTypeByIdNotExist_MustReturnCode404() {
-
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-        ResponseEntity<EventType> response = eventTypeController.getEventTypeById(2);
-
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createEventType_MustReturnCode201() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-        EventType eventType = new EventType(10,
-                "Test",
-                List.of(new Event()));
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
+        EventType eventType = new EventType(10, "TestType", null);
 
-        ResponseEntity<EventType> response = eventTypeController.create(eventType);
+        ResponseEntity<EventType> response = controller.create(eventType);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdEventType());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteEventTypeExist_MustReturnCode204() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
 
-        ResponseEntity<EventType> response = eventTypeController.delete(1);
+        ResponseEntity<EventType> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteEventTypeNotExist_MustReturnCode404() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
 
-        ResponseEntity<EventType> response = eventTypeController.delete(2);
+        ResponseEntity<EventType> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateEventType_MustReturnCode200() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-        EventType eventType = new EventType(10,
-                "Test",
-                List.of(new Event()));
+    public void updateEventTypeExist_MustReturnCode200() {
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
+        EventType eventType = new EventType(1, "UpdatedType", null);
 
-        ResponseEntity<EventType> response = eventTypeController.update(1, eventType);
+        ResponseEntity<EventType> response = controller.update(1, eventType);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdEventType());
     }
 
     @Test
     public void updateEventTypeNotExist_MustReturnCode404() {
-        EventTypeController eventTypeController = new EventTypeController(new MockEventTypeService());
-        EventType eventType = new EventType(10, "Test",
-                List.of(new Event()));
+        EventTypeController controller = new EventTypeController(new MockEventTypeService());
+        EventType eventType = new EventType(1, "UpdatedType", null);
 
-        ResponseEntity<EventType> reponse = eventTypeController.update(2, eventType);
+        ResponseEntity<EventType> response = controller.update(999, eventType);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

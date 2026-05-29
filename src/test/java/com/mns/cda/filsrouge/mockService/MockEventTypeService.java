@@ -14,12 +14,14 @@ public class MockEventTypeService implements IEventTypeService {
                 "Tournois",
                 List.of(new Event())));
     }
-    //TODO
+
     @Override
     public List<EventTypeField> findAllEventTypeField() {
-        return List.of();
+        return List.of(
+                new EventTypeField(1, "Match"),
+                new EventTypeField(2, "Tournoi")
+        );
     }
-
     @Override
     public Optional<EventType> findById(int id) {
         if (id == 1) {

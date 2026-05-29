@@ -176,9 +176,10 @@ public class MockSportDao implements SportDAO {
         return null;
     }
 
-    //TODO
     @Override
     public List<SportField> findAllSportField() {
-        return List.of();
-    }
-}
+        return List.of(
+                new SportField(1, "Football"),
+                new SportField(2, "Basketball")
+        );
+    }}

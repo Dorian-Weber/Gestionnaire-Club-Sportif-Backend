@@ -71,7 +71,7 @@ public class VoteController {
 
     }
 
-    @DeleteMapping("/{userId}/[{eventId}")
+    @DeleteMapping("/{userId}/{eventId}")
     @Operation(summary = "Supprime un vote par son ID",
             description = "Cette route permet de supprimer un vote spécifique en utilisant les ID de utilisateur et d'événement.")
     @ApiResponses(value = {

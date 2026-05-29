@@ -24,8 +24,6 @@ public interface IReservationService {
     //Post
     public ReservationConfirmation createReservation(CreateReservation Reservation, int userId);
 
-    //TODO
-    void create(Reservation Reservation);
 
     //Delete
     void delete(int id);

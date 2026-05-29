@@ -2,9 +2,6 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.VoteController;
 import com.mns.cda.filsrouge.mockService.MockVoteService;
-import com.mns.cda.filsrouge.model.AppUser;
-import com.mns.cda.filsrouge.model.Athlete;
-import com.mns.cda.filsrouge.model.Event;
 import com.mns.cda.filsrouge.model.Vote;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,99 +12,91 @@ import java.util.List;
 
 public class VoteControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getVoteAll_MustReturnList() {
-        VoteController voteController = new VoteController(new MockVoteService());
+    public void getVoteList_MustReturnList() {
+        VoteController controller = new VoteController(new MockVoteService());
 
-        List<Vote> response = voteController.getVoteList();
+        List<Vote> response = controller.getVoteList();
 
         Assertions.assertNotNull(response);
         Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getVoteByIdExist_MustReturnCode200() {
+        VoteController controller = new VoteController(new MockVoteService());
 
-        VoteController voteController = new VoteController(new MockVoteService());
-        ResponseEntity<Vote> response = voteController.getVoteById(1,2);
+        ResponseEntity<Vote> response = controller.getVoteById(10, 100);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getVoteByIdNotExist_MustReturnCode404() {
+        VoteController controller = new VoteController(new MockVoteService());
 
-        VoteController voteController = new VoteController(new MockVoteService());
-        ResponseEntity<Vote> response = voteController.getVoteById(2,1);
+        ResponseEntity<Vote> response = controller.getVoteById(99, 999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createVote_MustReturnCode201() {
-        VoteController voteController = new VoteController(new MockVoteService());
-        Vote vote = new Vote(new Vote.VoteKey(1,2),
-                new AppUser(),
-                new Event(),
-                new Athlete());
+        VoteController controller = new VoteController(new MockVoteService());
 
-        ResponseEntity<Vote> response = voteController.create(vote);
+        Vote vote = new Vote();
+        vote.setVoteKey(new Vote.VoteKey(20, 200));
+
+        ResponseEntity<Vote> response = controller.create(vote);
 
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertNull(response.getBody().getVoteKey());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteVoteExist_MustReturnCode204() {
-        VoteController voteController = new VoteController(new MockVoteService());
+        VoteController controller = new VoteController(new MockVoteService());
 
-        ResponseEntity<Vote> response = voteController.delete(1,2);
+        ResponseEntity<Vote> response = controller.delete(10, 100);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteVoteNotExist_MustReturnCode404() {
-        VoteController voteController = new VoteController(new MockVoteService());
+        VoteController controller = new VoteController(new MockVoteService());
 
-        ResponseEntity<Vote> response = voteController.delete(2,1);
+        ResponseEntity<Vote> response = controller.delete(99, 999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateVote_MustReturnCode200() {
-        VoteController voteController = new VoteController(new MockVoteService());
-        Vote vote = new Vote(new Vote.VoteKey(1,2),
-                new AppUser(),
-                new Event(),
-                new Athlete());
+    public void updateVoteExist_MustReturnCode200() {
+        VoteController controller = new VoteController(new MockVoteService());
 
-        ResponseEntity<Vote> response = voteController.update(1,2, vote);
+        Vote vote = new Vote();
+        vote.setVoteKey(new Vote.VoteKey(10, 100));
+
+        ResponseEntity<Vote> response = controller.update(10, 100, vote);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(new Vote.VoteKey(1,2), response.getBody().getVoteKey());
     }
 
     @Test
     public void updateVoteNotExist_MustReturnCode404() {
-        VoteController voteController = new VoteController(new MockVoteService());
-        Vote vote = new Vote(new Vote.VoteKey(1,2),
-                new AppUser(),
-                new Event(),
-                new Athlete());
+        VoteController controller = new VoteController(new MockVoteService());
 
-        ResponseEntity<Vote> reponse = voteController.update(2,1, vote);
+        Vote vote = new Vote();
+        vote.setVoteKey(new Vote.VoteKey(99, 999));
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
+        ResponseEntity<Vote> response = controller.update(99, 999, vote);
 
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

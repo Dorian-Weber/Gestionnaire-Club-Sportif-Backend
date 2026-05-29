@@ -37,32 +37,6 @@ public class TeamController {
         return teamService.findAll();
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Récupérer une équipe par son ID",
-            description = "Cette route permet de récupérer les informations d'une équipe spécifique en utilisant son ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Équipe récupérée avec succès"),
-            @ApiResponse(responseCode = "404", description = "Équipe non trouvée")
-    })
-    public ResponseEntity<Team> getTeamById(@PathVariable Integer id) {
-
-        Optional<Team> optionalTeam = teamService.findById(id);
-
-        if (optionalTeam.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(optionalTeam.get(), HttpStatus.OK);
-    }
-
-    @GetMapping("/Event/{idEvent}")
-    @Operation(summary = "Récupère la liste de toutes les équipes",
-            description = "Cette route permet de récupérer la liste de toutes les équipes présentes lors d'un événement.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Liste des équipes récupérée avec succès")
-    })
-    public List<TeamDTO> getTeamEvents(@PathVariable Integer idEvent) {
-        return List.of();
-    }
 
     @GetMapping("/TeamDTO/{idTeam}")
     @Operation(summary = "Récupère une équipes",

@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.AthleteController;
 import com.mns.cda.filsrouge.mockService.MockAthleteService;
+import com.mns.cda.filsrouge.dto.AthleteDTO;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,42 +14,63 @@ import java.util.List;
 
 public class AthleteControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getAthleteListAll_MustReturnListOfAll() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
+    public void getAthleteList_MustReturnList() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
 
-        List<Athlete> response = athleteController.getAthleteList();
+        List<Athlete> response = controller.getAthleteList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getAthleteByIdExist_MustReturnCode200() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
 
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
-        ResponseEntity<Athlete> response = athleteController.getAthleteById(1);
+        ResponseEntity<Athlete> response = controller.getAthleteById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getAthleteByIdNotExist_MustReturnCode404() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
 
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
-        ResponseEntity<Athlete> response = athleteController.getAthleteById(2);
+        ResponseEntity<Athlete> response = controller.getAthleteById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // GET BY EVENT
+    @Test
+    public void findAthleteByEvent_MustReturnList() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
+
+        List<AthleteDTO> response = controller.findAthleteByEvent(1);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertFalse(response.isEmpty());
+    }
+
+    // GET BY TEAM
+    @Test
+    public void findAthleteByTeam_MustReturnList() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
+
+        List<AthleteDTO> response = controller.findAthleteByTeam(1);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertFalse(response.isEmpty());
+    }
+
+    // CREATE
     @Test
     public void createAthlete_MustReturnCode201() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
+        AthleteController controller = new AthleteController(new MockAthleteService());
         Athlete athlete = new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
@@ -58,34 +80,35 @@ public class AthleteControllerUnitTest {
                 new Country(),
                 List.of(new Vote()));
 
-        ResponseEntity<Athlete> response = athleteController.create(athlete);
+        ResponseEntity<Athlete> response = controller.create(athlete);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdAthlete());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteAthleteExist_MustReturnCode204() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
+        AthleteController controller = new AthleteController(new MockAthleteService());
 
-        ResponseEntity<Athlete> response = athleteController.delete(1);
+        ResponseEntity<Athlete> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteAthleteNotExist_MustReturnCode404() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
+        AthleteController controller = new AthleteController(new MockAthleteService());
 
-        ResponseEntity<Athlete> response = athleteController.delete(2);
+        ResponseEntity<Athlete> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateAthlete_MustReturnCode200() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
+    public void updateAthleteExist_MustReturnCode200() {
+        AthleteController controller = new AthleteController(new MockAthleteService());
         Athlete athlete = new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
@@ -95,17 +118,16 @@ public class AthleteControllerUnitTest {
                 new Country(),
                 List.of(new Vote()));
 
-        ResponseEntity<Athlete> response = athleteController.update(1, athlete);
+        ResponseEntity<Athlete> response = controller.update(1, athlete);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdAthlete());
     }
 
     @Test
     public void updateAthleteNotExist_MustReturnCode404() {
-        AthleteController athleteController = new AthleteController(new MockAthleteService());
-        Athlete athlete =new Athlete(1,
+        AthleteController controller = new AthleteController(new MockAthleteService());
+        Athlete athlete = new Athlete(1,
                 "Dupont","Jean",
                 LocalDate.now().minusDays(1),
                 List.of(new Event()),
@@ -114,9 +136,8 @@ public class AthleteControllerUnitTest {
                 new Country(),
                 List.of(new Vote()));
 
-        ResponseEntity<Athlete> reponse = athleteController.update(2, athlete);
+        ResponseEntity<Athlete> response = controller.update(999, athlete);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

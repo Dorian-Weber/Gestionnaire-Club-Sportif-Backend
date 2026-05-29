@@ -20,7 +20,7 @@ public class MockVoteService implements IVoteService {
 
     @Override
     public Optional<Vote> findById(Vote.VoteKey voteKey) {
-        Vote.VoteKey MockVoteKey = new Vote.VoteKey(1,2);
+        Vote.VoteKey MockVoteKey = new Vote.VoteKey(10,100);
         if (voteKey.equals(MockVoteKey) ) {
             return Optional.of(new Vote(MockVoteKey,
                     new AppUser(),
@@ -42,7 +42,7 @@ public class MockVoteService implements IVoteService {
 
     @Override
     public void update(Vote.VoteKey voteKey, Vote Vote) throws VoteNotFoundException {
-        Vote.VoteKey MockVoteKey = new Vote.VoteKey(1,2);
+        Vote.VoteKey MockVoteKey = new Vote.VoteKey(10,100);
         if (!Objects.equals(voteKey, MockVoteKey)) {
             throw new VoteNotFoundException();
         }

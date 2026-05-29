@@ -2,7 +2,6 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.PlatformController;
 import com.mns.cda.filsrouge.mockService.MockPlatformService;
-import com.mns.cda.filsrouge.model.Level;
 import com.mns.cda.filsrouge.model.Platform;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,91 +12,87 @@ import java.util.List;
 
 public class PlatformControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getPlatformAll_MustReturnList() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
+    public void getPlatformList_MustReturnList() {
+        PlatformController controller = new PlatformController(new MockPlatformService());
 
-        List<Platform> response = platformController.getPlatformList();
+        List<Platform> response = controller.getPlatformList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getPlatformByIdExist_MustReturnCode200() {
+        PlatformController controller = new PlatformController(new MockPlatformService());
 
-        PlatformController platformController = new PlatformController(new MockPlatformService());
-        ResponseEntity<Platform> response = platformController.getPlatformById(1);
+        ResponseEntity<Platform> response = controller.getPlatformById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getPlatformByIdNotExist_MustReturnCode404() {
+        PlatformController controller = new PlatformController(new MockPlatformService());
 
-        PlatformController platformController = new PlatformController(new MockPlatformService());
-        ResponseEntity<Platform> response = platformController.getPlatformById(2);
+        ResponseEntity<Platform> response = controller.getPlatformById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createPlatform_MustReturnCode201() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
-        Platform platform = new Platform(10,
-                "Test",List.of(new Level()));
+        PlatformController controller = new PlatformController(new MockPlatformService());
+        Platform platform = new Platform(10, "TestTribune", null);
 
-        ResponseEntity<Platform> response = platformController.create(platform);
+        ResponseEntity<Platform> response = controller.create(platform);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdPlatform());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deletePlatformExist_MustReturnCode204() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
+        PlatformController controller = new PlatformController(new MockPlatformService());
 
-        ResponseEntity<Platform> response = platformController.delete(1);
+        ResponseEntity<Platform> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deletePlatformNotExist_MustReturnCode404() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
+        PlatformController controller = new PlatformController(new MockPlatformService());
 
-        ResponseEntity<Platform> response = platformController.delete(2);
+        ResponseEntity<Platform> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updatePlatform_MustReturnCode200() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
-        Platform platform = new Platform(10,
-                "Test",List.of(new Level()));
+    public void updatePlatformExist_MustReturnCode200() {
+        PlatformController controller = new PlatformController(new MockPlatformService());
+        Platform platform = new Platform(1, "UpdatedTribune", null);
 
-        ResponseEntity<Platform> response = platformController.update(1, platform);
+        ResponseEntity<Platform> response = controller.update(1, platform);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdPlatform());
     }
 
     @Test
     public void updatePlatformNotExist_MustReturnCode404() {
-        PlatformController platformController = new PlatformController(new MockPlatformService());
-        Platform platform = new Platform(10, "Test",List.of(new Level()));
+        PlatformController controller = new PlatformController(new MockPlatformService());
+        Platform platform = new Platform(1, "UpdatedTribune", null);
 
-        ResponseEntity<Platform> reponse = platformController.update(2, platform);
+        ResponseEntity<Platform> response = controller.update(999, platform);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

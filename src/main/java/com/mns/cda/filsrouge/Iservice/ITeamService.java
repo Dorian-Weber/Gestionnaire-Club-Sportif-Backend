@@ -16,9 +16,6 @@ public interface ITeamService {
     //GetByID
     Optional<Team> findById(int id);
 
-    //GetTeamsByEvent
-    List<Team> findTeamByEventId(int idEvent);
-
     List<Team> findByEventId(int idEvent);
 
     public TeamDTO getTeamDTO(int idTeam);

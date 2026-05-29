@@ -183,14 +183,20 @@ public class MockAthleteDao implements AthleteDAO {
         return null;
     }
 
-    //TODO
+
     @Override
     public List<AthleteDTO> findAthleteByEvent(int idEvent) {
+        if (idEvent == 1) {
+            return List.of(new AthleteDTO(1, "John", "Doe"));
+        }
         return List.of();
     }
-    //TODO
+
     @Override
     public List<AthleteDTO> findAthleteByTeam(int idTeam) {
+        if (idTeam == 1) {
+            return List.of(new AthleteDTO(1, "John", "Doe"));
+        }
         return List.of();
     }
 }

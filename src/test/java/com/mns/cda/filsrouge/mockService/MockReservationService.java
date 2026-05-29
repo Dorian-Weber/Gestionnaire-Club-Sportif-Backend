@@ -17,7 +17,7 @@ public class MockReservationService implements IReservationService {
                 LocalDateTime.now(),
                 new StatusPresence(),
                 new Event(),
-                new AppUser(),
+                new AppUser(1),
                 List.of(new Seat())));
     }
 
@@ -28,35 +28,26 @@ public class MockReservationService implements IReservationService {
                     LocalDateTime.now(),
                     new StatusPresence(),
                     new Event(),
-                    new AppUser(),
+                    new AppUser(1),
                     List.of(new Seat())));
         }
         return Optional.empty();
     }
 
-    //TODO
-    @Override
-    public boolean userHasReservation(int eventId, int userId) {
-        return false;
-    }
 
-    //TODO
     @Override
     public CanReserveDTO canReserve(int eventId, int userId) {
-        return null;
+        return new CanReserveDTO(false, false, false);
     }
 
-    //TODO
     @Override
-    public ReservationConfirmation createReservation(CreateReservation Reservation, int userId) {
-        return null;
+    public ReservationConfirmation createReservation(CreateReservation dto, int userId) {
+        List<String> seatNames = dto.seatIds().stream()
+                .map(Object::toString)
+                .toList();
+        return new ReservationConfirmation(99, "Event Test", seatNames);
     }
 
-    //TODO
-    @Override
-    public void create(Reservation Reservation) {
-        Reservation.setIdReservation(null);
-    }
 
     @Override
     public void delete(int id) {

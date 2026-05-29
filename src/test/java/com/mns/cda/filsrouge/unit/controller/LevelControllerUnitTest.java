@@ -1,11 +1,8 @@
 package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.LevelController;
-import com.mns.cda.filsrouge.mockDAO.MockLevelDao;
 import com.mns.cda.filsrouge.mockService.MockLevelService;
 import com.mns.cda.filsrouge.model.Level;
-import com.mns.cda.filsrouge.model.Platform;
-import com.mns.cda.filsrouge.model.Seat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -15,98 +12,87 @@ import java.util.List;
 
 public class LevelControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getLevelAll_MustReturnList() {
-        LevelController levelController = new LevelController(new MockLevelService());
+    public void getLevelList_MustReturnList() {
+        LevelController controller = new LevelController(new MockLevelService());
 
-        List<Level> response = levelController.getLevelList();
+        List<Level> response = controller.getLevelList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
     public void getLevelByIdExist_MustReturnCode200() {
+        LevelController controller = new LevelController(new MockLevelService());
 
-        LevelController levelController = new LevelController(new MockLevelService());
-        ResponseEntity<Level> response = levelController.getLevelById(1);
+        ResponseEntity<Level> response = controller.getLevelById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
     public void getLevelByIdNotExist_MustReturnCode404() {
+        LevelController controller = new LevelController(new MockLevelService());
 
-        LevelController levelController = new LevelController(new MockLevelService());
-        ResponseEntity<Level> response = levelController.getLevelById(2);
+        ResponseEntity<Level> response = controller.getLevelById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
     public void createLevel_MustReturnCode201() {
-        LevelController levelController = new LevelController(new MockLevelService());
-        Level level = new Level(10,
-                "Test",
-                List.of(new Seat()),
-                new Platform());
+        LevelController controller = new LevelController(new MockLevelService());
+        Level level = new Level(10, "TestLevel", null, null);
 
-        ResponseEntity<Level> response = levelController.create(level);
+        ResponseEntity<Level> response = controller.create(level);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdLevel());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
     public void deleteLevelExist_MustReturnCode204() {
-        LevelController levelController = new LevelController(new MockLevelService());
+        LevelController controller = new LevelController(new MockLevelService());
 
-        ResponseEntity<Level> response = levelController.delete(1);
+        ResponseEntity<Level> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
+
     @Test
     public void deleteLevelNotExist_MustReturnCode404() {
-        LevelController levelController = new LevelController(new MockLevelService());
+        LevelController controller = new LevelController(new MockLevelService());
 
-        ResponseEntity<Level> response = levelController.delete(2);
+        ResponseEntity<Level> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateLevel_MustReturnCode200() {
-        LevelController levelController = new LevelController(new MockLevelService());
-        Level level = new Level(10,
-                "Test",
-                List.of(new Seat()),
-                new Platform());
+    public void updateLevelExist_MustReturnCode200() {
+        LevelController controller = new LevelController(new MockLevelService());
+        Level level = new Level(1, "UpdatedLevel", null, null);
 
-        ResponseEntity<Level> response = levelController.update(1, level);
+        ResponseEntity<Level> response = controller.update(1, level);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdLevel());
     }
 
     @Test
     public void updateLevelNotExist_MustReturnCode404() {
-        LevelController levelController = new LevelController(new MockLevelService());
-        Level level = new Level(10,
-                "Test",
-                List.of(new Seat()),
-                new Platform());
+        LevelController controller = new LevelController(new MockLevelService());
+        Level level = new Level(1, "UpdatedLevel", null, null);
 
-        ResponseEntity<Level> reponse = levelController.update(2, level);
+        ResponseEntity<Level> response = controller.update(999, level);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

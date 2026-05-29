@@ -1,11 +1,11 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.aggregation.IEventAggregationService;
 import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.Event;
-import com.mns.cda.filsrouge.aggregation.EventAggregationService;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ public class EventController {
 
 
     protected final IEventService eventService;
-    private final EventAggregationService eventAggregationService;
+    private final IEventAggregationService eventAggregationService;
 
     // Mapping requêtes personnalisées en GET
     @GetMapping("/next")

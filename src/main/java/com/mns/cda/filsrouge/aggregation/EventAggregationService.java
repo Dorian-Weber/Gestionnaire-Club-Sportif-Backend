@@ -8,23 +8,24 @@ import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.dto.TeamDTO;
 import com.mns.cda.filsrouge.model.Team;
 import com.mns.cda.filsrouge.service.TeamService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EventAggregationService {
+@RequiredArgsConstructor
+public class EventAggregationService implements IEventAggregationService {
 
-    @Autowired
-    private IEventService eventService;
 
-    @Autowired
-    private TeamService teamService; // Implémentation, pas interface
+    private final IEventService eventService;
 
-    @Autowired
-    private IAthleteService athleteService;
+    private final TeamService teamService;
 
+    private final IAthleteService athleteService;
+
+    @Override
     public EventFull getEventFull(int idEvent) {
 
         EventMedium event = eventService.findEventMediumById(idEvent)

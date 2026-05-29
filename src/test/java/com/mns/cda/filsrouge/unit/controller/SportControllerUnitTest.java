@@ -2,8 +2,7 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.SportController;
 import com.mns.cda.filsrouge.mockService.MockSportService;
-import com.mns.cda.filsrouge.model.Discipline;
-import com.mns.cda.filsrouge.model.Event;
+import com.mns.cda.filsrouge.dto.SportField;
 import com.mns.cda.filsrouge.model.Sport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,98 +13,87 @@ import java.util.List;
 
 public class SportControllerUnitTest {
 
-    //Test de GetAll
-//    @Test
-//    public void getSportAll_DoitRetournerUneList() {
-//        SportController sportController = new SportController(new MockSportService());
-//
-//        List<Sport> response = sportController.getSportList();
-//
-//        Assertions.assertNotNull(response);
-//        Assertions.assertFalse(response.isEmpty());
-//        Assertions.assertEquals(1, response.size());
-//    }
-
-
-    // Test de GetByID
+    // GET FIELD LIST
     @Test
-    public void getSportByIdExist_DoitRetournerCode200() {
+    public void getSportFieldList_MustReturnList() {
+        SportController controller = new SportController(new MockSportService());
 
-        SportController sportController = new SportController(new MockSportService());
-        ResponseEntity<Sport> response = sportController.getSportById(1);
+        List<SportField> response = controller.getSportFieldList();
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(2, response.size());
+    }
+
+    // GET BY ID
+    @Test
+    public void getSportByIdExist_MustReturnCode200() {
+        SportController controller = new SportController(new MockSportService());
+
+        ResponseEntity<Sport> response = controller.getSportById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
-    public void getSportByIdNotExist_DoitRetournerCode404() {
+    public void getSportByIdNotExist_MustReturnCode404() {
+        SportController controller = new SportController(new MockSportService());
 
-        SportController sportController = new SportController(new MockSportService());
-        ResponseEntity<Sport> response = sportController.getSportById(2);
+        ResponseEntity<Sport> response = controller.getSportById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
-    public void createSport_DoitRetournerCode201() {
-        SportController sportController = new SportController(new MockSportService());
-        Sport sport = new Sport(10,
-                "Test",
-                List.of(new Discipline()),
-                List.of(new Event()));
+    public void createSport_MustReturnCode201() {
+        SportController controller = new SportController(new MockSportService());
+        Sport sport = new Sport(10, "TestSport", null, null);
 
-        ResponseEntity<Sport> response = sportController.create(sport);
+        ResponseEntity<Sport> response = controller.create(sport);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdSport());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
-    public void deleteSportExist_DoitRetournerCode204() {
-        SportController sportController = new SportController(new MockSportService());
+    public void deleteSportExist_MustReturnCode204() {
+        SportController controller = new SportController(new MockSportService());
 
-        ResponseEntity<Sport> response = sportController.delete(1);
+        ResponseEntity<Sport> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
-    @Test
-    public void deleteSportNotExist_DoitRetournerCode404() {
-        SportController sportController = new SportController(new MockSportService());
 
-        ResponseEntity<Sport> response = sportController.delete(2);
+    @Test
+    public void deleteSportNotExist_MustReturnCode404() {
+        SportController controller = new SportController(new MockSportService());
+
+        ResponseEntity<Sport> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateSport_DoitRetournerCode200() {
-        SportController sportController = new SportController(new MockSportService());
-        Sport sport = new Sport(10,
-                "Test",
-                List.of(new Discipline()),
-                List.of(new Event()));
+    public void updateSportExist_MustReturnCode200() {
+        SportController controller = new SportController(new MockSportService());
+        Sport sport = new Sport(1, "UpdatedSport", null, null);
 
-        ResponseEntity<Sport> response = sportController.update(1, sport);
+        ResponseEntity<Sport> response = controller.update(1, sport);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdSport());
     }
 
     @Test
-    public void updateSportNotExist_DoitRetournerCode404() {
-        SportController sportController = new SportController(new MockSportService());
-        Sport sport = new Sport(10,
-                "Test",
-                List.of(new Discipline()),
-                List.of(new Event()));
+    public void updateSportNotExist_MustReturnCode404() {
+        SportController controller = new SportController(new MockSportService());
+        Sport sport = new Sport(1, "UpdatedSport", null, null);
 
-        ResponseEntity<Sport> reponse = sportController.update(2, sport);
+        ResponseEntity<Sport> response = controller.update(999, sport);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

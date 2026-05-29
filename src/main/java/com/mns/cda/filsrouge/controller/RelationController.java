@@ -72,7 +72,7 @@ public class RelationController {
 
     }
 
-    @DeleteMapping("/{firstId}/[{secondId}")
+    @DeleteMapping("/{firstId}/{secondId}")
     @Operation(summary = "Supprime une relation entre deux utilisateur par leurs ID",
             description = "Cette route permet de supprimer une relation spécifique en utilisant son ID.")
     @ApiResponses(value = {

@@ -2,7 +2,6 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.CountryController;
 import com.mns.cda.filsrouge.mockService.MockCountryService;
-import com.mns.cda.filsrouge.model.Athlete;
 import com.mns.cda.filsrouge.model.Country;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,95 +12,87 @@ import java.util.List;
 
 public class CountryControllerUnitTest {
 
-    //Test de GetAll
+    // GET ALL
     @Test
-    public void getCountryAll_DoitRetournerUneList() {
-        CountryController countryController = new CountryController(new MockCountryService());
+    public void getCountryList_MustReturnList() {
+        CountryController controller = new CountryController(new MockCountryService());
 
-        List<Country> response = countryController.getCountryList();
+        List<Country> response = controller.getCountryList();
 
         Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
         Assertions.assertEquals(1, response.size());
     }
 
-
-    // Test de GetByID
+    // GET BY ID
     @Test
-    public void getCountryByIdExist_DoitRetournerCode200() {
+    public void getCountryByIdExist_MustReturnCode200() {
+        CountryController controller = new CountryController(new MockCountryService());
 
-        CountryController countryController = new CountryController(new MockCountryService());
-        ResponseEntity<Country> response = countryController.getCountryById(1);
+        ResponseEntity<Country> response = controller.getCountryById(1);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test
-    public void getCountryByIdNotExist_DoitRetournerCode404() {
+    public void getCountryByIdNotExist_MustReturnCode404() {
+        CountryController controller = new CountryController(new MockCountryService());
 
-        CountryController countryController = new CountryController(new MockCountryService());
-        ResponseEntity<Country> response = countryController.getCountryById(2);
+        ResponseEntity<Country> response = controller.getCountryById(999);
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Create test qu'il y a bien creation et que l'id est bien mise a null
+    // CREATE
     @Test
-    public void createCountry_DoitRetournerCode201() {
-        CountryController countryController = new CountryController(new MockCountryService());
-        Country country = new Country(1,
-                "France",
-                List.of(new Athlete()));
+    public void createCountry_MustReturnCode201() {
+        CountryController controller = new CountryController(new MockCountryService());
+        Country country = new Country(10, "TestLand", null);
 
-        ResponseEntity<Country> response = countryController.create(country);
+        ResponseEntity<Country> response = controller.create(country);
+
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertNull(response.getBody().getIdCountry());
     }
 
-    // Test de Delete
+    // DELETE
     @Test
-    public void deleteCountryExist_DoitRetournerCode204() {
-        CountryController countryController = new CountryController(new MockCountryService());
+    public void deleteCountryExist_MustReturnCode204() {
+        CountryController controller = new CountryController(new MockCountryService());
 
-        ResponseEntity<Country> response = countryController.delete(1);
+        ResponseEntity<Country> response = controller.delete(1);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-
     }
-    @Test
-    public void deleteCountryNotExist_DoitRetournerCode404() {
-        CountryController countryController = new CountryController(new MockCountryService());
 
-        ResponseEntity<Country> response = countryController.delete(2);
+    @Test
+    public void deleteCountryNotExist_MustReturnCode404() {
+        CountryController controller = new CountryController(new MockCountryService());
+
+        ResponseEntity<Country> response = controller.delete(999);
+
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test de Update
-
+    // UPDATE
     @Test
-    public void updateCountry_DoitRetournerCode200() {
-        CountryController countryController = new CountryController(new MockCountryService());
-        Country country = new Country(1,
-                "France",
-                List.of(new Athlete()));
+    public void updateCountryExist_MustReturnCode200() {
+        CountryController controller = new CountryController(new MockCountryService());
+        Country country = new Country(1, "UpdatedLand", null);
 
-        ResponseEntity<Country> response = countryController.update(1, country);
+        ResponseEntity<Country> response = controller.update(1, country);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(1, response.getBody().getIdCountry());
     }
 
     @Test
-    public void updateCountryNotExist_DoitRetournerCode404() {
-        CountryController countryController = new CountryController(new MockCountryService());
-        Country country = new Country(1,
-                "France",
-                List.of(new Athlete()));
+    public void updateCountryNotExist_MustReturnCode404() {
+        CountryController controller = new CountryController(new MockCountryService());
+        Country country = new Country(1, "UpdatedLand", null);
 
-        ResponseEntity<Country> reponse = countryController.update(2, country);
+        ResponseEntity<Country> response = controller.update(999, country);
 
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, reponse.getStatusCode());
-
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

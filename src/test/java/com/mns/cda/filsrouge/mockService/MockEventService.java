@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IEventService;
+import com.mns.cda.filsrouge.aggregation.EventAggregationService;
+import com.mns.cda.filsrouge.dto.EventFull;
 import com.mns.cda.filsrouge.dto.EventLight;
 import com.mns.cda.filsrouge.dto.EventMedium;
 import com.mns.cda.filsrouge.model.*;
@@ -12,20 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class MockEventService implements IEventService {
-    @Override
-    public List<Event> findAll() {
-        return List.of(new Event(1,
-                "Match de Football",
-                "Rencontre amicale entre deux équipes locales",
-                LocalDateTime.of(2026, 4, 15, 18, 0),
-                new EventType(),
-                new Sport(),
-                List.of(new Team()),
-                List.of(new Athlete()),
-                List.of(new Vote()),
-                List.of(new Reservation())
-        ));
-    }
 
     @Override
     public Optional<Event> findById(int id) {
@@ -46,34 +34,39 @@ public class MockEventService implements IEventService {
     }
 
 
-    //TODO
+
     @Override
     public List<EventMedium> findEventMedium() {
-        return List.of();
+        return List.of(new EventMedium(1, "Event 1", null, null, null, null, 10, 100));
     }
 
-    //TODO
+
     @Override
     public Optional<EventMedium> findEventMediumById(int id) {
+        if (id == 1) {
+            return Optional.of(new EventMedium(1, "Event 1", null, null, null, null, 10, 100));
+        }
         return Optional.empty();
     }
 
-    // TODO
     @Override
     public List<EventLight> findNextEventLight() {
-        return List.of();
+        return List.of(new EventLight(1, "Event 1", LocalDateTime.now(), "Sport"),
+                new EventLight(2, "Event 2", LocalDateTime.now(), "Sport"),
+                new EventLight(3, "Event 3", LocalDateTime.now(), "Sport"));
     }
 
-    //TODO
     @Override
-    public Optional<EventLight> findEventLightById(int idEvent) {
+    public Optional<EventLight> findEventLightById(int id) {
+        if (id == 1) {
+            return Optional.of(new EventLight(1, "Event 1", LocalDateTime.now(), "Sport"));
+        }
         return Optional.empty();
     }
 
-    //TODO
     @Override
-    public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDate dateMin) {
-        return List.of();
+    public List<EventMedium> findEventMediumByFilter(String sport, String type, String search, LocalDate dateMin) {
+        return List.of(new EventMedium(1, "Filtered Event", null, null, null, null, 5, 50));
     }
 
     @Override
