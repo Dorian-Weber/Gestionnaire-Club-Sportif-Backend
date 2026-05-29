@@ -67,6 +67,12 @@ public class ReservationService implements IReservationService {
         if (alreadyReserved) {
             throw new RuntimeException("Vous avez déjà une réservation pour cet événement");
         }
+
+        //Vérifie qu'il n'y a pas plus que 2 sièges dans la réservation
+        if (reservation.seatIds().size() > 2) {
+            throw new IllegalArgumentException("Maximum 2 sièges par réservation");
+        }
+
         //vérifie que les sièges ne sont pas déjà réservés
         for (Integer seatId :  reservation.seatIds()) {
             if (seatDAO.seatsAlreadyReserved(reservation.eventId(), List.of(seatId))) {
