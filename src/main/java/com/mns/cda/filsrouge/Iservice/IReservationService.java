@@ -19,8 +19,6 @@ public interface IReservationService {
     //GetByID
     Optional<Reservation> findById(int id);
 
-    public boolean userHasReservation(int eventId, int userId);
-
     public CanReserveDTO canReserve(int eventId, int userId);
 
     //Post

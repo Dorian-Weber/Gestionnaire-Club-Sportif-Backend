@@ -19,10 +19,6 @@ public class EventService implements IEventService{
 
     protected final EventDAO eventDAO;
 
-    //GetAll
-    @Override
-    public List<Event> findAll() { return eventDAO.findAll(); }
-
     //GetByID
     @Override
     public Optional<Event> findById(int id) {

@@ -37,23 +37,6 @@ public class EventTypeController {
         return eventTypeService.findAllEventTypeField();
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Récupérer un type d'évènement par son ID",
-            description = "Cette route permet de récupérer un type d'évènement spécifique en utilisant son ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Type d'évènement récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Type d'évènement non trouvé")
-    })
-    @isUser
-    public ResponseEntity<EventType> getEventTypeById(@PathVariable int id) {
-
-        Optional<EventType> optionalEventType = eventTypeService.findById(id);
-
-        if(optionalEventType.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(optionalEventType.get(), HttpStatus.OK);
-    }
 
     @PostMapping
     @Operation(summary = "Ajoute un type d'évènement à la base de données",

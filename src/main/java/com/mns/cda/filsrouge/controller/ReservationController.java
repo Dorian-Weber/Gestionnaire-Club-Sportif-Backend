@@ -1,6 +1,5 @@
 package com.mns.cda.filsrouge.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.mns.cda.filsrouge.Iservice.IReservationService;
 import com.mns.cda.filsrouge.dto.CanReserveDTO;
 import com.mns.cda.filsrouge.dto.CreateReservation;
@@ -59,14 +58,6 @@ public class ReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalReservation.get(), HttpStatus.OK);
-    }
-
-    @GetMapping("/has-reserved")
-    @isUser
-    public boolean hasReserved(@RequestParam int idEvent,
-                               @AuthenticationPrincipal AppUserDetails user
-    ) {
-        return reservationService.userHasReservation(idEvent, user.getUser().getIdAppUser());
     }
 
     @GetMapping("/can-reserve/{eventId}")

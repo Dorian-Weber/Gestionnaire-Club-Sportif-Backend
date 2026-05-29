@@ -12,9 +12,6 @@ public interface IEventService {
 
     public static class EventNotFoundException extends Exception {}
 
-    //GetAll
-    List<Event> findAll();
-
     //GetByID
     Optional<Event> findById(int id);
 

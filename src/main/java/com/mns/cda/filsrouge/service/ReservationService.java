@@ -36,10 +36,7 @@ public class ReservationService implements IReservationService {
         return reservationDAO.findById(id);
     }
 
-    //GetById Event and User
-    public boolean userHasReservation(int eventId, int userId) {
-        return reservationDAO.userHasReservation(eventId, userId);
-    }
+    @Override
     // Vérifie si la réservation est possible pour un utilisateur donné et un événement donné
     public CanReserveDTO canReserve(int eventId, int userId) {
 
