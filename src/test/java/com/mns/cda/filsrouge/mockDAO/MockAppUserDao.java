@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
@@ -197,15 +198,19 @@ public class MockAppUserDao implements AppUserDAO {
         return null;
     }
 
-    //TODO
     @Override
     public Optional<AppUser> findByAppUserEmail(String email) {
         return Optional.empty();
     }
 
-    //TODO
     @Override
     public boolean existsByAppUserPseudo(String appUserPseudo) {
         return false;
+    }
+
+    //TODO
+    @Override
+    public UserInfoDTO getUserInfo(int idUser) {
+        return null;
     }
 }

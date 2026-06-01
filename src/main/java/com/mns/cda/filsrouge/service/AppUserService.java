@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.service;
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.model.AppUser;
@@ -30,6 +31,11 @@ public class AppUserService implements IAppUserService{
     @Override
     public Optional<AppUser> findById(int id) {
         return appUserDAO.findById(id);
+    }
+    //GetUserInfo
+    @Override
+    public UserInfoDTO getMyInfo(int idUser) {
+        return appUserDAO.getUserInfo(idUser);
     }
 
     //Post

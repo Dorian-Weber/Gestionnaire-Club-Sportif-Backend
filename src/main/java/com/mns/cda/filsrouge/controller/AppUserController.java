@@ -1,8 +1,11 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.model.AppUser;
+import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
+import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -10,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +57,20 @@ public class AppUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalAppUser.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    @Operation(summary = "Récupérer les informations d'utilisateur par son ID",
+            description = "Cette route permet de récupérer les informations d'un utilisateur spécifique en utilisant son ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+    })
+    @isUser
+    public ResponseEntity<UserInfoDTO> getAppUserInfoById(@AuthenticationPrincipal AppUserDetails userDetails) {
+
+
+        return new ResponseEntity<>(appUserService.getMyInfo(userDetails.getUser().getIdAppUser()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.*;
 
@@ -26,6 +27,11 @@ public class MockAppUserService implements IAppUserService {
                 List.of(new Relation()),
                 List.of(new Vote()),
                 List.of(new Reservation())));
+    }
+    //TODO
+    @Override
+    public UserInfoDTO getMyInfo(int id) {
+        return null;
     }
 
     @Override

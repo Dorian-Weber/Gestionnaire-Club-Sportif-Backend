@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -47,7 +49,7 @@ public class AppUser {
     @NotBlank(groups = {OnCreate.class})
     @Size(min = 5, max = 30, groups = {OnCreate.class})
     @Column(unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _", groups = {OnCreate.class})
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÖØ-öø-ÿ_-]+$", message = "Le pseudo ne doit contenir que lettres, chiffres ou _", groups = {OnCreate.class})
     protected String appUserPseudo;
 
     @NotBlank( message = "L'email ne peut pas être vide", groups = {OnCreate.class})
@@ -57,7 +59,7 @@ public class AppUser {
     protected String appUserEmail;
 
     @NotBlank(message = "Le mot de passe ne peut pas être vide",groups = {OnCreate.class})
-    // @Size(min = 8, max = 50, message = "Le mot de passe doit contenir entre 8 et 50 caractères", groups = {OnCreate.class})
+    @Size(min = 8, max = 50, message = "Le mot de passe doit contenir entre 8 et 50 caractères", groups = {OnCreate.class})
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
              message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial", groups = {OnCreate.class})
     @Column(nullable = false)
@@ -81,9 +83,9 @@ public class AppUser {
     protected LocalDateTime lastModifiedDate;
 
 
-    @ManyToOne(optional = false)
-    @JoinColumn(nullable = false, name = "account_type_id")
-    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "account_type_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     protected AccountType accountType;
 
 

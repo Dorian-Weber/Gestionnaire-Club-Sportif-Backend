@@ -251,19 +251,4 @@ public class AppUserUnitTest {
 
         Assertions.assertTrue(exists);
     }
-
-    // accountType : @NotNull
-
-    @Test
-    public void accountTypeNull_MustBeNotValidated() {
-        AppUser user = new AppUser();
-        user.setAccountType(null);
-
-        boolean exists = TestUtilitaire.constraintViolationExist(
-                validator.validate(user),
-                "accountType",
-                "NotNull");
-
-        Assertions.assertTrue(exists);
-    }
 }

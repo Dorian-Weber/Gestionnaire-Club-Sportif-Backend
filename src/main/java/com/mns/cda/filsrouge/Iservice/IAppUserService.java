@@ -1,5 +1,6 @@
 package com.mns.cda.filsrouge.Iservice;
 
+import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.model.AppUser;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public interface IAppUserService {
 
     //GetByID
     Optional<AppUser> findById(int id);
+
+    //GetUserInfo
+    UserInfoDTO getMyInfo(int id);
 
     //Post
     void create(AppUser appUser);
