@@ -8,7 +8,6 @@ import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +84,17 @@ public class AppUserService implements IAppUserService{
         }
         appUser.setIdAppUser(id);
         appUserDAO.save(appUser);
+    }
+
+    @Override
+    public void updateVisibility(UserVisibility visibility, int userId) {
+        AppUser user = appUserDAO.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setAppUserVisibility(visibility);
+
+        appUserDAO.save(user);
+
     }
 
 }

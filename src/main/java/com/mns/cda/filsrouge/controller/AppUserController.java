@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.dto.UpdateVisibility;
 import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.security.AppUserDetails;
@@ -92,6 +93,14 @@ public class AppUserController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PatchMapping("/info")
+    @isUser
+    public void updateVisibility(@RequestBody UpdateVisibility newVisibility,
+                                 @AuthenticationPrincipal AppUserDetails userDetails) {
+        appUserService.updateVisibility(newVisibility.visibility(), userDetails.getUser().getIdAppUser());
+    }
+
 
     @PutMapping("/{id}")
     @Operation(summary = "Modifie un utilisateur par son ID",

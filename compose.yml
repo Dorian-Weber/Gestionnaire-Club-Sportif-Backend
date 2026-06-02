@@ -13,10 +13,12 @@ services:
       - postgres_data:/var/lib/postgresql
 
   app:
-     image: wdorian/sporthive-app-26:latest
+     build : .
      container_name: Fils-rouge-app
      ports:
        - "8080:8080"
+     depends_on:
+       - postgres
 
 
 volumes:

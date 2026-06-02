@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.Iservice;
 
 import com.mns.cda.filsrouge.dto.UserInfoDTO;
+import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.AppUser;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface IAppUserService {
     //Put
     void update(int id, AppUser appUser) throws UserNotFoundException;
 
+    //Patch
+    public void updateVisibility(UserVisibility visibility, int userId);
 }
