@@ -1,6 +1,6 @@
 package com.mns.cda.filsrouge.dto;
 
-public record VoteLight(
+public record VoteInfo(
         int eventId,
         String eventName,
         int eventRating,
