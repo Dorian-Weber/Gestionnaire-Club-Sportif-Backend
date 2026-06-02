@@ -28,11 +28,11 @@ INSERT INTO event_type (event_type_name) VALUES
 
 INSERT INTO event (event_name, event_description, event_date, event_type_id, sport_id) VALUES
                     ('Match amical FC Metz vs Nancy', 'Rencontre amicale entre deux clubs lorrains.', '2027-03-12 18:00:00', 1, 1),
-                    ('Tournoi régional U18', 'Tournoi de jeunes équipes locales.', '2027-04-05 14:00:00', 2, 1),
-                    ('Entraînement intensif FC Metz', 'Séance technique et physique.', '2027-05-02 10:00:00', 4, 1),
-                    ('Match Basket Metz vs Strasbourg', 'Match de championnat régional.', '2027-03-20 20:00:00', 1, 2),
-                    ('Tournoi 3v3 Metz Centre', 'Tournoi urbain de basket 3 contre 3.', '2027-06-11 15:00:00', 2, 2),
-                    ('Entraînement tactique Basket Metz', 'Séance axée sur les systèmes offensifs.', '2027-04-18 09:00:00', 4, 2),
+                    ('Tournoi régional U18', 'Tournoi de jeunes équipes locales.', '2026-04-05 14:00:00', 2, 1),
+                    ('Entraînement intensif FC Metz', 'Séance technique et physique.', '2026-05-02 10:00:00', 4, 1),
+                    ('Match Basket Metz vs Strasbourg', 'Match de championnat régional.', '2026-03-20 20:00:00', 1, 2),
+                    ('Tournoi 3v3 Metz Centre', 'Tournoi urbain de basket 3 contre 3.', '2026-06-11 15:00:00', 2, 2),
+                    ('Entraînement tactique Basket Metz', 'Séance axée sur les systèmes offensifs.', '2026-04-18 09:00:00', 4, 2),
                     ('Open de Metz – Simple', 'Match de simple du tournoi local.', '2027-05-22 16:00:00', 3, 3),
                     ('Open de Metz – Double', 'Match de double du tournoi local.', '2027-05-23 14:00:00', 3, 3),
                     ('Entraînement Tennis – Service', 'Séance dédiée au service.', '2027-04-10 11:00:00', 4, 3),
@@ -243,19 +243,21 @@ INSERT INTO relation (first_user_id, second_user_id, relation_status) VALUES
 
 
 
-INSERT INTO vote (user_id, event_id, athlete_id) VALUES
-                     (1, 1, 1),
-                     (4, 2, 7),
-                     (5, 2, 8),
-                     (7, 4, 16),
-                     (9, 5, 22),
-                     (10, 6, 16),
-                     (11, 7, 10),
-                     (13, 8, 12),
-                     (15, 10, 18),
-                     (16, 11, 20),
-                     (18, 13, 24),
-                     (19, 14, 26);
+INSERT INTO vote (event_rating, user_id, event_id, athlete_id) VALUES
+                     (4,1, 2, 7),
+                     (3,1, 4,16),
+                     (2,1,6, 16),
+                     (1,4, 2, 7),
+                     (2,5, 2, 8),
+                     (1,7, 4, 16),
+                     (2,9, 5, 22),
+                     (4,10, 6, 16),
+                     (5,11, 7, 10),
+                     (1,13, 8, 12),
+                     (3,15, 10, 18),
+                     (2,16, 11, 20),
+                     (1,18, 13, 24),
+                     (5,19, 14, 26);
 
 
 INSERT INTO status_presence (status_presence_name) VALUES
@@ -270,29 +272,29 @@ INSERT INTO reservation (status_presence_id, created_at, event_id, app_user_id) 
 (3, now(), 1, 22), (3, now(), 1, 24), (3, now(), 1, 26), (3, now(), 1, 28), (3, now(), 1, 30),
 
 -- Event 2 (users 1,3,...,29)
-(3, now(), 2, 1), (3, now(), 2, 3), (3, now(), 2, 5), (3, now(), 2, 7), (3, now(), 2, 9),
-(3, now(), 2, 11), (3, now(), 2, 13), (3, now(), 2, 15), (3, now(), 2, 17), (3, now(), 2, 19),
-(3, now(), 2, 21), (3, now(), 2, 23), (3, now(), 2, 25), (3, now(), 2, 27), (3, now(), 2, 29),
+(1, now(), 2, 1), (2, now(), 2, 3), (1, now(), 2, 5), (2, now(), 2, 7), (1, now(), 2, 9),
+(1, now(), 2, 11), (2, now(), 2, 13), (1, now(), 2, 15), (1, now(), 2, 17), (2, now(), 2, 19),
+(1, now(), 2, 21), (2, now(), 2, 23), (1, now(), 2, 25), (1, now(), 2, 27), (1, now(), 2, 29),
 
 -- Event 3
-(3, now(), 3, 2), (3, now(), 3, 4), (3, now(), 3, 6), (3, now(), 3, 8), (3, now(), 3, 10),
-(3, now(), 3, 12), (3, now(), 3, 14), (3, now(), 3, 16), (3, now(), 3, 18), (3, now(), 3, 20),
-(3, now(), 3, 22), (3, now(), 3, 24), (3, now(), 3, 26), (3, now(), 3, 28), (3, now(), 3, 30),
+(1, now(), 3, 2), (2, now(), 3, 4), (1, now(), 3, 6), (1, now(), 3, 8), (1, now(), 3, 10),
+(1, now(), 3, 12), (1, now(), 3, 14), (1, now(), 3, 16), (2, now(), 3, 18), (2, now(), 3, 20),
+(1, now(), 3, 22), (2, now(), 3, 24), (2, now(), 3, 26), (1, now(), 3, 28), (1, now(), 3, 30),
 
 -- Event 4
-(3, now(), 4, 1), (3, now(), 4, 3), (3, now(), 4, 5), (3, now(), 4, 7), (3, now(), 4, 9),
-(3, now(), 4, 11), (3, now(), 4, 13), (3, now(), 4, 15), (3, now(), 4, 17), (3, now(), 4, 19),
-(3, now(), 4, 21), (3, now(), 4, 23), (3, now(), 4, 25), (3, now(), 4, 27), (3, now(), 4, 29),
+(1, now(), 4, 1), (1, now(), 4, 3), (2, now(), 4, 5), (1, now(), 4, 7), (1, now(), 4, 9),
+(2, now(), 4, 11), (1, now(), 4, 13), (1, now(), 4, 15), (2, now(), 4, 17), (1, now(), 4, 19),
+(1, now(), 4, 21), (1, now(), 4, 23), (1, now(), 4, 25), (1, now(), 4, 27), (1, now(), 4, 29),
 
 -- Event 5
-(3, now(), 5, 2), (3, now(), 5, 4), (3, now(), 5, 6), (3, now(), 5, 8), (3, now(), 5, 10),
-(3, now(), 5, 12), (3, now(), 5, 14), (3, now(), 5, 16), (3, now(), 5, 18), (3, now(), 5, 20),
-(3, now(), 5, 22), (3, now(), 5, 24), (3, now(), 5, 26), (3, now(), 5, 28), (3, now(), 5, 30),
+(2, now(), 5, 2), (1, now(), 5, 4), (1, now(), 5, 6), (1, now(), 5, 8), (2, now(), 5, 10),
+(1, now(), 5, 12), (1, now(), 5, 14), (1, now(), 5, 16), (1, now(), 5, 18), (1, now(), 5, 20),
+(1, now(), 5, 22), (2, now(), 5, 24), (1, now(), 5, 26), (2, now(), 5, 28), (2, now(), 5, 30),
 
 -- Event 6
-(3, now(), 6, 1), (3, now(), 6, 3), (3, now(), 6, 5), (3, now(), 6, 7), (3, now(), 6, 9),
-(3, now(), 6, 11), (3, now(), 6, 13), (3, now(), 6, 15), (3, now(), 6, 17), (3, now(), 6, 19),
-(3, now(), 6, 21), (3, now(), 6, 23), (3, now(), 6, 25), (3, now(), 6, 27), (3, now(), 6, 29),
+(1, now(), 6, 1), (1, now(), 6, 3), (2, now(), 6, 5), (1, now(), 6, 7), (1, now(), 6, 9),
+(2, now(), 6, 11), (1, now(), 6, 13), (1, now(), 6, 15), (1, now(), 6, 17), (1, now(), 6, 19),
+(1, now(), 6, 21), (1, now(), 6, 23), (1, now(), 6, 25), (1, now(), 6, 27), (2, now(), 6, 29),
 
 -- Event 7
 (3, now(), 7, 2), (3, now(), 7, 4), (3, now(), 7, 6), (3, now(), 7, 8), (3, now(), 7, 10),

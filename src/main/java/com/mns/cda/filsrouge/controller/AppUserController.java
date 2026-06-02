@@ -1,8 +1,10 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
+import com.mns.cda.filsrouge.aggregation.UserPublicAggregation;
 import com.mns.cda.filsrouge.dto.UpdateVisibility;
 import com.mns.cda.filsrouge.dto.UserInfoDTO;
+import com.mns.cda.filsrouge.dto.UserPublicProfil;
 import com.mns.cda.filsrouge.model.AppUser;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -29,6 +31,7 @@ public class AppUserController {
 
     public class OnCreate {}
 
+    protected final UserPublicAggregation userPublicAggregation;
     protected final IAppUserService appUserService;
 
     @GetMapping("/list")
@@ -41,6 +44,7 @@ public class AppUserController {
     public List<AppUser> getAppUserList() {
         return appUserService.findAll();
     }
+
 
     @GetMapping("/{id}")
     @Operation(summary = "Récupérer un utilisateur par son ID",
@@ -65,13 +69,29 @@ public class AppUserController {
             description = "Cette route permet de récupérer les informations d'un utilisateur spécifique en utilisant son ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Utilisateur récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas autorisé à effectuer cette action")
     })
     @isUser
-    public ResponseEntity<UserInfoDTO> getAppUserInfoById(@AuthenticationPrincipal AppUserDetails userDetails) {
+    public ResponseEntity<UserInfoDTO> getAppUserInfoById(
+            @AuthenticationPrincipal AppUserDetails userDetails) {
 
 
         return new ResponseEntity<>(appUserService.getMyInfo(userDetails.getUser().getIdAppUser()), HttpStatus.OK);
+    }
+
+    @GetMapping("/public")
+    @Operation(summary = "Récupère les infos du profil qui sont public",
+            description = "Cette route permet de récupérer les informations public de l'utilisateur.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Informations du profil public récupérées avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas autorisé à effectuer cette action")
+    })
+    @isUser
+    public UserPublicProfil getMyPublicProfile(
+            @AuthenticationPrincipal AppUserDetails userDetails) {
+        return userPublicAggregation.getMyPublicProfile(userDetails.getUser().getIdAppUser());
     }
 
     @DeleteMapping("/{id}")
@@ -95,6 +115,13 @@ public class AppUserController {
     }
 
     @PatchMapping("/info")
+    @Operation(summary = "Changement de visibilité",
+            description = "Permet la modification de la visibilité de l'utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Visibilité modifiée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas autorisé à effectuer cette action")
+    })
     @isUser
     public void updateVisibility(@RequestBody UpdateVisibility newVisibility,
                                  @AuthenticationPrincipal AppUserDetails userDetails) {

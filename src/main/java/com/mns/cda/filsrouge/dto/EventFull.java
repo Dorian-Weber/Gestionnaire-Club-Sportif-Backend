@@ -1,6 +1,5 @@
 package com.mns.cda.filsrouge.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record EventFull( EventMedium eventMedium,

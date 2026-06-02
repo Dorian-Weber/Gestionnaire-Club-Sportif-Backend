@@ -7,6 +7,6 @@ import java.util.List;
 public record UserPublicProfil(
         String appUserPseudo,
         List<EventLight> lastEvents,
-        List<Vote> lastVotes
+        List<VoteLight> lastVotes
 ) {
 }

@@ -90,4 +90,17 @@ public interface EventDAO extends JpaRepository<Event, Integer> {
             @Param("eventTypeName") String eventTypeName,
             @Param("search") String search,
             @Param("dateMin") LocalDateTime dateMin);
+
+    @Query("""
+            SELECT new com.mns.cda.filsrouge.dto.EventLight(e.idEvent, e.eventName, e.eventDate, s.sportName)
+            FROM Event e
+            JOIN e.sport s
+            JOIN e.reservations r
+            JOIN r.user u
+            where (u.idAppUser = :userId)
+            AND r.statusPresence.statusPresenceName = 'Présent'
+             ORDER BY e.eventDate ASC
+             LIMIT 3
+""")
+    List<EventLight> getLastParticipatedEventWithUserId(@Param("userId") int userId);
 }

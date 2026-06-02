@@ -42,6 +42,9 @@ public class Vote {
     @EmbeddedId
     private VoteKey voteKey;
 
+
+    private int eventRating;
+
     @NotNull
     @ManyToOne
     @MapsId("userId")
