@@ -31,4 +31,6 @@ public interface IAppUserService {
 
     //Patch
     public void updateVisibility(UserVisibility visibility, int userId);
+
+    public void updatePseudo(String newPseudo, int userId);
 }

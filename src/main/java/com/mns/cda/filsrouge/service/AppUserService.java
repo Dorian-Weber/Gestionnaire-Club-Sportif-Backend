@@ -86,6 +86,7 @@ public class AppUserService implements IAppUserService{
         appUserDAO.save(appUser);
     }
 
+    //Patch
     @Override
     public void updateVisibility(UserVisibility visibility, int userId) {
         AppUser user = appUserDAO.findById(userId)
@@ -95,6 +96,16 @@ public class AppUserService implements IAppUserService{
 
         appUserDAO.save(user);
 
+    }
+
+    @Override
+    public void updatePseudo(String newPseudo, int userId) {
+
+        AppUser user = appUserDAO.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));;
+        user.setAppUserPseudo(newPseudo);
+
+        appUserDAO.save(user);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.aggregation.UserPublicAggregation;
+import com.mns.cda.filsrouge.dto.UpdatePseudo;
 import com.mns.cda.filsrouge.dto.UpdateVisibility;
 import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.dto.UserPublicProfil;
@@ -127,6 +128,21 @@ public class AppUserController {
                                  @AuthenticationPrincipal AppUserDetails userDetails) {
         appUserService.updateVisibility(newVisibility.visibility(), userDetails.getUser().getIdAppUser());
     }
+
+    @PatchMapping("/pseudo")
+    @Operation(summary = "Changement de pseudo",
+            description = "Permet la modification du pseudo de l'utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pseudo modifié avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas autorisé à effectuer cette action")
+    })
+    @isUser
+    public void updatePseudo(@RequestBody UpdatePseudo pseudo,
+                             @AuthenticationPrincipal AppUserDetails userDetails) {
+        appUserService.updatePseudo(pseudo.appUserPseudo(), userDetails.getUser().getIdAppUser());
+    }
+
 
 
     @PutMapping("/{id}")
