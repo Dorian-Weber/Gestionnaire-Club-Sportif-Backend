@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
+import com.mns.cda.filsrouge.dto.FriendDTO;
 import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.*;
 
@@ -19,6 +20,12 @@ public class MockRelationService implements IRelationService {
                 RelationStatus.PENDING));
     }
 
+    //TODO
+    @Override
+    public List<FriendDTO> getFriends(int idUser) {
+        return List.of();
+    }
+
     @Override
     public Optional<Relation> findById(Relation.Key key) {
         Relation.Key MockKey = new Relation.Key(1,2);
@@ -28,6 +35,12 @@ public class MockRelationService implements IRelationService {
                     new AppUser(),
                     RelationStatus.PENDING));
         }
+        return Optional.empty();
+    }
+
+    //TODO
+    @Override
+    public Optional<Relation> findRelationBetween(int id1, int id2) {
         return Optional.empty();
     }
 

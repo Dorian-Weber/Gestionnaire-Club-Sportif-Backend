@@ -26,6 +26,11 @@ public class RelationService implements IRelationService {
         return relationDAO.findListFriendsByIdUser(idUser);
     }
 
+    //GetRelation Between 2 ID
+    public Optional<Relation> findRelationBetween(int id1, int id2) {
+        return relationDAO.findRelationBetween(id1, id2);
+    }
+
     //GetByID
     @Override
     public Optional<Relation> findById(Relation.Key id) {

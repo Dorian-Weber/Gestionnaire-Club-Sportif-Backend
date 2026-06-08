@@ -19,6 +19,9 @@ public interface IRelationService {
     //GetByID
     Optional<Relation> findById(Relation.Key id);
 
+    //GetRelation Between 2 id
+    public Optional<Relation> findRelationBetween(int id1, int id2);
+
     //Post
     void create(Relation Relation);
 

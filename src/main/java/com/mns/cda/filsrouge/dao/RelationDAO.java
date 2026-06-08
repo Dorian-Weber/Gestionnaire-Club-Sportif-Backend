@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
@@ -36,4 +37,14 @@ public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
       AND r.relationStatus = 'ACCEPTED'
 """)
     List<FriendDTO> findListFriendsByIdUser(@Param("idUser") int idUser);
+
+    @Query("""
+    SELECT r FROM Relation r
+    WHERE (r.key.firstUserId = :id1 AND r.key.secondUserId = :id2)
+       OR (r.key.firstUserId = :id2 AND r.key.secondUserId = :id1)
+""")
+    Optional<Relation> findRelationBetween(int id1, int id2);
+
+
 }
+

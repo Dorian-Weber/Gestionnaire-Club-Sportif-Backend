@@ -88,7 +88,7 @@ public class RelationController {
 
     }
 
-    @DeleteMapping("/{firstId}/{secondId}")
+    @DeleteMapping("/{secondId}")
     @Operation(summary = "Supprime une relation entre deux utilisateur par leurs ID",
             description = "Cette route permet de supprimer une relation spécifique en utilisant son ID.")
     @ApiResponses(value = {
@@ -96,16 +96,17 @@ public class RelationController {
             @ApiResponse(responseCode = "404", description = "Relation non trouvée")
     })
     @isUser
-    public ResponseEntity<Relation> delete(@PathVariable int firstId,
+    public ResponseEntity<Relation> delete(@AuthenticationPrincipal AppUserDetails appUserDetails,
                                            @PathVariable int secondId) {
 
-        Relation.Key key = new Relation.Key(firstId, secondId);
-        Optional<Relation> optionalRelation = relationService.findById(key);
+        Optional<Relation> optionalRelation = relationService.findRelationBetween(
+                appUserDetails.getUser().getIdAppUser(),
+                secondId);
 
         if(optionalRelation.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        relationService.delete(key);
+        relationService.delete(optionalRelation.get().getKey());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
