@@ -37,7 +37,7 @@ public class RelationService implements IRelationService {
 
     //get liste des demandes envoyées en attente de l'utilisateur
     public List<FriendDTO> findRequestSend(int idUser){
-        return relationDAO.findPendingSent(idUser);
+        return relationDAO.findPendingSend(idUser);
     }
 
     //GetByID

@@ -67,7 +67,7 @@ public class RelationController {
         return relationService.findRequestReceived(appUserDetails.getUser().getIdAppUser());
     }
 
-    @GetMapping("/user/request-sent")
+    @GetMapping("/user/request-send")
     @Operation(summary = "Récupérer la liste des demandes envoyé en attente d'un utilisateur.",
             description = "Cette route permet de récupérer la liste des demandes envoyé en attente  d'un utilisateur.")
     @ApiResponses(value = {
@@ -76,7 +76,7 @@ public class RelationController {
             @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
-    public List<FriendDTO> getPendingSent(@AuthenticationPrincipal AppUserDetails appUserDetails) {
+    public List<FriendDTO> getPendingSend(@AuthenticationPrincipal AppUserDetails appUserDetails) {
         return relationService.findRequestSend(appUserDetails.getUser().getIdAppUser());
     }
 

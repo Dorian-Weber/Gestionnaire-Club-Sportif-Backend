@@ -74,7 +74,7 @@ FROM Relation r
 WHERE r.firstUser.idAppUser = :idUser
   AND r.relationStatus = 'PENDING'
 """)
-    List<FriendDTO> findPendingSent(int idUser);
+    List<FriendDTO> findPendingSend(@Param("idUser") int idUser);
 
 }
 
