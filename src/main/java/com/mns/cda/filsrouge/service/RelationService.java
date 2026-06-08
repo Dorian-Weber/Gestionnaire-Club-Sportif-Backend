@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.service;
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.dao.RelationDAO;
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.dto.UpdateRelationStatus;
 import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 import lombok.RequiredArgsConstructor;
@@ -60,12 +61,12 @@ public class RelationService implements IRelationService {
         relationDAO.deleteById(id);
     }
 
-    //Put
+    //Patch
     @Override
-    public void update(int firstId, int secondId, RelationStatus relationStatus) throws RelationNotFoundException {
+    public void updateRelationStatus(int firstId, int secondId, RelationStatus updateRelationStatus) throws RelationNotFoundException {
         Relation relationBetween = relationDAO.findRelationBetween(firstId, secondId).orElseThrow(RelationNotFoundException::new);
 
-        relationBetween.setRelationStatus(relationStatus);
+        relationBetween.setRelationStatus(updateRelationStatus);
         relationDAO.save(relationBetween);
     }
 

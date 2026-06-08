@@ -36,6 +36,6 @@ public interface IRelationService {
     void delete(Relation.Key id);
 
     //Put
-    void update(int firstId, int secondId , RelationStatus relationStatus) throws RelationNotFoundException;
+    void updateRelationStatus(int firstId, int secondId , RelationStatus relationStatus) throws RelationNotFoundException;
 
 }

@@ -2,7 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.dto.FriendDTO;
-import com.mns.cda.filsrouge.enumerate.RelationStatus;
+import com.mns.cda.filsrouge.dto.UpdateRelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -139,7 +139,7 @@ public class RelationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/request/{secondId}")
+    @PatchMapping("/request/{secondId}")
     @Operation(summary = "Modifie le status  d'une relation ",
             description = "Cette route permet de modifier une relation spécifique entre un utilisateur connecter et l'id de l'autre utilisateur.")
     @ApiResponses(value = {
@@ -148,17 +148,12 @@ public class RelationController {
             @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
-    public ResponseEntity<RelationStatus> update(
+    public void updateRelationStatus(
             @AuthenticationPrincipal AppUserDetails appUserDetails,
             @PathVariable int secondId,
-            @RequestBody RelationStatus newRelationStatus) {
+            @RequestBody UpdateRelationStatus newRelationStatus) throws IRelationService.RelationNotFoundException {
 
-        try {
-            relationService.update(appUserDetails.getUser().getIdAppUser(), secondId, newRelationStatus);
-            return new ResponseEntity<>(newRelationStatus, HttpStatus.OK);
-        } catch (IRelationService.RelationNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+            relationService.updateRelationStatus(appUserDetails.getUser().getIdAppUser(), secondId, newRelationStatus.relationStatus());
     }
 
 }
