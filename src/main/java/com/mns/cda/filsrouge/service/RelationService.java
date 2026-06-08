@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.service;
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.dao.RelationDAO;
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -61,14 +62,11 @@ public class RelationService implements IRelationService {
 
     //Put
     @Override
-    public void update(Relation.Key id, Relation Relation) throws RelationNotFoundException {
-        Optional<Relation> RelationOptional = relationDAO.findById(id);
+    public void update(int firstId, int secondId, RelationStatus relationStatus) throws RelationNotFoundException {
+        Relation relationBetween = relationDAO.findRelationBetween(firstId, secondId).orElseThrow(RelationNotFoundException::new);
 
-        if(RelationOptional.isEmpty()) {
-            throw new RelationNotFoundException();
-        }
-        Relation.setKey(id);
-        relationDAO.save(Relation);
+        relationBetween.setRelationStatus(relationStatus);
+        relationDAO.save(relationBetween);
     }
 
 }

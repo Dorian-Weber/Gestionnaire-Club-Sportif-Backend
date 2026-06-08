@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.Iservice;
 
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public interface IRelationService {
     void delete(Relation.Key id);
 
     //Put
-    void update(Relation.Key id , Relation relation) throws RelationNotFoundException;
+    void update(int firstId, int secondId , RelationStatus relationStatus) throws RelationNotFoundException;
 
 }

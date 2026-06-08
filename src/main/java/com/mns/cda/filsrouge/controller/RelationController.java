@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -138,23 +139,23 @@ public class RelationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{firstId}/{secondId}")
-    @Operation(summary = "Modifie une relation par son ID",
-            description = "Cette route permet de modifier une relation spécifique entre deux utilisateur par leurs ID.")
+    @PutMapping("/request/{secondId}")
+    @Operation(summary = "Modifie le status  d'une relation ",
+            description = "Cette route permet de modifier une relation spécifique entre un utilisateur connecter et l'id de l'autre utilisateur.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Relation modifiée avec succès"),
-            @ApiResponse(responseCode = "404", description = "Relation non trouvée")
+            @ApiResponse(responseCode = "404", description = "Relation non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
-    public ResponseEntity<Relation> update(
-            @PathVariable int firstId,
+    public ResponseEntity<RelationStatus> update(
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
             @PathVariable int secondId,
-            @RequestBody Relation relationToUpdate) {
+            @RequestBody RelationStatus newRelationStatus) {
 
-        Relation.Key key = new Relation.Key(firstId, secondId);
         try {
-            relationService.update(key, relationToUpdate);
-            return new ResponseEntity<>(relationToUpdate, HttpStatus.OK);
+            relationService.update(appUserDetails.getUser().getIdAppUser(), secondId, newRelationStatus);
+            return new ResponseEntity<>(newRelationStatus, HttpStatus.OK);
         } catch (IRelationService.RelationNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
