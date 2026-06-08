@@ -22,6 +22,12 @@ public interface IRelationService {
     //GetRelation Between 2 id
     public Optional<Relation> findRelationBetween(int id1, int id2);
 
+    //Get liste demande en attente de l'utilisateur
+    public List<FriendDTO> findRequestReceived(int idUser);
+
+    //get liste des demandes envoyées en attente de l'utilisateur
+    public List<FriendDTO> findRequestSend(int idUser);
+
     //Post
     void create(Relation Relation);
 

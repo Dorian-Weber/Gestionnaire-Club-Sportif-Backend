@@ -239,7 +239,9 @@ INSERT INTO relation (first_user_id, second_user_id, relation_status) VALUES
           (23, 26, 'ACCEPTED'), (24, 27, 'PENDING'),
           (25, 28, 'ACCEPTED'), (26, 29, 'ACCEPTED'),
           (27, 30, 'PENDING'), (28, 1, 'ACCEPTED'),
-          (29, 2, 'ACCEPTED'), (30, 3, 'PENDING');
+          (29, 2, 'ACCEPTED'), (30, 3, 'PENDING'),
+          (1,12, 'PENDING'),(16,1, 'PENDING'),
+          (9, 1, 'PENDING');
 
 
 

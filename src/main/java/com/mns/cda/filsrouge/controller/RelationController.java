@@ -46,11 +46,38 @@ public class RelationController {
             description = "Cette route permet de récupérer la liste d'amis d'un utilisateur.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
-            @ApiResponse(responseCode = "404", description = "Relation non trouvée")
+            @ApiResponse(responseCode = "404", description = "Relation non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
     public List<FriendDTO> getFriends(@AuthenticationPrincipal AppUserDetails appUserDetails) {
         return relationService.getFriends(appUserDetails.getUser().getIdAppUser());
+    }
+
+    @GetMapping("/user/request-received")
+    @Operation(summary = "Récupérer la liste des demande en attente d'un utilisateur.",
+            description = "Cette route permet de récupérer la liste des demandes en attente d'un utilisateur.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Relation non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
+    })
+    @isUser
+    public List<FriendDTO> getPendingReceived(@AuthenticationPrincipal AppUserDetails appUserDetails) {
+        return relationService.findRequestReceived(appUserDetails.getUser().getIdAppUser());
+    }
+
+    @GetMapping("/user/request-sent")
+    @Operation(summary = "Récupérer la liste des demandes envoyé en attente d'un utilisateur.",
+            description = "Cette route permet de récupérer la liste des demandes envoyé en attente  d'un utilisateur.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Relation non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
+    })
+    @isUser
+    public List<FriendDTO> getPendingSent(@AuthenticationPrincipal AppUserDetails appUserDetails) {
+        return relationService.findRequestSend(appUserDetails.getUser().getIdAppUser());
     }
 
     @GetMapping("/{firstId}/{secondId}")

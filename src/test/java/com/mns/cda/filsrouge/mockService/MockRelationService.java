@@ -44,6 +44,18 @@ public class MockRelationService implements IRelationService {
         return Optional.empty();
     }
 
+    //TODO
+    @Override
+    public List<FriendDTO> findRequestReceived(int idUser) {
+        return List.of();
+    }
+
+    //TODO
+    @Override
+    public List<FriendDTO> findRequestSend(int idUser) {
+        return List.of();
+    }
+
     @Override
     public void create(Relation Relation) {
         Relation.setKey(null);

@@ -30,6 +30,15 @@ public class RelationService implements IRelationService {
     public Optional<Relation> findRelationBetween(int id1, int id2) {
         return relationDAO.findRelationBetween(id1, id2);
     }
+    //Get liste demande en attente de l'utilisateur
+    public List<FriendDTO> findRequestReceived(int idUser){
+        return relationDAO.findPendingReceived(idUser);
+    }
+
+    //get liste des demandes envoyées en attente de l'utilisateur
+    public List<FriendDTO> findRequestSend(int idUser){
+        return relationDAO.findPendingSent(idUser);
+    }
 
     //GetByID
     @Override
