@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
+import com.mns.cda.filsrouge.dto.FriendDTO;
 import com.mns.cda.filsrouge.model.Relation;
+import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +13,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +39,18 @@ public class RelationController {
     @isAdmin
     public List<Relation> getRelationList() {
         return relationService.findAll();
+    }
+
+    @GetMapping("/user")
+    @Operation(summary = "Récupérer la liste d'amis d'un utilisateur.",
+            description = "Cette route permet de récupérer la liste d'amis d'un utilisateur.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Relation non trouvée")
+    })
+    @isUser
+    public List<FriendDTO> getFriends(@AuthenticationPrincipal AppUserDetails appUserDetails) {
+        return relationService.getFriends(appUserDetails.getUser().getIdAppUser());
     }
 
     @GetMapping("/{firstId}/{secondId}")

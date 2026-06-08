@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.service;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
 import com.mns.cda.filsrouge.dao.RelationDAO;
+import com.mns.cda.filsrouge.dto.FriendDTO;
 import com.mns.cda.filsrouge.model.Relation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,12 @@ public class RelationService implements IRelationService {
     //GetAll
     @Override
     public List<Relation> findAll() { return relationDAO.findAll(); }
+
+    //GetFriendsById
+    @Override
+    public List<FriendDTO> getFriends(int idUser) {
+        return relationDAO.findListFriendsByIdUser(idUser);
+    }
 
     //GetByID
     @Override

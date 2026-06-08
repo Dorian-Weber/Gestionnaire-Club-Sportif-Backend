@@ -14,19 +14,19 @@ public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
 
     @Query("""
     SELECT new com.mns.cda.filsrouge.dto.FriendDTO(
-        CASE 
+        CASE
             WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.idAppUser
             ELSE r.firstUser.idAppUser
         END,
-        CASE 
+        CASE
             WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.appUserPseudo
             ELSE r.firstUser.appUserPseudo
         END,
-        CASE 
+        CASE
             WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.appUserFirstName
             ELSE r.firstUser.appUserFirstName
         END,
-        CASE 
+        CASE
             WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.appUserName
             ELSE r.firstUser.appUserName
         END
@@ -36,5 +36,4 @@ public interface RelationDAO extends JpaRepository<Relation, Relation.Key> {
       AND r.relationStatus = 'ACCEPTED'
 """)
     List<FriendDTO> findListFriendsByIdUser(@Param("idUser") int idUser);
-
 }
