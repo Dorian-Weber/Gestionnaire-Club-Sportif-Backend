@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
+import com.mns.cda.filsrouge.dto.AppUserLight;
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.dto.RelationDTO;
 import com.mns.cda.filsrouge.dto.UpdateRelationStatus;
 import com.mns.cda.filsrouge.model.Relation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
@@ -12,12 +14,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -30,17 +35,6 @@ public class RelationController {
 
 
     protected final IRelationService relationService;
-
-    @GetMapping("/list")
-    @Operation(summary = "Récupère la liste des différentes relations",
-            description = "Cette route permet de récupérer la liste de toutes les relations dans la base de données.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Liste des relations récupérée avec succès")
-    })
-    @isAdmin
-    public List<Relation> getRelationList() {
-        return relationService.findAll();
-    }
 
     @GetMapping("/user")
     @Operation(summary = "Récupérer la liste d'amis d'un utilisateur.",
@@ -55,6 +49,7 @@ public class RelationController {
         return relationService.getFriends(appUserDetails.getUser().getIdAppUser());
     }
 
+    //Get liste des requêtes
     @GetMapping("/user/request-received")
     @Operation(summary = "Récupérer la liste des demande en attente d'un utilisateur.",
             description = "Cette route permet de récupérer la liste des demandes en attente d'un utilisateur.")
@@ -81,40 +76,52 @@ public class RelationController {
         return relationService.findRequestSend(appUserDetails.getUser().getIdAppUser());
     }
 
-    @GetMapping("/{firstId}/{secondId}")
-    @Operation(summary = "Récupérer une relation entre deux utilisateur par leurs ID.",
-            description = "Cette route permet de récupérer une relation spécifique entre deux utilisateur par leur ID.")
+
+    @GetMapping("/search")
+    @Operation(summary = "Récupérer la liste des utilisateur qui ne sont actuellement pas en lien avec le principal.",
+            description = "Cette route permet de récupérer la liste des utilisateurs dont la demande d'amitié est possible.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Relation récupérée avec succès"),
-            @ApiResponse(responseCode = "404", description = "Relation non trouvée")
+            @ApiResponse(responseCode = "200", description = "Utilisateurs récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateurs non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
-    public ResponseEntity<Relation> getRelationById(@PathVariable int firstId,
-                                                    @PathVariable int secondId) {
+    public Page<AppUserLight> searchUsers(
+            @AuthenticationPrincipal AppUserDetails user,
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
-        Relation.Key key = new Relation.Key(firstId, secondId);
-        Optional<Relation> optionalRelation = relationService.findById(key);
-
-        if(optionalRelation.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(optionalRelation.get(), HttpStatus.OK);
+        return relationService.searchUsers(
+                user.getUser().getIdAppUser(),
+                query,
+                PageRequest.of(page, size)
+        );
     }
 
-    @PostMapping
-    @Operation(summary = "Ajoute une relation entre deux utilisateur en base de données",
-            description = "Cette route permet d'ajouter une nouvelle relation entre utilisateur en base de données.")
+
+    @PostMapping("/request")
+    @Operation(summary = "Crée une relations entre des utilisateur.",
+            description = "Cette route permet de crée une relation entre des utilisateurs dont la demande d'amitié est possible.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Relation ajoutée avec succès")
+            @ApiResponse(responseCode = "200", description = "Utilisateurs récupérée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Utilisateurs non trouvée"),
+            @ApiResponse(responseCode = "403", description = "Accès interdit")
     })
     @isUser
-    public ResponseEntity<Relation> create(@RequestBody Relation relationToInsert) {
+    public ResponseEntity<RelationDTO> sendRequest(
+            @AuthenticationPrincipal AppUserDetails user,
+            @RequestBody Map<String, Integer> body) {
 
-        relationService.create(relationToInsert);
+        int firstId = user.getUser().getIdAppUser();
+        int secondId = body.get("secondId");
+        System.out.println("firstId = " + firstId + ", secondId = " + secondId);
 
-        return new ResponseEntity<>(relationToInsert, HttpStatus.CREATED);
+        RelationDTO relation = relationService.createFriendRequest(firstId, secondId);
 
+        return new ResponseEntity<>(relation, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{secondId}")
     @Operation(summary = "Supprime une relation entre deux utilisateur par leurs ID",

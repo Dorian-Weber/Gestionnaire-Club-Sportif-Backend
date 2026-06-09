@@ -1,7 +1,10 @@
 package com.mns.cda.filsrouge.dao;
 
+import com.mns.cda.filsrouge.dto.AppUserLight;
 import com.mns.cda.filsrouge.dto.FriendDTO;
 import com.mns.cda.filsrouge.model.Relation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -75,6 +78,31 @@ WHERE r.firstUser.idAppUser = :idUser
   AND r.relationStatus = 'PENDING'
 """)
     List<FriendDTO> findPendingSend(@Param("idUser") int idUser);
+
+
+    //Recherche d'utilisateur pour la recherche d'ami
+    @Query("""
+SELECT new com.mns.cda.filsrouge.dto.AppUserLight(
+    u.idAppUser,
+    u.appUserPseudo
+)
+FROM AppUser u
+WHERE LOWER(u.appUserPseudo) LIKE :query
+  AND u.idAppUser <> :idUser
+  AND u.idAppUser NOT IN (
+      SELECT CASE
+          WHEN r.firstUser.idAppUser = :idUser THEN r.secondUser.idAppUser
+          ELSE r.firstUser.idAppUser
+      END
+      FROM Relation r
+      WHERE (r.firstUser.idAppUser = :idUser OR r.secondUser.idAppUser = :idUser)
+        AND r.relationStatus IN ('ACCEPTED', 'PENDING')
+  )
+""")
+    Page<AppUserLight> searchUsers(
+            @Param("idUser") int idUser,
+            @Param("query") String query,
+            Pageable pageable);
 
 }
 

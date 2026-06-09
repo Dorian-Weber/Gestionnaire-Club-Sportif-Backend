@@ -1,9 +1,13 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IRelationService;
+import com.mns.cda.filsrouge.dto.AppUserLight;
 import com.mns.cda.filsrouge.dto.FriendDTO;
+import com.mns.cda.filsrouge.dto.RelationDTO;
 import com.mns.cda.filsrouge.enumerate.RelationStatus;
 import com.mns.cda.filsrouge.model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,9 +60,16 @@ public class MockRelationService implements IRelationService {
         return List.of();
     }
 
+    //TODO
     @Override
-    public void create(Relation Relation) {
-        Relation.setKey(null);
+    public Page<AppUserLight> searchUsers(int idUser, String query, Pageable pageable) {
+        return null;
+    }
+
+    //TODO
+    @Override
+    public RelationDTO createFriendRequest(int firstId, int secondId) {
+        return null;
     }
 
     @Override
@@ -66,13 +77,10 @@ public class MockRelationService implements IRelationService {
 
     }
 
+    //TODO
     @Override
-    public void update(Relation.Key key, Relation Relation) throws RelationNotFoundException {
-        Relation.Key MockKey = new Relation.Key(1,2);
-        if (!Objects.equals(key, MockKey)) {
-            throw new RelationNotFoundException();
-        }
-        Relation.setKey(key);
+    public void updateRelationStatus(int firstId, int secondId, RelationStatus relationStatus) throws RelationNotFoundException {
 
     }
+
 }

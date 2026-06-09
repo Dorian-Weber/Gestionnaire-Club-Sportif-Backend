@@ -3,14 +3,17 @@ package com.mns.cda.filsrouge.service;
 import com.mns.cda.filsrouge.Iservice.IAppUserService;
 import com.mns.cda.filsrouge.dao.AccountTypeDAO;
 import com.mns.cda.filsrouge.dao.AppUserDAO;
+import com.mns.cda.filsrouge.dto.AppUserLight;
 import com.mns.cda.filsrouge.dto.UserInfoDTO;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.model.AccountType;
 import com.mns.cda.filsrouge.model.AppUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
