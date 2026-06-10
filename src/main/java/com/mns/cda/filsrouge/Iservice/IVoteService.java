@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.Iservice;
 
 import com.mns.cda.filsrouge.dto.VoteEventDTO;
+import com.mns.cda.filsrouge.dto.VoteSubmitDTO;
 import com.mns.cda.filsrouge.model.Vote;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface IVoteService {
     public List<VoteEventDTO> getCompletedVotes(Integer userId);
 
     //Post
-    void create(Vote Vote);
+    public void create(VoteSubmitDTO Vote, int userId);
 
     //Delete
     void delete(Vote.VoteKey id);

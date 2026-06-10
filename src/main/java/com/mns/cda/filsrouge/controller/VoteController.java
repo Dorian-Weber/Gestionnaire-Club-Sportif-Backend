@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IVoteService;
 import com.mns.cda.filsrouge.dto.VoteEventDTO;
+import com.mns.cda.filsrouge.dto.VoteSubmitDTO;
 import com.mns.cda.filsrouge.model.Vote;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -91,12 +92,12 @@ public class VoteController {
             @ApiResponse(responseCode = "201", description = "Vote ajouté avec succès")
     })
     @isUser
-    public ResponseEntity<Vote> create(@RequestBody Vote voteToInsert) {
+    public ResponseEntity<VoteSubmitDTO> create(@AuthenticationPrincipal AppUserDetails userDetails,
+                                                @RequestBody VoteSubmitDTO voteToInsert) {
 
-        voteService.create(voteToInsert);
+        voteService.create(voteToInsert,userDetails.getUser().getIdAppUser());
 
         return new ResponseEntity<>(voteToInsert, HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("/{userId}/{eventId}")

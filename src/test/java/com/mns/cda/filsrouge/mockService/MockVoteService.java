@@ -2,6 +2,7 @@ package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IVoteService;
 import com.mns.cda.filsrouge.dto.VoteEventDTO;
+import com.mns.cda.filsrouge.dto.VoteSubmitDTO;
 import com.mns.cda.filsrouge.model.*;
 
 import java.util.List;
@@ -44,7 +45,8 @@ public class MockVoteService implements IVoteService {
     }
 
     @Override
-    public void create(Vote Vote) {
+    public void create(VoteSubmitDTO Vote, int userId)  {
+
         Vote.setVoteKey(null);
     }
 
