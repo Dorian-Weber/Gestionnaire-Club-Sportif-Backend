@@ -1,7 +1,9 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IVoteService;
+import com.mns.cda.filsrouge.dto.VoteEventDTO;
 import com.mns.cda.filsrouge.model.Vote;
+import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
 import com.mns.cda.filsrouge.security.isUser;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +47,7 @@ public class VoteController {
             @ApiResponse(responseCode = "200", description = "Vote récupéré avec succès"),
             @ApiResponse(responseCode = "404", description = "Vote non trouvé")
     })
+    @isAdmin
     public ResponseEntity<Vote> getVoteById(@PathVariable int userId,
                                                     @PathVariable int eventId) {
 
@@ -54,6 +58,30 @@ public class VoteController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(optionalVote.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/pending")
+    @Operation(summary = "Récupère la liste des différents votes non émis par l'utilisateur",
+            description = "Cette route permet de récupérer la liste de tous les votes pas encore fait par l'utilisateur dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des votes récupéré avec succès"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas authentifié ou n'a pas les autorisations nécessaires")
+    })
+    @isUser
+    public List<VoteEventDTO> getPendingVotes(@AuthenticationPrincipal AppUserDetails user) {
+        return voteService.getPendingVotes(user.getUser().getIdAppUser());
+    }
+
+    @GetMapping("/completed")
+    @Operation(summary = "Récupère la liste des différents votes émis par l'utilisateur",
+            description = "Cette route permet de récupérer la liste de tous les votes déjà fait par l'utilisateur dans la base de données.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des votes récupéré avec succès"),
+            @ApiResponse(responseCode = "403", description = "Accès refusé, l'utilisateur n'est pas authentifié ou n'a pas les autorisations nécessaires")
+    })
+    @isUser
+    public List<VoteEventDTO> getCompletedVotes(@AuthenticationPrincipal AppUserDetails user) {
+        return voteService.getCompletedVotes(user.getUser().getIdAppUser());
     }
 
     @PostMapping

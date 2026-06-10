@@ -16,24 +16,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TeamService implements ITeamService {
 
-    protected final TeamDAO TeamDAO;
+    protected final TeamDAO teamDAO;
     private final AthleteDAO athleteDAO;
 
     //GetAll
     @Override
-    public List<Team> findAll() { return TeamDAO.findAll(); }
+    public List<Team> findAll() { return teamDAO.findAll(); }
 
     //GetByID
     @Override
     public Optional<Team> findById(int id) {
-        return TeamDAO.findById(id);
+        return teamDAO.findById(id);
     }
 
 
     //Aggregation de TeamDTO
     public TeamDTO getTeamDTO(int idTeam) {
 
-        Team team = TeamDAO.findById(idTeam)
+        Team team = teamDAO.findById(idTeam)
                 .orElseThrow(() -> new RuntimeException("Team non trouvée"));
 
         List<AthleteDTO> athletes = athleteDAO.findAthleteByTeam(idTeam);
@@ -44,35 +44,43 @@ public class TeamService implements ITeamService {
                 athletes
         );
     }
+    public List<TeamDTO> getTeamsForEvent(Integer eventId) {
+
+        List<Team> teams = teamDAO.findTeamByEventId(eventId);
+
+        return teams.stream()
+                .map(t -> getTeamDTO(t.getIdTeam()))
+                .toList();
+    }
 
     @Override
     public List<Team> findByEventId(int idEvent) {
-        return TeamDAO.findTeamByEventId(idEvent);
+        return teamDAO.findTeamByEventId(idEvent);
     }
 
     //Post
     @Override
     public void create(Team Team) {
         Team.setIdTeam(null);
-        TeamDAO.save(Team);
+        teamDAO.save(Team);
     }
 
     //Delete
     @Override
     public void delete(int id) {
-        TeamDAO.deleteById(id);
+        teamDAO.deleteById(id);
     }
 
     //Put
     @Override
     public void update(int id, Team Team) throws TeamNotFoundException {
-        Optional<Team> TeamOptional = TeamDAO.findById(id);
+        Optional<Team> TeamOptional = teamDAO.findById(id);
 
         if(TeamOptional.isEmpty()) {
             throw new TeamNotFoundException();
         }
         Team.setIdTeam(id);
-        TeamDAO.save(Team);
+        teamDAO.save(Team);
     }
 
 }

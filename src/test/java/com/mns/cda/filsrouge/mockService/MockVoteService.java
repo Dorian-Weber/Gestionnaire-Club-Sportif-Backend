@@ -1,6 +1,7 @@
 package com.mns.cda.filsrouge.mockService;
 
 import com.mns.cda.filsrouge.Iservice.IVoteService;
+import com.mns.cda.filsrouge.dto.VoteEventDTO;
 import com.mns.cda.filsrouge.model.*;
 
 import java.util.List;
@@ -28,6 +29,18 @@ public class MockVoteService implements IVoteService {
                     new Athlete()));
         }
         return Optional.empty();
+    }
+
+    //TODO
+    @Override
+    public List<VoteEventDTO> getPendingVotes(Integer userId) {
+        return List.of();
+    }
+
+    //TODO
+    @Override
+    public List<VoteEventDTO> getCompletedVotes(Integer userId) {
+        return List.of();
     }
 
     @Override

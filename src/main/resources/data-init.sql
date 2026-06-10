@@ -248,7 +248,6 @@ INSERT INTO relation (first_user_id, second_user_id, relation_status) VALUES
 INSERT INTO vote (event_rating, user_id, event_id, athlete_id) VALUES
                      (4,1, 2, 7),
                      (3,1, 4,16),
-                     (2,1,6, 16),
                      (1,4, 2, 7),
                      (2,5, 2, 8),
                      (1,7, 4, 16),
