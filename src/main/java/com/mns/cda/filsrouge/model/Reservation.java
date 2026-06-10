@@ -51,4 +51,7 @@ public class Reservation {
             inverseJoinColumns = @JoinColumn(name = "seat_id"))
     protected List<Seat> seats;
 
+
+    private String qrToken;
+
 }

@@ -1,9 +1,12 @@
 package com.mns.cda.filsrouge.controller;
 
 import com.mns.cda.filsrouge.Iservice.IReservationService;
+import com.mns.cda.filsrouge.aggregation.ReservationAggregationService;
+import com.mns.cda.filsrouge.dao.ReservationDAO;
 import com.mns.cda.filsrouge.dto.CanReserveDTO;
 import com.mns.cda.filsrouge.dto.CreateReservation;
 import com.mns.cda.filsrouge.dto.ReservationConfirmation;
+import com.mns.cda.filsrouge.dto.ReservationQRCodeDTO;
 import com.mns.cda.filsrouge.model.Reservation;
 import com.mns.cda.filsrouge.security.AppUserDetails;
 import com.mns.cda.filsrouge.security.isAdmin;
@@ -30,6 +33,8 @@ public class ReservationController {
 
 
     protected final IReservationService reservationService;
+    protected final ReservationAggregationService reservationAggregationService;
+    protected final ReservationDAO reservationDAO;
 
     @GetMapping("/list")
     @Operation(summary = "Récupère la liste des différents reservations",
@@ -88,6 +93,29 @@ public class ReservationController {
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    //Récupère liste de Réservation avec QRCode
+    @GetMapping("/my-reservations")
+    public List<ReservationQRCodeDTO> getMyReservations(@AuthenticationPrincipal AppUserDetails user) {
+        return reservationAggregationService.getReservationsForUser(user.getUser().getIdAppUser());
+
+    }
+    //Récupère une réservation avec QRCode
+    @GetMapping("/user/{id}")
+    public ReservationQRCodeDTO getReservation(@PathVariable Integer id,
+                                               @AuthenticationPrincipal AppUserDetails user) {
+
+        // Vérifie que la réservation appartient à l’utilisateur
+        Reservation reservation = reservationDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Réservation introuvable"));
+
+        if (!reservation.getUser().getIdAppUser().equals(user.getUser().getIdAppUser())) {
+            throw new RuntimeException("Accès interdit");
+        }
+
+        return reservationAggregationService.getReservationQRCode(id);
+    }
+
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime une reservation par son ID",

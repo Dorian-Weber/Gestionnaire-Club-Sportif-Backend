@@ -1,9 +1,9 @@
 package com.mns.cda.filsrouge.dto;
 
 public record SeatFull(
-        int SeatId,
-        String SeatName,
+        int seatId,
+        String seatName,
         String levelName,
-        String PlatformName
+        String platformName
 ) {
 }

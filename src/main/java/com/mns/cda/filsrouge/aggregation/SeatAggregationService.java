@@ -1,6 +1,5 @@
 package com.mns.cda.filsrouge.aggregation;
 
-import com.mns.cda.filsrouge.Iservice.ISeatService;
 import com.mns.cda.filsrouge.dao.RelationDAO;
 import com.mns.cda.filsrouge.dao.ReservationDAO;
 import com.mns.cda.filsrouge.dao.SeatDAO;

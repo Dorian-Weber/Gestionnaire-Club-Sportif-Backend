@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -62,7 +63,7 @@ public class ReservationService implements IReservationService {
         if (event.getEventDate().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Impossible de réserver pour un événement passé");
         }
-        // vérifie que l'utilisateur n'a pas déjà
+        // vérifie que l'utilisateur n'a pas déjà réservé
         boolean alreadyReserved = reservationDAO.userHasReservation(reservation.eventId(), userId);
         if (alreadyReserved) {
             throw new RuntimeException("Vous avez déjà une réservation pour cet événement");
@@ -79,7 +80,7 @@ public class ReservationService implements IReservationService {
                 throw new RuntimeException("Le siège " + seatId + " est déjà réservé pour cet événement");
             }
         }
-        // Change les id des sièges en objet sièges.
+        // Change les id des sièges en nom des sièges.
         List<Seat> seats = new ArrayList<>();
         for (Integer seatId : reservation.seatIds()) {
             Seat seat = seatDAO.findById(seatId)
@@ -97,6 +98,9 @@ public class ReservationService implements IReservationService {
         reservationToCreate.setUser(new AppUser(userId));
         reservationToCreate.setSeats(seats);
         reservationToCreate.setStatusPresence(pending);
+
+        //Crée le token pour QRCode
+        reservationToCreate.setQrToken(UUID.randomUUID().toString());
 
         Reservation saved =  reservationDAO.save(reservationToCreate);
 
