@@ -95,6 +95,17 @@ public class AppUserController {
         return userPublicAggregation.getMyPublicProfile(userDetails.getUser().getIdAppUser());
     }
 
+    @GetMapping("/public/{idUser}")
+    @isUser
+    public UserPublicProfil getPublicProfileOfUser(
+            @PathVariable Integer idUser,
+            @AuthenticationPrincipal AppUserDetails userDetails) {
+
+        Integer visitorId = userDetails.getUser().getIdAppUser();
+        return userPublicAggregation.getPublicProfileOfUser(idUser, visitorId);
+    }
+
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprime un utilisateur par son ID",
             description = "Cette route permet de supprimer un utilisateur spécifique en utilisant son ID.")
