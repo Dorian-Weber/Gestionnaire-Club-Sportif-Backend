@@ -2,6 +2,8 @@ package com.mns.cda.filsrouge.unit.controller;
 
 import com.mns.cda.filsrouge.controller.VoteController;
 import com.mns.cda.filsrouge.mockService.MockVoteService;
+import com.mns.cda.filsrouge.mockService.MockUserDetails;
+import com.mns.cda.filsrouge.dto.VoteSubmitDTO;
 import com.mns.cda.filsrouge.model.Vote;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -47,11 +49,10 @@ public class VoteControllerUnitTest {
     @Test
     public void createVote_MustReturnCode201() {
         VoteController controller = new VoteController(new MockVoteService());
+        MockUserDetails user = new MockUserDetails(20, "USER");
+        VoteSubmitDTO voteDto = new VoteSubmitDTO(200, 5, 1);
 
-        Vote vote = new Vote();
-        vote.setVoteKey(new Vote.VoteKey(20, 200));
-
-        ResponseEntity<Vote> response = controller.create(vote);
+        ResponseEntity<VoteSubmitDTO> response = controller.create(user, voteDto);
 
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }

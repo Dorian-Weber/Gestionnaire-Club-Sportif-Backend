@@ -3,6 +3,7 @@ package com.mns.cda.filsrouge.unit.controller;
 import com.mns.cda.filsrouge.controller.AppUserController;
 import com.mns.cda.filsrouge.enumerate.UserVisibility;
 import com.mns.cda.filsrouge.mockService.MockAppUserService;
+import com.mns.cda.filsrouge.mockAggregation.MockUserPublicAggregation;
 import com.mns.cda.filsrouge.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class AppUserControllerUnitTest {
     // GET ALL
     @Test
     public void getAppUserList_MustReturnList() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
 
         List<AppUser> response = controller.getAppUserList();
 
@@ -28,7 +29,7 @@ public class AppUserControllerUnitTest {
     // GET BY ID
     @Test
     public void getAppUserByIdExist_MustReturnCode200() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
 
         ResponseEntity<AppUser> response = controller.getAppUserById(1);
 
@@ -38,7 +39,7 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void getAppUserByIdNotExist_MustReturnCode404() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
 
         ResponseEntity<AppUser> response = controller.getAppUserById(999);
 
@@ -48,7 +49,7 @@ public class AppUserControllerUnitTest {
     // DELETE
     @Test
     public void deleteAppUserExist_MustReturnCode204() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
 
         ResponseEntity<AppUser> response = controller.delete(1);
 
@@ -57,7 +58,7 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void deleteAppUserNotExist_MustReturnCode404() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
 
         ResponseEntity<AppUser> response = controller.delete(999);
 
@@ -67,7 +68,7 @@ public class AppUserControllerUnitTest {
     // UPDATE
     @Test
     public void updateAppUserExist_MustReturnCode200() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
         AppUser appUser = new AppUser(1,
                 "Test",
                 "Test",
@@ -92,7 +93,7 @@ public class AppUserControllerUnitTest {
 
     @Test
     public void updateAppUserNotExist_MustReturnCode404() {
-        AppUserController controller = new AppUserController(new MockAppUserService());
+        AppUserController controller = new AppUserController(new MockUserPublicAggregation(), new MockAppUserService());
         AppUser appUser = new AppUser(1,
                 "Test",
                 "Test",

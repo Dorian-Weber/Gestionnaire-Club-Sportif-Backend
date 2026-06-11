@@ -1,6 +1,8 @@
 package com.mns.cda.filsrouge.mockDAO;
 
 import com.mns.cda.filsrouge.dao.ReservationDAO;
+import com.mns.cda.filsrouge.dto.EventLight;
+import com.mns.cda.filsrouge.dto.SeatFull;
 import com.mns.cda.filsrouge.model.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -112,7 +114,8 @@ public class MockReservationDao implements ReservationDAO {
                     new StatusPresence(),
                     new Event(),
                     new AppUser(),
-                    List.of(new Seat())));
+                    List.of(new Seat()),
+                    "qr-token-123"));
         }
         return Optional.empty();
     }
@@ -130,7 +133,8 @@ public class MockReservationDao implements ReservationDAO {
                 new StatusPresence(),
                 new Event(),
                 new AppUser(),
-                List.of(new Seat())));
+                List.of(new Seat()),
+                "qr-token-123"));
     }
 
     @Override
@@ -188,5 +192,20 @@ public class MockReservationDao implements ReservationDAO {
     @Override
     public boolean userHasReservation(int eventId, int userId) {
         return false;
+    }
+
+    @Override
+    public List<Reservation> findByUserId(Integer userId) {
+        return List.of();
+    }
+
+    @Override
+    public EventLight getEventLightByReservationId(Integer reservationId) {
+        return null;
+    }
+
+    @Override
+    public List<SeatFull> getSeatsFullByReservationId(Integer reservationId) {
+        return List.of();
     }
 }

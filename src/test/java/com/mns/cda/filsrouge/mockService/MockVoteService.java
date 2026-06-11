@@ -15,6 +15,7 @@ public class MockVoteService implements IVoteService {
     public List<Vote> findAll() {
         Vote.VoteKey MockVoteKey = new Vote.VoteKey();
         return List.of(new Vote(MockVoteKey,
+                5,
                 new AppUser(),
                 new Event(),
                 new Athlete()));
@@ -25,6 +26,7 @@ public class MockVoteService implements IVoteService {
         Vote.VoteKey MockVoteKey = new Vote.VoteKey(10,100);
         if (voteKey.equals(MockVoteKey) ) {
             return Optional.of(new Vote(MockVoteKey,
+                    5,
                     new AppUser(),
                     new Event(),
                     new Athlete()));
@@ -45,9 +47,8 @@ public class MockVoteService implements IVoteService {
     }
 
     @Override
-    public void create(VoteSubmitDTO Vote, int userId)  {
-
-        Vote.setVoteKey(null);
+    public void create(VoteSubmitDTO voteDto, int userId)  {
+        // Mock implementation - no-op
     }
 
     @Override

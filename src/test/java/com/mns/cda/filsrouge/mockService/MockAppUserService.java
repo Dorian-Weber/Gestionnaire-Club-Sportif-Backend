@@ -79,4 +79,9 @@ public class MockAppUserService implements IAppUserService {
     public void updateVisibility(UserVisibility visibility, int userId) {
 
     }
+
+    @Override
+    public void updatePseudo(String newPseudo, int userId) {
+
+    }
 }

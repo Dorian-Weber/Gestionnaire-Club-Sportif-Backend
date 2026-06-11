@@ -42,9 +42,14 @@ public class MockRelationService implements IRelationService {
         return Optional.empty();
     }
 
-    //TODO
     @Override
     public Optional<Relation> findRelationBetween(int id1, int id2) {
+        if ((id1 == 1 && id2 == 2) || (id1 == 2 && id2 == 1)) {
+            return Optional.of(new Relation(new Relation.Key(id1, id2),
+                    new AppUser(),
+                    new AppUser(),
+                    RelationStatus.PENDING));
+        }
         return Optional.empty();
     }
 

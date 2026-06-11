@@ -18,7 +18,8 @@ public class MockReservationService implements IReservationService {
                 new StatusPresence(),
                 new Event(),
                 new AppUser(1),
-                List.of(new Seat())));
+                List.of(new Seat()),
+                "qr-token-123"));
     }
 
     @Override
@@ -29,7 +30,8 @@ public class MockReservationService implements IReservationService {
                     new StatusPresence(),
                     new Event(),
                     new AppUser(1),
-                    List.of(new Seat())));
+                    List.of(new Seat()),
+                    "qr-token-123"));
         }
         return Optional.empty();
     }

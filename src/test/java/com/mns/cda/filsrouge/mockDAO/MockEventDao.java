@@ -219,4 +219,9 @@ public class MockEventDao implements EventDAO {
     public List<EventMedium> findEventMediumByFilter(String sportName, String eventTypeName, String search, LocalDateTime dateMin) {
         return List.of();
     }
+
+    @Override
+    public List<EventLight> getLastParticipatedEventWithUserId(int userId) {
+        return List.of();
+    }
 }
