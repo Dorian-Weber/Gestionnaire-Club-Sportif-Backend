@@ -47,12 +47,24 @@ public class SeatAggregationService implements ISeatAggregationService {
 
             boolean reserved = reservation != null;
             boolean reservedByFriend = isReservedByFriend(reserved, reservation, friendIds);
+            String friendPseudo = null;
+
+            if (reserved) {
+                int reserverId = reservation.getUser().getIdAppUser();
+
+                if (friendIds.contains(reserverId)) {
+                    reservedByFriend = true;
+                    friendPseudo = reservation.getUser().getAppUserPseudo();
+                }
+            }
+
 
             return new SeatDTO(
                     seat.getIdSeat(),
                     seat.getSeatNumber(),
                     reserved,
-                    reservedByFriend
+                    reservedByFriend,
+                    friendPseudo
             );
         }).toList();
     }
