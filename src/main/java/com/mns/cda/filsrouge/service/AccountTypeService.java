@@ -32,6 +32,7 @@ public class AccountTypeService implements IAccountTypeService {
         accountTypeDAO.save(accountType);
     }
 
+
     //Delete
     @Override
     public void delete(int id) {
