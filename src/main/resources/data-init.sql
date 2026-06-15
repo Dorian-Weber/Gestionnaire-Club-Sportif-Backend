@@ -375,7 +375,7 @@ INSERT INTO platform (platform_name) VALUES
             ('Est'),
             ('Ouest');
 
-INSERT INTO Level (level_name,platform_id) VALUES
+INSERT INTO level (level_name,platform_id) VALUES
             ('Haut',1),
             ('Milieu',1),
             ('Bas',1),

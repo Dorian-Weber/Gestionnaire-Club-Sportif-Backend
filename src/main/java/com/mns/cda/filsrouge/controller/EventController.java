@@ -128,7 +128,6 @@ public class EventController {
 
 
 
-    // NotUse
     @PostMapping
     @Operation(summary = "Ajoute un évènement à la base de données",
             description = "Cette méthode permet de d'ajouter un nouvel évènement en base de données.")
