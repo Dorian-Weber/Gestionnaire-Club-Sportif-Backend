@@ -1,17 +1,11 @@
-# Utiliser une image de base officielle Java
-FROM eclipse-temurin:17-jre-alpine
-
-# Définir le répertoire de travail
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn -q -DskipTests package
 
-# Copier le fichier JAR de l'application dans le conteneur
-COPY target/app.jar app.jar
-
-# Copier le fichier .env dans le conteneur
-COPY .env .env
-
-# Exposer le port sur lequel l'application va tourner
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Commande pour exécuter l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]
